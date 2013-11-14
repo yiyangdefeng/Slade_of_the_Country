@@ -16,7 +16,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -122,192 +121,34 @@ public class MyView extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-
 		float[] point = new float[] { event.getX(), event.getY() };
-
 		inverseMatrix.mapPoints(point);
 		x = point[0];
 		y = point[1];
-
-		if (status == Constants.STATUS_GAME) {
-			if (event.getAction() == MotionEvent.ACTION_UP && x > Constants.SAVEBUTTONX && x < (Constants.SAVEBUTTONX + Constants.SAVEBUTTONWIDTH) && y > Constants.SAVEBUTTONY && y < (Constants.SAVEBUTTONY + Constants.SAVEBUTTONHEIGHT)) {
-				status = Constants.STATUS_SAVE;
-			}
-			MoveButton button = this.getButtonFromXY(x, y);
-			if (button != null) {
-				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					final int buttonX, buttonY;
-					switch (button) {
-					case DOWN:
-						buttonX = Constants.UPBUTTONX;
-						buttonY = Constants.DOWNBUTTONY;
-						break;
-					case LEFT:
-						buttonX = Constants.LEFTBUTTONX;
-						buttonY = Constants.LEFTBUTTONY;
-						break;
-					case RIGHT:
-						buttonX = Constants.RIGHTBUTTONX;
-						buttonY = Constants.LEFTBUTTONY;
-						break;
-					case UP:
-						buttonX = Constants.UPBUTTONX;
-						buttonY = Constants.UPBUTTONY;
-						break;
-					default:
-						buttonX = buttonY = -1;
-						break;
-					}
-					if (buttonX >= 0 && buttonY >= 0) {
-						this.drawers.add(new Drawer() {
-							public void draw(Canvas canvas, Matrix matrix) {
-								canvas.drawBitmap(pictures.scaledbuttondown,
-										buttonX, buttonY, paint);
-							}
-						});
-					}
-				} else if (event.getAction() == MotionEvent.ACTION_UP) {
-					Coordinate coord = ma.engine.getCurrentCoordinate();
-					int coordx = coord.getX();
-					int coordy = coord.getY();
-					switch (button) {
-					case DOWN:
-						coordx++;
-						break;
-					case LEFT:
-						coordy--;
-						break;
-					case RIGHT:
-						coordy++;
-						break;
-					case UP:
-						coordx--;
-						break;
-					}
-					Coordinate newcoord = new Coordinate(coord.getZ(), coordx,
-							coordy);
-					if (!newcoord.equals(coord)) {
-						try {
-							ma.engine.moveTo(newcoord);
-						} catch (Exception e) {
-
-						}
-					}
-				}
+		if (event.getAction() == MotionEvent.ACTION_DOWN && status == Constants.STATUS_GAME) {
+			GameInterfaceDownHandler();
+		}
+		else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch(status) {
+			case Constants.STATUS_GAME:
+				GameInterfaceUpHandler();
+				break;
+			case Constants.STATUS_START:
+				StartInterfaceHandler();
+				break;
+			case Constants.STATUS_LOAD:
+				LoadInterfaceHandler();
+				break;
+			case Constants.STATUS_INSTRUCTION:
+				InstructionInterfaceHandler();
+				break;
+			case Constants.STATUS_SAVE:
+				SaveInterfaceHandler();
+				break;
+			default:
+				break;
 			}
 		}
-
-		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (status == Constants.STATUS_START) {
-
-				if (x >= Constants.START_LOGO_X
-						&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
-						&& y >= Constants.START_LOGO_Y1
-						&& y <= (Constants.START_LOGO_Y1 + Constants.START_LOGOHEIGHT)) {
-					status = Constants.STATUS_GAME;
-					try {
-						reloadGame();
-					} catch (Exception e) {
-						throw new RuntimeException(e);
-					}
-				}
-
-				if (x >= Constants.START_LOGO_X
-						&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
-						&& y >= Constants.START_LOGO_Y2
-						&& y <= (Constants.START_LOGO_Y2 + Constants.START_LOGOHEIGHT)) {
-					status = Constants.STATUS_LOAD;
-				}
-
-				if (x >= Constants.START_LOGO_X
-						&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
-						&& y >= Constants.START_LOGO_Y3
-						&& y <= (Constants.START_LOGO_Y3 + Constants.START_LOGOHEIGHT)) {
-					status = Constants.STATUS_INSTRUCTION;
-				}
-
-				if (x >= Constants.START_LOGO_X
-						&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
-						&& y >= Constants.START_LOGO_Y4
-						&& y <= (Constants.START_LOGO_Y4 + Constants.START_LOGOHEIGHT)) {
-					ma.finish();// exit and recycle
-				}
-			} else if (status == Constants.STATUS_INSTRUCTION) {
-				if (x > Constants.INSTRUCTION_LOGO_X1
-						&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
-						&& y > Constants.INSTRUCTION_LOGO_Y)
-					status = Constants.STATUS_START;
-				else if (x > Constants.INSTRUCTION_LOGO_X2
-						&& x < (Constants.INSTRUCTION_LOGO_X2 + Constants.INSTRUCTION_LOGOWIDTH)
-						&& y > Constants.INSTRUCTION_LOGO_Y)
-					iid.MoveText(Constants.BACK);
-				else if (x > Constants.INSTRUCTION_LOGO_X3
-						&& x < (Constants.INSTRUCTION_LOGO_X3 + Constants.INSTRUCTION_LOGOWIDTH)
-						&& y > Constants.INSTRUCTION_LOGO_Y)
-					iid.MoveText(Constants.FORWARD);
-			} else if (status == Constants.STATUS_LOAD) {
-				if (x > Constants.INSTRUCTION_LOGO_X1
-						&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
-						&& y > Constants.INSTRUCTION_LOGO_Y)
-					status = Constants.STATUS_START;
-				else if (x > Constants.MARGIN && y > Constants.MARGIN
-						&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
-						&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
-					if (lid.getAvailable(Position.ONE)) {
-						ma.engine = lid.getEngine(Position.ONE);
-						status = Constants.STATUS_GAME;
-					}
-				} else if (x > Constants.MARGIN
-						&& y > (Constants.MARGIN * 2 + Constants.SAVEOPTIONHEIGHT)
-						&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
-						&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 2) {
-					if (lid.getAvailable(Position.ONE)) {
-						ma.engine = lid.getEngine(Position.TWO);
-						status = Constants.STATUS_GAME;
-					}
-				} else if (x > Constants.MARGIN
-						&& y > (Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT * 2)
-						&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
-						&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 3) {
-					if (lid.getAvailable(Position.AUTO)) {
-						ma.engine = lid.getEngine(Position.AUTO);
-						status = Constants.STATUS_GAME;
-					}
-				}
-
-				else if (status == Constants.STATUS_SAVE) {
-					if (x > Constants.INSTRUCTION_LOGO_X1
-							&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
-							&& y > Constants.INSTRUCTION_LOGO_Y)
-						status = Constants.STATUS_GAME;
-					else if (x > Constants.MARGIN
-							&& y > Constants.MARGIN
-							&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
-							&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
-						Log.d("test","I arrived here!");
-						//if (lid.getAvailable(Position.ONE) && !tooverride) {
-							status = Constants.STATUS_WARNING;
-						//}
-					} else if (x > Constants.MARGIN
-							&& y > (Constants.MARGIN * 2 + Constants.SAVEOPTIONHEIGHT)
-							&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
-							&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 2) {
-						if (lid.getAvailable(Position.TWO) && !tooverride) {
-							status = Constants.STATUS_WARNING;
-						}
-					} else if (x > Constants.MARGIN
-							&& y > (Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT * 2)
-							&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
-							&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 3) {
-						if (lid.getAvailable(Position.AUTO) && !tooverride) {
-							status = Constants.STATUS_WARNING;
-						}
-					}
-
-				}
-			}
-		}
-
 		invalidate();
 		return true;
 	}
@@ -357,6 +198,192 @@ public class MyView extends View {
 		sg = new StandardGame(new String(bufferedbyte, 0, offset, "utf-8"));
 		ma.engine.loadGame(sg);
 	}
+
+	private void LoadInterfaceHandler() {
+		if (x > Constants.INSTRUCTION_LOGO_X1
+				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
+				&& y > Constants.INSTRUCTION_LOGO_Y) {
+			status = Constants.STATUS_START;
+		}
+		else if (x > Constants.MARGIN && y > Constants.MARGIN
+				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
+				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
+			if (lid.getAvailable(Position.ONE)) {
+				ma.engine = lid.getEngine(Position.ONE);
+				status = Constants.STATUS_GAME;
+			}
+		} else if (x > Constants.MARGIN
+				&& y > (Constants.MARGIN * 2 + Constants.SAVEOPTIONHEIGHT)
+				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
+				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 2) {
+			if (lid.getAvailable(Position.TWO)) {
+				ma.engine = lid.getEngine(Position.TWO);
+				status = Constants.STATUS_GAME;
+			}
+		} else if (x > Constants.MARGIN
+				&& y > (Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT * 2)
+				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
+				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 3) {
+			if (lid.getAvailable(Position.AUTO)) {
+				ma.engine = lid.getEngine(Position.AUTO);
+				status = Constants.STATUS_GAME;
+			}
+		}
+	}
+
+	public void SaveInterfaceHandler() {
+		if (x > Constants.INSTRUCTION_LOGO_X1
+				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
+				&& y > Constants.INSTRUCTION_LOGO_Y) {
+		}
+		else if (x > Constants.MARGIN && y > Constants.MARGIN
+				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
+				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
+			if (lid.getAvailable(Position.ONE)) {
+				ma.engine = lid.getEngine(Position.ONE);
+			}
+		} else if (x > Constants.MARGIN
+				&& y > (Constants.MARGIN * 2 + Constants.SAVEOPTIONHEIGHT)
+				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
+				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 2) {
+			if (lid.getAvailable(Position.ONE)) {
+				ma.engine = lid.getEngine(Position.TWO);
+			}
+		} else if (x > Constants.MARGIN
+				&& y > (Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT * 2)
+				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
+				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 3) {
+			if (lid.getAvailable(Position.AUTO)) {
+				ma.engine = lid.getEngine(Position.AUTO);
+			}
+		} else {
+			return;
+		}
+		status = Constants.STATUS_GAME;
+	}
+
+	private void InstructionInterfaceHandler() {
+		if (x > Constants.INSTRUCTION_LOGO_X1
+				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
+				&& y > Constants.INSTRUCTION_LOGO_Y) {
+			status = Constants.STATUS_START;
+		} else if (x > Constants.INSTRUCTION_LOGO_X2
+				&& x < (Constants.INSTRUCTION_LOGO_X2 + Constants.INSTRUCTION_LOGOWIDTH)
+				&& y > Constants.INSTRUCTION_LOGO_Y) {
+			iid.MoveText(Constants.BACK);
+		} else if (x > Constants.INSTRUCTION_LOGO_X3
+				&& x < (Constants.INSTRUCTION_LOGO_X3 + Constants.INSTRUCTION_LOGOWIDTH)
+				&& y > Constants.INSTRUCTION_LOGO_Y) {
+			iid.MoveText(Constants.FORWARD);
+		}
+	}
+	
+	private void StartInterfaceHandler() {
+		if (x >= Constants.START_LOGO_X
+				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
+				&& y >= Constants.START_LOGO_Y1
+				&& y <= (Constants.START_LOGO_Y1 + Constants.START_LOGOHEIGHT)) {
+			status = Constants.STATUS_GAME;
+			try {
+				reloadGame();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		if (x >= Constants.START_LOGO_X
+				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
+				&& y >= Constants.START_LOGO_Y2
+				&& y <= (Constants.START_LOGO_Y2 + Constants.START_LOGOHEIGHT)) {
+			status = Constants.STATUS_LOAD;
+		}
+		if (x >= Constants.START_LOGO_X
+				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
+				&& y >= Constants.START_LOGO_Y3
+				&& y <= (Constants.START_LOGO_Y3 + Constants.START_LOGOHEIGHT)) {
+			status = Constants.STATUS_INSTRUCTION;
+		}
+		if (x >= Constants.START_LOGO_X
+				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
+				&& y >= Constants.START_LOGO_Y4
+				&& y <= (Constants.START_LOGO_Y4 + Constants.START_LOGOHEIGHT)) {
+			ma.finish();// exit and recycle
+		}
+	}
+
+	private void GameInterfaceDownHandler() {
+		MoveButton button = this.getButtonFromXY(x, y);
+		if (button == null) {
+			return;
+		}
+		final int buttonX, buttonY;
+		switch (button) {
+		case DOWN:
+			buttonX = Constants.UPBUTTONX;
+			buttonY = Constants.DOWNBUTTONY;
+			break;
+		case LEFT:
+			buttonX = Constants.LEFTBUTTONX;
+			buttonY = Constants.LEFTBUTTONY;
+			break;
+		case RIGHT:
+			buttonX = Constants.RIGHTBUTTONX;
+			buttonY = Constants.LEFTBUTTONY;
+			break;
+		case UP:
+			buttonX = Constants.UPBUTTONX;
+			buttonY = Constants.UPBUTTONY;
+			break;
+		default:
+			buttonX = buttonY = -1;
+			break;
+		}
+		if (buttonX >= 0 && buttonY >= 0) {
+			this.drawers.add(new Drawer() {
+				public void draw(Canvas canvas, Matrix matrix) {
+					canvas.drawBitmap(pictures.scaledbuttondown,
+							buttonX, buttonY, paint);
+				}
+			});
+		}
+	}
+	
+	private void GameInterfaceUpHandler() {
+		if (x > Constants.SAVEBUTTONX
+				&& x < (Constants.SAVEBUTTONX + Constants.SAVEBUTTONWIDTH)
+				&& y > Constants.SAVEBUTTONY
+				&& y < (Constants.SAVEBUTTONY + Constants.SAVEBUTTONHEIGHT)) {
+			status = Constants.STATUS_SAVE;
+		}
+		MoveButton button = this.getButtonFromXY(x, y);
+		if (button != null) {
+			Coordinate coord = ma.engine.getCurrentCoordinate();
+			int coordx = coord.getX();
+			int coordy = coord.getY();
+			switch (button) {
+			case DOWN:
+				coordx++;
+				break;
+			case LEFT:
+				coordy--;
+				break;
+			case RIGHT:
+				coordy++;
+				break;
+			case UP:
+				coordx--;
+				break;
+			}
+			Coordinate newcoord = new Coordinate(coord.getZ(), coordx, coordy);
+			if (!newcoord.equals(coord)) {
+				try {
+					ma.engine.moveTo(newcoord);
+				} catch (Exception e) {
+
+				}
+			}
+		}
+	}
+
 }
 
 interface Drawer {
