@@ -63,6 +63,7 @@ public class MyView extends View {
 		gid = new GameInterfaceDrawer(pictures);
 		iid = new InstructionInterfaceDrawer(pictures);
 		lid = new LoadInterfaceDrawer(pictures, ma);
+		wid = new WarningMessageDrawer();
 		this.invalidate();
 	}
 
@@ -96,6 +97,8 @@ public class MyView extends View {
 			gid.draw(canvas, canvasMatrix, ma.engine);
 			break;
 		case Constants.STATUS_LOAD:
+			wid.drawWarningMessage(canvas, canvasMatrix);
+			break;
 		case Constants.STATUS_SAVE:
 			lid.draw(canvas, canvasMatrix);
 			break;
