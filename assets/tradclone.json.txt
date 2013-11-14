@@ -1,0 +1,1116 @@
+{
+	"size": {
+		"//z": 22,
+		"z": 4,
+		"x": 11,
+		"y": 11
+	},
+	"attributes": {
+		"health": 1000,
+		"attack": 1000,
+		"defense": 1000,
+		"gold": 0,
+		"exp": 0,
+		"key-y": 0,
+		"key-b": 0,
+		"key-r": 0,
+		"key-x": 0,
+		"npc-b": 0,
+		"success": 0,
+		"failure": 0,
+		"trade": 0
+	},
+	"failure-checks": ["health", "gold", "exp", "key-y", "key-b", "key-r", "key-x", "failure"],
+	"success-checks": ["success"],
+	"tile-values": {
+		"#####": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"rendering": {
+				"text": "##",
+				"text-codes": [
+					"background-black",
+					"foreground-white"
+				]
+			}
+		},
+		"###**": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"rendering": {
+				"text": "#*",
+				"text-codes": [
+					"background-black",
+					"foreground-white"
+				]
+			}
+		},
+		"###@@": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"rendering": {
+				"text": "#@",
+				"text-codes": [
+					"background-black",
+					"foreground-white"
+				]
+			}
+		},
+		".....": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+			},
+			"rendering": {
+				"text": "..",
+				"text-codes": [
+					"background-white",
+					"foreground-black"
+				]
+			}
+		},
+		"[bgn]": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.CharacterTile",
+			"base": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+				"mixin": {
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+				},
+				"rendering": {
+					"text": "..",
+					"text-codes": [
+						"background-white",
+						"foreground-black"
+					]
+				}
+			}
+		},
+		"KkeyY": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-y",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Ky",
+				"text-codes": [
+					"background-blue",
+					"foreground-yellow"
+				]
+			}
+		},
+		"KkeyB": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-b",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Kb",
+				"text-codes": [
+					"background-blue",
+					"foreground-blue"
+				]
+			}
+		},
+		"KkeyR": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-y",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Kr",
+				"text-codes": [
+					"background-blue",
+					"foreground-red"
+				]
+			}
+		},
+		"GgatY": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-y",
+					"operator": "+",
+					"operand": -1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Gy",
+				"text-codes": [
+					"background-yellow",
+					"foreground-yellow"
+				]
+			}
+		},
+		"GgatB": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-b",
+					"operator": "+",
+					"operand": -1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Gb",
+				"text-codes": [
+					"background-yellow",
+					"foreground-blue"
+				]
+			}
+		},
+		"GgatR": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-r",
+					"operator": "+",
+					"operand": -1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Gr",
+				"text-codes": [
+					"background-yellow",
+					"foreground-red"
+				]
+			}
+		},
+		"GgatX": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-x",
+					"operator": "+",
+					"operand": -1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Gx",
+				"text-codes": [
+					"background-yellow",
+					"foreground-black"
+				]
+			}
+		},
+		"NnpcA": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-y",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-b",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "key-r",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+					"z": 0,
+					"x": 8,
+					"y": 4
+				}
+				]
+			},
+			"rendering": {
+				"text": "Na",
+				"text-codes": [
+					"background-magenta",
+					"foreground-white"
+				]
+			}
+		},
+		".npcA": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+				"next": {
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+					"//mixin": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+					},
+					"rendering": {
+						"text": "Na",
+						"text-codes": [
+							"background-magenta",
+							"foreground-white"
+						]
+					}
+				}
+			},
+			"rendering": {
+				"text": "..",
+				"text-codes": [
+					"background-white",
+					"foreground-black"
+				]
+			}
+		},
+		"NnpcB": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+					"attribute": "npc-b",
+					"reference": 0,
+					"==": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+						"mixins": [
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+							"attribute": "key-x",
+							"operator": "+",
+							"operand": 1
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+							"attribute": "npc-b",
+							"operator": "+",
+							"operand": 1
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+							"z": 2,
+							"x": 5,
+							"y": 1
+						}
+						]
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Nb",
+				"text-codes": [
+					"background-white",
+					"foreground-black"
+				]
+			}
+		},
+		"^up00": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+				"z": 1,
+				"x": 9,
+				"y": 5
+			},
+			"rendering": {
+				"text": "^^",
+				"text-codes": [
+					"background-cyan",
+					"foreground-black"
+				]
+			}
+		},
+		"vdn01": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+				"z": 0,
+				"x": 1,
+				"y": 5
+			},
+			"rendering": {
+				"text": "vv",
+				"text-codes": [
+					"background-cyan",
+					"foreground-black"
+				]
+			}
+		},
+		"^up01": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+				"z": 2,
+				"x": 1,
+				"y": 0
+			},
+			"rendering": {
+				"text": "^^",
+				"text-codes": [
+					"background-cyan",
+					"foreground-black"
+				]
+			}
+		},
+		"vdn02": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+				"z": 1,
+				"x": 0,
+				"y": 1
+			},
+			"rendering": {
+				"text": "vv",
+				"text-codes": [
+					"background-cyan",
+					"foreground-black"
+				]
+			}
+		},
+		"^up02": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+				"z": 3,
+				"x": 10,
+				"y": 1
+			},
+			"rendering": {
+				"text": "^^",
+				"text-codes": [
+					"background-cyan",
+					"foreground-black"
+				]
+			}
+		},
+		"vdn03": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+				"z": 2,
+				"x": 9,
+				"y": 0
+			},
+			"rendering": {
+				"text": "vv",
+				"text-codes": [
+					"background-cyan",
+					"foreground-black"
+				]
+			}
+		},
+		"MmstA": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+					"attack-attribute": "attack",
+					"defense-attribute": "defense",
+					"health-attribute": "health",
+					"death-attribute": "failure",
+					"attack-opponent": 20,
+					"defense-opponent": 1,
+					"health-opponent": 50
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "gold",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "exp",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Ma",
+				"text-codes": [
+					"background-red",
+					"foreground-white"
+				]
+			}
+		},
+		"MmstB": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+					"attack-attribute": "attack",
+					"defense-attribute": "defense",
+					"health-attribute": "health",
+					"death-attribute": "failure",
+					"attack-opponent": 15,
+					"defense-opponent": 2,
+					"health-opponent": 70
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "gold",
+					"operator": "+",
+					"operand": 2
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "exp",
+					"operator": "+",
+					"operand": 2
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Mb",
+				"text-codes": [
+					"background-red",
+					"foreground-white"
+				]
+			}
+		},
+		"MmstC": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+					"attack-attribute": "attack",
+					"defense-attribute": "defense",
+					"health-attribute": "health",
+					"death-attribute": "failure",
+					"attack-opponent": 20,
+					"defense-opponent": 5,
+					"health-opponent": 100
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "gold",
+					"operator": "+",
+					"operand": 3
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "exp",
+					"operator": "+",
+					"operand": 3
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Mc",
+				"text-codes": [
+					"background-red",
+					"foreground-white"
+				]
+			}
+		},
+		"MmstD": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+					"attack-attribute": "attack",
+					"defense-attribute": "defense",
+					"health-attribute": "health",
+					"death-attribute": "failure",
+					"attack-opponent": 25,
+					"defense-opponent": 5,
+					"health-opponent": 110
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "gold",
+					"operator": "+",
+					"operand": 5
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "exp",
+					"operator": "+",
+					"operand": 4
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Md",
+				"text-codes": [
+					"background-red",
+					"foreground-white"
+				]
+			}
+		},
+		"Ahlt1": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "health",
+					"operator": "+",
+					"operand": 200
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Ah",
+				"text-codes": [
+					"background-green",
+					"foreground-white"
+				]
+			}
+		},
+		"Ahlt2": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "health",
+					"operator": "+",
+					"operand": 500
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "AH",
+				"text-codes": [
+					"background-green",
+					"foreground-white"
+				]
+			}
+		},
+		"Aatt1": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "attack",
+					"operator": "+",
+					"operand": 3
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Aa",
+				"text-codes": [
+					"background-green",
+					"foreground-white"
+				]
+			}
+		},
+		"Adef1": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "defense",
+					"operator": "+",
+					"operand": 3
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Ad",
+				"text-codes": [
+					"background-green",
+					"foreground-white"
+				]
+			}
+		},
+		"Aatt2": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+					"attribute": "attack",
+					"operator": "+",
+					"operand": 10
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+						},
+						"rendering": {
+							"text": "..",
+							"text-codes": [
+								"background-white",
+								"foreground-black"
+							]
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "AA",
+				"text-codes": [
+					"background-green",
+					"foreground-white"
+				]
+			}
+		},
+		"Tgld1": {
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+					"attribute": "trade",
+					"reference": 1,
+					"==": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+						"mixins": [
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+							"attribute": "gold",
+							"operator": "+",
+							"operand": -25
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+							"attribute": "health",
+							"operator": "+",
+							"operand": 800
+						}
+						]
+					}
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+					"attribute": "trade",
+					"reference": 2,
+					"==": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+						"mixins": [
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+							"attribute": "gold",
+							"operator": "+",
+							"operand": -25
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+							"attribute": "attack",
+							"operator": "+",
+							"operand": 4
+						}
+						]
+					}
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+					"attribute": "trade",
+					"reference": 3,
+					"==": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+						"mixins": [
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+							"attribute": "gold",
+							"operator": "+",
+							"operand": -25
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+							"attribute": "defense",
+							"operator": "+",
+							"operand": 4
+						}
+						]
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Sg",
+				"text-codes": [
+					"background-magenta",
+					"foreground-white"
+				]
+			}
+		}
+	},
+	"tiles": [
+		[
+			[ "#####", "###**", "###**", "###**", "###**", "^up00", "###**", "###**", "###**", "###**", "#####" ],
+			[ "#####", "###**", "###**", "###**", "###**", ".....", "###**", "###**", "###**", "###**", "#####" ],
+			[ "#####", "###**", "###**", "###**", "###**", ".....", "###**", "###**", "###**", "###**", "#####" ],
+			[ "#####", "###**", "###**", "###**", "###**", ".....", "###**", "###**", "###**", "###**", "#####" ],
+			[ "#####", "###**", "###**", "###**", "###**", ".....", "###**", "###**", "###**", "###**", "#####" ],
+			[ "#####", "###**", "###**", "###**", "###**", ".....", "###**", "###**", "###**", "###**", "#####" ],
+			[ "#####", "#####", "###**", "###**", "###**", ".....", "###**", "###**", "###**", "#####", "#####" ],
+			[ "#####", "#####", "#####", "#####", "#####", "GgatY", "#####", "#####", "#####", "#####", "#####" ],
+			[ "###@@", "#####", "###@@", "#####", ".npcA", "NnpcA", ".....", "#####", "###@@", "#####", "###@@" ],
+			[ "###@@", "###@@", "###@@", "###@@", "###@@", ".....", "###@@", "###@@", "###@@", "###@@", "###@@" ],
+			[ "###@@", "###@@", "###@@", "###@@", "###@@", "[bgn]", "###@@", "###@@", "###@@", "###@@", "###@@" ]
+		],
+		[
+			[ "^up01", ".....", "KkeyY", "MmstA", "MmstB", "MmstA", ".....", ".....", ".....", ".....", "....." ],
+			[ "#####", "#####", "#####", "#####", "#####", "#####", "#####", "#####", "#####", "#####", "....." ],
+			[ "Ahlt1", ".....", "MmstD", "GgatY", ".....", "#####", "Ahlt1", "KkeyY", "Ahlt1", "#####", "....." ],
+			[ "KkeyY", "MmstD", "Aatt1", "#####", ".....", "#####", "Ahlt1", "KkeyY", "Ahlt1", "#####", "....." ],
+			[ "#####", "GgatY", "#####", "#####", ".....", "#####", "#####", "#####", ".....", "#####", "....." ],
+			[ ".....", ".....", ".....", "#####", ".....", "GgatY", ".....", "MmstA", "MmstC", "#####", "....." ],
+			[ ".....", ".....", ".....", "#####", ".....", "#####", "#####", "#####", "#####", "#####", "....." ],
+			[ "#####", "GgatY", "#####", "#####", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", "#####", "#####", "GgatR", "#####", "#####", "#####", "GgatY", "#####" ],
+			[ ".....", ".....", ".....", "#####", "KkeyR", ".....", ".....", "#####", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", "#####", ".....", "vdn01", ".....", "#####", ".....", ".....", "....." ]
+		],
+		[
+			[ "vdn02", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "GgatX", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ "^up02", "#####", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ]
+		],
+		[
+			[ "Aatt2", "MmstB", "KkeyY", "#####", "Tgld1", "Tgld1", "Tgld1", "#####", ".....", "MmstC", "....." ],
+			[ "MmstB", "KkeyY", ".....", "#####", ".....", ".....", ".....", "#####", ".....", "#####", "....." ],
+			[ "KkeyY", "MmstD", ".....", "#####", "#####", "GgatY", "#####", "#####", ".....", "#####", "....." ],
+			[ "#####", "GgatY", "#####", "#####", ".....", "MmstD", ".....", "#####", "KkeyY", "#####", "MmstB" ],
+			[ ".....", ".....", ".....", "#####", "#####", "#####", ".....", "#####", "KkeyY", "#####", "MmstC" ],
+			[ "MmstA", "#####", ".....", "MmstC", "MmstB", "MmstC", ".....", "#####", "KkeyY", "#####", "MmstB" ],
+			[ "MmstA", "#####", "#####", "#####", "#####", "#####", ".....", ".....", ".....", "#####", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", "#####", "#####", "GgatY", "#####", "#####", "....." ],
+			[ "#####", "#####", "#####", "#####", "MmstC", "#####", "MmstB", ".....", "MmstB", "#####", "....." ],
+			[ "#####", ".....", ".....", ".....", ".....", "#####", "Adef1", "MmstC", "KkeyY", "#####", "....." ],
+			[ "vdn03", ".....", "#####", "#####", "#####", "#####", "Aatt1", "Ahlt2", "KkeyY", "#####", "NnpcB" ]
+		],
+		[
+			[ "#####", "#####", "#####", "#####", "#####", "#####", "#####", "#####", "#####", "#####", "#####" ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ],
+			[ ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", ".....", "....." ]
+		]
+	],
+	"renderer": {
+		"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.DummyStandardRenderer",
+		"column-width": 4,
+		"character-text": "[%s]"
+	}
+}

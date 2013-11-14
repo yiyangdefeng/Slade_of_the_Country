@@ -1,0 +1,476 @@
+{
+	"size": {
+		"*": "整个地图的尺寸",
+		"z": 2,
+		"x": 8,
+		"y": 8
+	},
+	"*a": "所有属性值和初始数值",
+	"attributes": {
+		"health": 1012,
+		"attack": 10,
+		"defense": 10,
+		"points": 0,
+		"key-a": 0,
+		"success": 0,
+		"failure": 0,
+		"shopA-choice": 0
+	},
+	"*f": "当这些属性有一个小于0时，游戏失败，有设置可以阻止发生导致游戏失败的事件",
+	"failure-checks": ["health", "key-a", "failure", "points"],
+	"*s": "当这些属性有一个大于0时，游戏成功，有设置可以阻止发生导致游戏成功的事件",
+	"success-checks": ["success"],
+	"tile-values": {
+		"block": {
+			"*": "一堵墙，什么功能模块都不放就行。基本都是用这个RegularTile",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"rendering": {
+				"text": "##"
+			}
+		},
+		"empty": {
+			"*": "空地",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"*": "可以踩上去的坐标放置AccessibleMixin",
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+			},
+			"rendering": {
+				"text": ".."
+			}
+		},
+		"start": {
+			"*": "起始地点，使用CharacterTile替换，在base里面描述“踩在底下的”方格",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.CharacterTile",
+			"base": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+				"mixin": {
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+				},
+				"rendering": {
+					"text": ".."
+				}
+			}
+		},
+		"key-a": {
+			"*": "一把A钥匙，这个key-a名字和属性名字一样算巧合",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"*": "如果有多个东西要放就用BatchMixin包一下",
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+				"mixins": [
+				{
+					"*": "修改属性值",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+					"attribute": "key-a",
+					"operator": "+",
+					"operand": 1
+				},
+				{
+					"*": "这个方格触发后就变成别的",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.OneTimeMixin",
+					"next": {
+						"*": "从头定义一个方格，不会从原来的继承任何东西。这里给的参数和上面的空地一样",
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+						},
+						"rendering": {
+							"text": ".."
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Ka"
+			}
+		},
+		"gat-a": {
+			"*": "一个A门，除了导致属性-1而不是+1，其他和钥匙一样",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+					"attribute": "key-a",
+					"operator": "+",
+					"operand": -1
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.OneTimeMixin",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+						},
+						"rendering": {
+							"text": ".."
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Ga"
+			}
+		},
+		"opp-a": {
+			"*": "一个A怪物",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+				"mixins": [
+				{
+					"*": "打架，如果打不过的话death-attribute的数值会变成-1，连到failure-checks上就行",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.FightMixin",
+					"attack-attribute": "attack",
+					"defense-attribute": "defense",
+					"health-attribute": "health",
+					"death-attribute": "failure",
+					"attack-opponent": 15,
+					"defense-opponent": 5,
+					"health-opponent": 100
+				},
+				{
+					"*": "加金钱/经验，从程序看来其实和加钥匙一样",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+					"attribute": "points",
+					"operator": "+",
+					"operand": 5
+				},
+				{
+					"*": "同样打完后怪物消失变成空地",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.OneTimeMixin",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+						},
+						"rendering": {
+							"text": ".."
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Ea"
+			}
+		},
+		"opp-b": {
+			"*": "这个怪物只是数值不一样",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.FightMixin",
+					"attack-attribute": "attack",
+					"defense-attribute": "defense",
+					"health-attribute": "health",
+					"death-attribute": "failure",
+					"attack-opponent": 15,
+					"defense-opponent": 5,
+					"health-opponent": 1000
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+					"attribute": "points",
+					"operator": "+",
+					"operand": 50
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.OneTimeMixin",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+						},
+						"rendering": {
+							"text": ".."
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Eb"
+			}
+		},
+		"opp-c": {
+			"*": "这个怪物只是数值不一样",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.FightMixin",
+					"attack-attribute": "attack",
+					"defense-attribute": "defense",
+					"health-attribute": "health",
+					"death-attribute": "failure",
+					"attack-opponent": 15,
+					"defense-opponent": 25,
+					"health-opponent": 10
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+					"attribute": "points",
+					"operator": "+",
+					"operand": 20
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.OneTimeMixin",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+						},
+						"rendering": {
+							"text": ".."
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Ec"
+			}
+		},
+		"up-00": {
+			"*": "0层上楼",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"*": "DelegateMixin就是用户移动到这格上面就像移动到目标格上面一样",
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.DelegateMixin",
+				"z": 1,
+				"x": 6,
+				"y": 7
+			},
+			"rendering": {
+				"text": "^^"
+			}
+		},
+		"dn-01": {
+			"*": "1层下楼",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.DelegateMixin",
+				"z": 0,
+				"x": 7,
+				"y": 6
+			},
+			"rendering": {
+				"text": "vv"
+			}
+		},
+		"sucpt": {
+			"*": "踩到这格就算通关",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+				"attribute": "success",
+				"operator": "=",
+				"operand": 1
+			},
+			"rendering": {
+				"text": "++"
+			}
+		},
+		"hsblk": {
+			"*": "只有金钱>=2时可以穿过的墙，测试AttributeSelectiveMixin",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeSelectiveMixin",
+				"attribute": "points",
+				"reference": 2,
+				">=": {
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+				}
+			},
+			"rendering": {
+				"text": "#!"
+			}
+		},
+		"fkblk": {
+			"*": "可以拆开的墙（走上去就行）",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.OneTimeMixin",
+				"next": {
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+					"mixin": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+					},
+					"rendering": {
+						"text": ".."
+					}
+				}
+			},
+			"rendering": {
+				"text": "#?"
+			}
+		},
+		"fkblx": {
+			"*": "可以拆开的墙，和上面那个不同的是拆开的同时会走到上面，因为有AccessibleMixin，测试OneTimeMixin和AccessibleMixin的兼容性（同时修改一个目标坐标）",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+				"mixins": [
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+				},
+				{
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.OneTimeMixin",
+					"next": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+						"mixin": {
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AccessibleMixin"
+						},
+						"rendering": {
+							"text": ".."
+						}
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "#?"
+			}
+		},
+		"shopA": {
+			"*": "商店，通过设置shopA-choice属性来选择怎么购买",
+			"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+			"mixin": {
+				"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+				"mixins": [
+				{
+					"*": "用1经验买2攻击",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeSelectiveMixin",
+					"attribute": "shopA-choice",
+					"reference": 1,
+					"==": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+						"mixins": [
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+							"attribute": "points",
+							"operator": "+",
+							"operand": -1
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+							"attribute": "attack",
+							"operator": "+",
+							"operand": 2
+						}
+						]
+					}
+				},
+				{
+					"*": "用1经验买2防御",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeSelectiveMixin",
+					"attribute": "shopA-choice",
+					"reference": 2,
+					"==": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+						"mixins": [
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+							"attribute": "points",
+							"operator": "+",
+							"operand": -1
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+							"attribute": "defense",
+							"operator": "+",
+							"operand": 2
+						}
+						]
+					}
+				},
+				{
+					"*": "用2经验买5攻击",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeSelectiveMixin",
+					"attribute": "shopA-choice",
+					"reference": 3,
+					"==": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+						"mixins": [
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+							"attribute": "points",
+							"operator": "+",
+							"operand": -2
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+							"attribute": "attack",
+							"operator": "+",
+							"operand": 5
+						}
+						]
+					}
+				},
+				{
+					"*": "用2经验买5防御",
+					"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeSelectiveMixin",
+					"attribute": "shopA-choice",
+					"reference": 4,
+					"==": {
+						"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.BatchMixin",
+						"mixins": [
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+							"attribute": "points",
+							"operator": "+",
+							"operand": -2
+						},
+						{
+							"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.AttributeChangeMixin",
+							"attribute": "defense",
+							"operator": "+",
+							"operand": 5
+						}
+						]
+					}
+				}
+				]
+			},
+			"rendering": {
+				"text": "Sa"
+			}
+		}
+	},
+	"*t": "这里面的每个字符串就是tile-values里面的key",
+	"tiles": [
+		[
+			[ "start", "key-a", "key-a", "gat-a", "empty", "empty", "gat-a", "gat-a" ],
+			[ "hsblk", "opp-b", "opp-a", "block", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "fkblk", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "fkblx", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "opp-c", "empty", "empty", "empty", "empty" ],
+			[ "shopA", "empty", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "up-00" ]
+		],
+		[
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "sucpt", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty" ],
+			[ "empty", "empty", "empty", "empty", "empty", "empty", "empty", "dn-01" ]
+		]
+	],
+	"renderer": {
+		"class": "cn.edu.tsinghua.academic.c00740273.magictower.runner.TextRenderer",
+		"column-width": 4,
+		"character-text": "[%s]"
+	}
+}
