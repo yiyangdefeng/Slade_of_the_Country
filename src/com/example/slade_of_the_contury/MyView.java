@@ -22,7 +22,6 @@ import android.view.View;
 public class MyView extends View {
 
 	int status;
-	private boolean tooverride;
 	private Paint paint = new Paint();
 	private float x = 0;
 	private float y = 0;
@@ -37,6 +36,8 @@ public class MyView extends View {
 	protected PictureCollector pictures;
 	private StandardGame sg;
 	private MainActivity ma;
+	private DataManager dm;
+	private Position position;
 
 	// private StandardRenderer mr = (StandardRenderer) sg.getRenderer();
 
@@ -56,14 +57,14 @@ public class MyView extends View {
 		canvasMatrix.invert(inverseMatrix);
 		drawers = new ArrayList<Drawer>();
 		status = Constants.STATUS_START;
-		tooverride = false;
-		
+		position = Position.AUTO;		
 		pictures = new PictureCollector(this);
 		sid = new StartInterfaceDrawer(pictures);
 		gid = new GameInterfaceDrawer(pictures);
 		iid = new InstructionInterfaceDrawer(pictures);
 		lid = new LoadInterfaceDrawer(pictures, ma);
 		wid = new WarningMessageDrawer();
+		dm = new DataManager(c);
 		this.invalidate();
 	}
 
@@ -97,8 +98,6 @@ public class MyView extends View {
 			gid.draw(canvas, canvasMatrix, ma.engine);
 			break;
 		case Constants.STATUS_LOAD:
-			wid.drawWarningMessage(canvas, canvasMatrix);
-			break;
 		case Constants.STATUS_SAVE:
 			lid.draw(canvas, canvasMatrix);
 			break;
@@ -148,6 +147,8 @@ public class MyView extends View {
 			case Constants.STATUS_SAVE:
 				SaveInterfaceHandler();
 				break;
+			case Constants.STATUS_WARNING:
+				WarningInterfaceHandler();
 			default:
 				break;
 			}
@@ -238,33 +239,90 @@ public class MyView extends View {
 		if (x > Constants.INSTRUCTION_LOGO_X1
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
 				&& y > Constants.INSTRUCTION_LOGO_Y) {
+			status = Constants.STATUS_GAME;
 		}
 		else if (x > Constants.MARGIN && y > Constants.MARGIN
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
 			if (lid.getAvailable(Position.ONE)) {
-				ma.engine = lid.getEngine(Position.ONE);
+				status = Constants.STATUS_WARNING;
+				position = Position.ONE; 
+			}
+			else if (!lid.getAvailable(Position.ONE)) {
+				try {
+					dm.SaveSavings(ma.engine, "save0.txt");
+				} catch (IOException e) {
+				}
+				status = Constants.STATUS_GAME;
 			}
 		} else if (x > Constants.MARGIN
 				&& y > (Constants.MARGIN * 2 + Constants.SAVEOPTIONHEIGHT)
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 2) {
-			if (lid.getAvailable(Position.ONE)) {
-				ma.engine = lid.getEngine(Position.TWO);
+			if (lid.getAvailable(Position.TWO)) {
+				status = Constants.STATUS_WARNING;
+				position = Position.TWO;
+			}
+			else if(!lid.getAvailable(Position.TWO)) {
+				try {
+					dm.SaveSavings(ma.engine, "save1.txt");
+				} catch (IOException e) {
+				}
+				status = Constants.STATUS_GAME;
 			}
 		} else if (x > Constants.MARGIN
 				&& y > (Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT * 2)
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 3) {
 			if (lid.getAvailable(Position.AUTO)) {
-				ma.engine = lid.getEngine(Position.AUTO);
+				status = Constants.STATUS_WARNING;
+				position = Position.AUTO;
+			}
+			else if(!lid.getAvailable(Position.AUTO)) {
+				try {
+					dm.SaveSavings(ma.engine, "save2.txt");
+				} catch (IOException e) {
+				}
+				status = Constants.STATUS_GAME;
 			}
 		} else {
 			return;
 		}
-		status = Constants.STATUS_GAME;
+		
 	}
+	
+	
 
+	public void WarningInterfaceHandler() {
+		if (x > Constants.CONFIRM_BUTTON_LEFT
+				&& x < Constants.CONFIRM_BUTTON_RIGHT
+				&& y > Constants.CONFIRM_BUTTON_UP
+				&& y < Constants.CONFIRM_TEXT_DOWN) {
+			switch (position) {
+			case ONE:
+				try {
+					dm.SaveSavings(ma.engine, "save0.txt");
+				} catch (IOException e) {
+				}
+				status = Constants.STATUS_GAME;
+			case TWO:
+				try {
+					dm.SaveSavings(ma.engine, "save1.txt");
+				} catch (IOException e) {
+				}
+				status = Constants.STATUS_GAME;
+			case AUTO:
+				try {
+					dm.SaveSavings(ma.engine, "save2.txt");
+				} catch (IOException e) {
+				}
+				status = Constants.STATUS_GAME;
+			}
+		} else if (x > Constants.CANCEL_BUTTON_LEFT && x < Constants.CANCEL_BUTTON_RIGHT && y > Constants.CONFIRM_BUTTON_UP && y < Constants.CONFIRM_BUTTON_DOWN) {
+			status = Constants.STATUS_SAVE;
+		}
+		
+	}
 	private void InstructionInterfaceHandler() {
 		if (x > Constants.INSTRUCTION_LOGO_X1
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)

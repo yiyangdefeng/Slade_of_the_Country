@@ -79,11 +79,11 @@ public class MainActivity extends Activity {
 				break;
 			case Constants.STATUS_GAME:
 			case Constants.STATUS_LOAD:
-			case Constants.STATUS_SAVE:
 			case Constants.STATUS_INSTRUCTION:
 				view.status = Constants.STATUS_START;
 				view.invalidate();
 				break;
+			case Constants.STATUS_SAVE:
 			case Constants.STATUS_FIGHT:
 			case Constants.STATUS_DIALOGUE:
 			case Constants.STATUS_SHOP:
