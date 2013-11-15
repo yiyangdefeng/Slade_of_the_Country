@@ -1,11 +1,11 @@
-package com.example.slade_of_the_contury;
+package com.example.slade_of_the_country;
 
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.slade_of_the_contury.LoadInterfaceDrawer.Position;
+import com.example.slade_of_the_country.LoadInterfaceDrawer.Position;
 
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Coordinate;
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.DataException;

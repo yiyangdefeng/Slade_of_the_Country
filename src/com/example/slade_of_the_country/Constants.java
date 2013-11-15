@@ -1,4 +1,4 @@
-package com.example.slade_of_the_contury;
+package com.example.slade_of_the_country;
 
 public class Constants {
 	

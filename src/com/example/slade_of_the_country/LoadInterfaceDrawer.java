@@ -1,4 +1,4 @@
-package com.example.slade_of_the_contury;
+package com.example.slade_of_the_country;
 
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
 import android.content.Context;
