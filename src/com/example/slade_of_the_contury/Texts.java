@@ -37,5 +37,6 @@ public class Texts {
 	public static final String TEXT_WARNING = "此位置已有存档，是否要覆盖？";
 	public static final String TEXT_CONFIRM = "确定";
 	public static final String TEXT_CANCEL = "取消";
+	public static final String TEXT_FLOORNUMBER = "层数：";
 	
 }  

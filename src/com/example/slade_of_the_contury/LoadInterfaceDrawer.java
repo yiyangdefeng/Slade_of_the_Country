@@ -6,25 +6,24 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 
 public class LoadInterfaceDrawer {
 	private Paint paint = new Paint();
 	PictureCollector pictures;
 	private Engine[] engines;
 	private Context context;
-    
+
 	public enum Position {
-		ONE,TWO,AUTO
+		ONE, TWO, AUTO
 	}
 
 	public boolean getAvailable(Position p) {
 		return getEngine(p) != null;
 	}
 
-	
-	
 	public Engine getEngine(Position p) {
-		switch(p) {
+		switch (p) {
 		case ONE:
 			return engines[0];
 		case TWO:
@@ -35,29 +34,27 @@ public class LoadInterfaceDrawer {
 			return null;
 		}
 	}
-		
 
-	public LoadInterfaceDrawer(PictureCollector pictures, Context context){
+	public LoadInterfaceDrawer(PictureCollector pictures, Context context) {
 		this.pictures = pictures;
 		this.context = context;
 		engines = new Engine[3];
 	}
-	
+
 	public void LoadSaving() {
 		DataManager dm = new DataManager(context);
-		for (int i = 0;i < 3;i++) {
+		for (int i = 0; i < 3; i++) {
 			engines[i] = dm.LoadSavings("save" + i + ".txt");
 		}
 	}
-	
-	public void SaveSaving(Engine engine, Position p,Canvas canvas) {
-		switch(p) {
+
+	public void SaveSaving(Engine engine, Position p, Canvas canvas) {
+		switch (p) {
 		case ONE:
 			if (engines[0] != null) {
-				
-			}
-			else {
-				
+
+			} else {
+
 			}
 			break;
 		case TWO:
@@ -66,7 +63,7 @@ public class LoadInterfaceDrawer {
 			break;
 		}
 	}
-	
+
 	public void draw(Canvas canvas, Matrix canvasMatrix) {
 		canvas.setMatrix(canvasMatrix);
 		paint.setColor(Color.WHITE);
@@ -88,16 +85,73 @@ public class LoadInterfaceDrawer {
 				paint);
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(Constants.SMALLFONTSIZE);
-		canvas.drawText(Texts.TEXT_SAVE0, Constants.MARGIN * 2,  Constants.MARGIN * 2 + Constants.SMALLFONTSIZE, paint);
-		canvas.drawText(Texts.TEXT_SAVE1, Constants.MARGIN * 2, Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT + Constants.SMALLFONTSIZE, paint);
-		canvas.drawText(Texts.TEXT_SAVEAUTO, Constants.MARGIN * 2, Constants.MARGIN * 4 + Constants.SAVEOPTIONHEIGHT * 2 + Constants.SMALLFONTSIZE, paint);
-		
-		for (int i = 0;i < 3;i++) {
-			if(engines[i] != null) {
+		canvas.drawText(Texts.TEXT_SAVE0, Constants.MARGIN * 2,
+				Constants.MARGIN * 2 + Constants.SMALLFONTSIZE, paint);
+		canvas.drawText(Texts.TEXT_SAVE1, Constants.MARGIN * 2,
+				Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT
+						+ Constants.SMALLFONTSIZE, paint);
+		canvas.drawText(Texts.TEXT_SAVEAUTO, Constants.MARGIN * 2,
+				Constants.MARGIN * 4 + Constants.SAVEOPTIONHEIGHT * 2
+						+ Constants.SMALLFONTSIZE, paint);
+
+		for (int i = 0; i < 3; i++) {
+			if (engines[i] != null) {
 				
-			}
-			else if (engines[i] == null) {
-				canvas.drawText(Texts.TEXT_FILENOTFOUND, Constants.MARGIN * 2, (Constants.MARGIN * i + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SAVEOPTIONHEIGHT / 2 + Constants.SMALLFONTSIZE), paint);
+				canvas.drawText(
+						Texts.TEXT_BLOOD
+								+ engines[i].getAttribute("health").toString(),
+						Constants.MARGIN * 2,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SMALLFONTSIZE * 2), paint);
+				canvas.drawText(
+						Texts.TEXT_ATTACK
+								+ engines[i].getAttribute("attack").toString(),
+						Constants.SCREENHALF_X,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SMALLFONTSIZE * 2),
+						paint);
+				canvas.drawText(
+						Texts.TEXT_GOLD
+								+ engines[i].getAttribute("gold").toString(),
+						Constants.MARGIN * 2,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SMALLFONTSIZE * 3),
+						paint);
+				canvas.drawText(
+						Texts.TEXT_DEFENCE
+								+ engines[i].getAttribute("defense").toString(),
+						Constants.SCREENHALF_X,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SMALLFONTSIZE * 3),
+						paint);
+				
+				canvas.drawText(Texts.TEXT_YELLOW_KEY
+						+ engines[i].getAttribute("key-y").toString(),
+						Constants.MARGIN * 2,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SMALLFONTSIZE * 4),
+						paint);
+				canvas.drawText(
+						Texts.TEXT_BLUE_KEY
+								+ engines[i].getAttribute("key-b").toString(),
+						Constants.SCREENHALF_X,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SMALLFONTSIZE * 4),
+						paint);
+				canvas.drawText(
+						Texts.TEXT_RED_KEY
+								+ engines[i].getAttribute("key-r").toString(),
+						Constants.MARGIN * 2,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SMALLFONTSIZE * 5),
+						paint);
+				canvas.drawText(
+						Texts.TEXT_FLOORNUMBER
+								+ engines[i].getCurrentCoordinate().getZ(),
+						Constants.SCREENHALF_X,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT * (i - 1) + Constants.SMALLFONTSIZE * 5),
+						paint);
+			} else if (engines[i] == null) {
+				Log.e("test","engine" + i + "got");
+				canvas.drawText(
+						Texts.TEXT_FILENOTFOUND,
+						Constants.MARGIN * 2,
+						(Constants.MARGIN * (i + 1) + Constants.SAVEOPTIONHEIGHT
+								* i + Constants.SAVEOPTIONHEIGHT / 2 + Constants.SMALLFONTSIZE),
+						paint);
 			}
 		}
 	}

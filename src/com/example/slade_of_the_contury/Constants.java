@@ -104,6 +104,7 @@ public class Constants {
 	public static final int CONFIRM_TEXT_DOWN = 490;
 	public static final int CONFIRM_TEXT_LEFT = 360;
 	public static final int CANCEL_TEXT_LEFT = 860;
+	public static final int SCREENHALF_X = 640;
 	
 	
 	//for text
