@@ -8,6 +8,7 @@ import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
 
 import android.content.Context;
 
+
 public class DataManager {
 
 	private Context context;

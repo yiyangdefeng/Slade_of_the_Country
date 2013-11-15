@@ -16,6 +16,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -99,6 +100,7 @@ public class MyView extends View {
 			break;
 		case Constants.STATUS_LOAD:
 		case Constants.STATUS_SAVE:
+			lid.LoadSaving();
 			lid.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_INSTRUCTION:
@@ -189,20 +191,7 @@ public class MyView extends View {
 
 		return null;
 	}
-
-	protected void reloadGame() throws IOException, DataException {
-		byte[] bufferedbyte = new byte[1048576];
-		int offset = 0, read;
-		InputStream is = ma.getAssets().open("tradclone.json.txt");
-		while ((read = is.read(bufferedbyte, offset, bufferedbyte.length
-				- offset)) != -1) {
-			offset += read;
-		}
-		is.close();
-		sg = new StandardGame(new String(bufferedbyte, 0, offset, "utf-8"));
-		ma.engine.loadGame(sg);
-	}
-
+	
 	private void LoadInterfaceHandler() {
 		if (x > Constants.INSTRUCTION_LOGO_X1
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
@@ -305,18 +294,21 @@ public class MyView extends View {
 				} catch (IOException e) {
 				}
 				status = Constants.STATUS_GAME;
+				break;
 			case TWO:
 				try {
 					dm.SaveSavings(ma.engine, "save1.txt");
 				} catch (IOException e) {
 				}
 				status = Constants.STATUS_GAME;
+				break;
 			case AUTO:
 				try {
 					dm.SaveSavings(ma.engine, "save2.txt");
 				} catch (IOException e) {
 				}
 				status = Constants.STATUS_GAME;
+				break;
 			}
 		} else if (x > Constants.CANCEL_BUTTON_LEFT && x < Constants.CANCEL_BUTTON_RIGHT && y > Constants.CONFIRM_BUTTON_UP && y < Constants.CONFIRM_BUTTON_DOWN) {
 			status = Constants.STATUS_SAVE;
@@ -339,6 +331,19 @@ public class MyView extends View {
 		}
 	}
 	
+	protected void reloadGame() throws IOException, DataException {
+		byte[] bufferedbyte = new byte[1048576];
+		int offset = 0, read;
+		InputStream is = ma.getAssets().open("tradclone.json.txt");
+		while ((read = is.read(bufferedbyte, offset, bufferedbyte.length
+				- offset)) != -1) {
+			offset += read;
+		}
+		is.close();
+		sg = new StandardGame(new String(bufferedbyte, 0, offset, "utf-8"));
+		ma.engine.loadGame(sg);
+	}
+	
 	private void StartInterfaceHandler() {
 		if (x >= Constants.START_LOGO_X
 				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
@@ -347,7 +352,9 @@ public class MyView extends View {
 			status = Constants.STATUS_GAME;
 			try {
 				reloadGame();
+				dm.SaveSavings(ma.engine, "save2.txt");
 			} catch (Exception e) {
+				
 				throw new RuntimeException(e);
 			}
 		}
