@@ -424,30 +424,34 @@ public class MyView extends View {
 		}
 		MoveButton button = this.getButtonFromXY(x, y);
 		if (button != null) {
-			Coordinate coord = ma.engine.getCurrentCoordinate();
-			int coordx = coord.getX();
-			int coordy = coord.getY();
-			switch (button) {
-			case DOWN:
-				coordx++;
-				break;
-			case LEFT:
-				coordy--;
-				break;
-			case RIGHT:
-				coordy++;
-				break;
-			case UP:
-				coordx--;
-				break;
-			}
-			Coordinate newcoord = new Coordinate(coord.getZ(), coordx, coordy);
-			if (!newcoord.equals(coord)) {
-				try {
-					ma.engine.moveTo(newcoord);
-				} catch (Exception e) {
+			doMove(button);
+		}
+	}
+	
+	void doMove(MoveButton button) {
+		Coordinate coord = ma.engine.getCurrentCoordinate();
+		int coordx = coord.getX();
+		int coordy = coord.getY();
+		switch (button) {
+		case DOWN:
+			coordx++;
+			break;
+		case LEFT:
+			coordy--;
+			break;
+		case RIGHT:
+			coordy++;
+			break;
+		case UP:
+			coordx--;
+			break;
+		}
+		Coordinate newcoord = new Coordinate(coord.getZ(), coordx, coordy);
+		if (!newcoord.equals(coord)) {
+			try {
+				ma.engine.moveTo(newcoord);
+			} catch (Exception e) {
 
-				}
 			}
 		}
 	}
