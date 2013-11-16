@@ -1,5 +1,7 @@
 package com.example.slade_of_the_country;
 
+import java.io.DataInput;
+import java.io.DataInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -332,15 +334,12 @@ public class MyView extends View {
 	}
 	
 	protected void reloadGame() throws IOException, DataException {
-		byte[] bufferedbyte = new byte[1048576];
-		int offset = 0, read;
-		InputStream is = ma.getAssets().open("tradclone.json.txt");
-		while ((read = is.read(bufferedbyte, offset, bufferedbyte.length
-				- offset)) != -1) {
-			offset += read;
-		}
+		InputStream is = ma.getResources().openRawResource(R.raw.tradclone);
+		byte[] bufferedbyte = new byte[is.available()];
+		DataInput di = new DataInputStream(is);
+		di.readFully(bufferedbyte);
 		is.close();
-		sg = new StandardGame(new String(bufferedbyte, 0, offset, "utf-8"));
+		sg = new StandardGame(new String(bufferedbyte, "utf-8"));
 		ma.engine.loadGame(sg);
 	}
 	
