@@ -500,15 +500,15 @@ public class MyView extends View {
 		@Override
 		public void run() {
 			//[0,1,2,3,4,5] with relationship to [oa,od,oh,sa,sd,sh]
-			float[] attributes = new float[6];
-			attributes[0] = log.get(0).getOpponentAttack();
-			attributes[1] = log.get(0).getOpponentDefense();
-			attributes[3] = log.get(0).getSelfAttack();
-			attributes[4] = log.get(0).getSelfDefense();
+			int[] attributes = new int[6];
+			attributes[0] = (int)log.get(0).getOpponentAttack();
+			attributes[1] = (int)log.get(0).getOpponentDefense();
+			attributes[3] = (int)log.get(0).getSelfAttack();
+			attributes[4] = (int)log.get(0).getSelfDefense();
 			for(Fight.Attributes logEntry : log) {
 				postInvalidate();
-				attributes[2] = Math.max(0, logEntry.getOpponentHealth());
-				attributes[5] = Math.max(0, logEntry.getSelfHealth());
+				attributes[2] = (int)Math.max(0, logEntry.getOpponentHealth());
+				attributes[5] = (int)Math.max(0, logEntry.getSelfHealth());
 				fid.setAttributes(attributes);
 				postInvalidate();
 				try {

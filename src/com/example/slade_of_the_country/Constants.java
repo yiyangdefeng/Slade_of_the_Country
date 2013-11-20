@@ -20,6 +20,7 @@ public class Constants {
 	public static final int RIGHTBUTTONX = 390;
 	public static final int TITLEFONTSIZE = 80;
 	public static final int SMALLFONTSIZE = 30;
+	public static final int NORMALSMALLFONTSIZE = 40;
 	public static final int NORMALFONTSIZE = 50;
 	public static final int TITLEX = 120;
 	public static final int TITLEY = 90;

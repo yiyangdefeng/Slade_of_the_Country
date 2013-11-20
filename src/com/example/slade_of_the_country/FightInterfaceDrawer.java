@@ -8,11 +8,11 @@ import android.graphics.Paint;
 public class FightInterfaceDrawer {
 	protected Paint paint;
 	protected PictureCollector pictures;
-	protected float[] attributes;
+	protected int[] attributes;
 
 	public FightInterfaceDrawer(PictureCollector pictures) {
 		this.pictures = pictures;
-		this.attributes = new float[6];
+		this.attributes = new int[6];
 		this.paint = new Paint();
 	}
 
@@ -21,7 +21,7 @@ public class FightInterfaceDrawer {
 		paint.setColor(Color.BLACK);
 		canvas.drawRect(Constants.FIGHT_INTERFACE_LEFT, Constants.FIGHT_INTERFACE_TOP, Constants.FIGHT_INTERFACE_RIGHT,Constants.FIGHT_INTERFACE_BOTTOM,paint);	
 		paint.setColor(Color.RED);
-		paint.setTextSize(Constants.NORMALFONTSIZE);
+		paint.setTextSize(Constants.NORMALSMALLFONTSIZE);
 		canvas.drawText(Texts.TEXT_BLOOD + attributes[2],Constants.OPPOHEALTH_LEFT, Constants.OPPOHEALTH_BOTTOM, paint);
 		//oh
 		canvas.drawText(Texts.TEXT_BLOOD + attributes[5],Constants.SELFHEALTH_LEFT, Constants.OPPOHEALTH_BOTTOM, paint);
@@ -37,7 +37,7 @@ public class FightInterfaceDrawer {
 		//sd
 	}
 	
-	public void setAttributes(float[] attributes) {
+	public void setAttributes(int[] attributes) {
 		this.attributes = attributes;
 	}
 }
