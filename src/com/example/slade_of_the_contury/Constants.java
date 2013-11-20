@@ -59,6 +59,7 @@ public class Constants {
 	public static final int STATUS_INSTRUCTION = 8;
 	public static final int STATUS_SAVE = 9;
 	public static final int STATUS_WARNING = 10;
+	public static final int STATUS_FAILURE_WARNING = 11;
 	
 	//for start interface
 	//
@@ -89,6 +90,9 @@ public class Constants {
 	//
 	//
 	public static final int SAVEOPTIONHEIGHT = 190;
+	public static final int SCREENHALF_X = 640;
+	
+	//for warning messages
 	public static final int WARNINGLEFT = 300;
 	public static final int WARNINGRIGHT = 980;
 	public static final int WARNINGUP = 200;
@@ -104,8 +108,9 @@ public class Constants {
 	public static final int CONFIRM_TEXT_DOWN = 490;
 	public static final int CONFIRM_TEXT_LEFT = 360;
 	public static final int CANCEL_TEXT_LEFT = 860;
-	public static final int SCREENHALF_X = 640;
-	
+	public static final int SINGLE_BUTTON_LEFT = 600;
+	public static final int SINGLE_BUTTON_RIGHT = 680;
+	public static final int TEXT_SINGLE_LEFT = 610;
 	
 	//for text
 	//
@@ -115,4 +120,19 @@ public class Constants {
 	public static final int NORMALMARGIN = 2;
 	public static final boolean FORWARD = true;
 	public static final boolean BACK = false;
+	
+	//for fight interface
+	public static final int FIGHT_INTERFACE_LEFT = 560;
+	public static final int FIGHT_INTERFACE_RIGHT = 1280;
+	public static final int FIGHT_INTERFACE_TOP = 180;
+	public static final int FIGHT_INTERFACE_BOTTOM = 540;
+	public static final int FIGHT_LOGO_LEFT = 870;
+	public static final int FIGHT_LOGO_TOP = 310;
+	public static final int OPPOHEALTH_LEFT = 580;
+	public static final int OPPOHEALTH_BOTTOM = 390;
+	public static final int OPPOATTACK_BOTTOM = 440;
+	public static final int OPPODEFENSE_BOTTOM = 510;
+	public static final int SELFHEALTH_LEFT = 1000;
+	//public static final int 
+	
 }

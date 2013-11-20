@@ -30,6 +30,9 @@ public class Texts {
 	"        谨慎的选择你的行动路线，否则你不能打过强大的敌人。";
 	
 	//for load interface
+	//
+	//
+	//
 	public static final String TEXT_FILENOTFOUND = "无存档";
 	public static final String TEXT_SAVE0 = "存档1";
 	public static final String TEXT_SAVE1 = "存档2";
@@ -38,5 +41,11 @@ public class Texts {
 	public static final String TEXT_CONFIRM = "确定";
 	public static final String TEXT_CANCEL = "取消";
 	public static final String TEXT_FLOORNUMBER = "层数：";
+	
+	//warning messages
+	//
+	//
+	//
+	public static final String TEXT_CANNOTBEAT = "你太弱了，打不过强大的敌人。\n" + "试试其他的路线吧~";
 	
 }  

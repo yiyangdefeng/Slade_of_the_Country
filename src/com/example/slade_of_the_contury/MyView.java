@@ -9,7 +9,9 @@ import com.example.slade_of_the_contury.LoadInterfaceDrawer.Position;
 
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Coordinate;
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.DataException;
+import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardEvent;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGame;
+import cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -34,12 +36,16 @@ public class MyView extends View {
 	private InstructionInterfaceDrawer iid;
 	private LoadInterfaceDrawer lid;
 	private WarningMessageDrawer wid;
+	private FailureWarningDrawer failureid;
 	protected PictureCollector pictures;
 	private StandardGame sg;
 	private MainActivity ma;
 	private DataManager dm;
 	private Position position;
-
+	protected FightInterfaceDrawer fid;
+	protected StandardEvent event;
+	protected int fightinterval;
+	
 	// private StandardRenderer mr = (StandardRenderer) sg.getRenderer();
 
 	protected enum MoveButton {
@@ -65,7 +71,10 @@ public class MyView extends View {
 		iid = new InstructionInterfaceDrawer(pictures);
 		lid = new LoadInterfaceDrawer(pictures, ma);
 		wid = new WarningMessageDrawer();
+		failureid = new FailureWarningDrawer();
+		fid = new FightInterfaceDrawer(pictures);
 		dm = new DataManager(c);
+		fightinterval = 500;
 		this.invalidate();
 	}
 
@@ -110,10 +119,16 @@ public class MyView extends View {
 			wid.drawWarningMessage(canvas,canvasMatrix);
 			break;
 		case Constants.STATUS_FIGHT:
+			Log.e("test","really draw?before");
+			fid.draw(canvas, canvasMatrix);
+			Log.e("test","really draw?after");
 			break;
 		case Constants.STATUS_DIALOGUE:
 			break;
 		case Constants.STATUS_SHOP:
+			break;
+		case Constants.STATUS_FAILURE_WARNING:
+			failureid.drawWarningMessage(canvas, canvasMatrix);
 			break;
 		}
 
@@ -341,7 +356,7 @@ public class MyView extends View {
 		}
 		is.close();
 		sg = new StandardGame(new String(bufferedbyte, 0, offset, "utf-8"));
-		ma.engine.loadGame(sg);
+		event = (StandardEvent)ma.engine.loadGame(sg);
 	}
 	
 	private void StartInterfaceHandler() {
@@ -444,14 +459,51 @@ public class MyView extends View {
 			Coordinate newcoord = new Coordinate(coord.getZ(), coordx, coordy);
 			if (!newcoord.equals(coord)) {
 				try {
-					ma.engine.moveTo(newcoord);
+					event = (StandardEvent)ma.engine.moveTo(newcoord);
 				} catch (Exception e) {
 
 				}
+				eventHandler();
 			}
 		}
 	}
 
+	public void eventHandler() {
+		@SuppressWarnings("unchecked")
+		List<List<Fight.Attributes>> logs = (List<List<Fight.Attributes>>) event.getExtraInformation().get("fight-logs");
+		if (logs != null) {
+			for (List<Fight.Attributes> log:logs) {
+				if(log == null) {
+					failureid.setMessage(Texts.TEXT_CANNOTBEAT);
+					status = Constants.STATUS_FAILURE_WARNING;
+				}
+				else {
+					status = Constants.STATUS_FIGHT;
+					//[0,1,2,3,4,5] with relationship to [oa,od,oh,sa,sd,sh]
+					postInvalidate();
+					float[] attributes = new float[6];
+					attributes[0] = log.get(0).getOpponentAttack();
+					attributes[1] = log.get(0).getOpponentDefense();
+					attributes[3] = log.get(0).getSelfAttack();
+					attributes[4] = log.get(0).getSelfDefense();
+					for(int i = 0;i < log.size();i++) {
+						postInvalidate();
+						attributes[2] = log.get(i).getOpponentHealth();
+						attributes[5] = log.get(i).getSelfHealth();
+						fid.setAttributes(attributes);
+						try {
+							Thread.sleep(fightinterval);
+						}
+						catch(Exception e) {
+						}
+					}
+					//add winning message here
+					status = Constants.STATUS_GAME;
+					postInvalidate();
+				}
+			}
+		}
+	}
 }
 
 interface Drawer {
