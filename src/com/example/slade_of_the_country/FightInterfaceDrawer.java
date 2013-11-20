@@ -29,9 +29,9 @@ public class FightInterfaceDrawer {
 		paint.setColor(Color.WHITE);
 		canvas.drawText(Texts.TEXT_ATTACK + attributes[0],Constants.OPPOHEALTH_LEFT, Constants.OPPOATTACK_BOTTOM, paint);
 		//oa
-		canvas.drawText(Texts.TEXT_DEFENCE + attributes[1],Constants.SELFHEALTH_LEFT, Constants.OPPODEFENSE_BOTTOM, paint);
+		canvas.drawText(Texts.TEXT_DEFENCE + attributes[1],Constants.OPPOHEALTH_LEFT, Constants.OPPODEFENSE_BOTTOM, paint);
 		//od
-		canvas.drawText(Texts.TEXT_ATTACK + attributes[3],Constants.OPPOHEALTH_LEFT, Constants.OPPOATTACK_BOTTOM, paint);
+		canvas.drawText(Texts.TEXT_ATTACK + attributes[3],Constants.SELFHEALTH_LEFT, Constants.OPPOATTACK_BOTTOM, paint);
 		//sa
 		canvas.drawText(Texts.TEXT_DEFENCE + attributes[4],Constants.SELFHEALTH_LEFT, Constants.OPPODEFENSE_BOTTOM, paint);
 		//sd

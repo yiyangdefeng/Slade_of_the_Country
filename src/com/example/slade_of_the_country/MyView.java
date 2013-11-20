@@ -76,7 +76,7 @@ public class MyView extends View {
 		failureid = new FailureWarningDrawer();
 		fid = new FightInterfaceDrawer(pictures);
 		dm = new DataManager(c);
-		fightinterval = 500;
+		fightinterval = 200;
 		this.invalidate();
 	}
 
@@ -121,9 +121,8 @@ public class MyView extends View {
 			wid.drawWarningMessage(canvas,canvasMatrix);
 			break;
 		case Constants.STATUS_FIGHT:
-			Log.e("test","really draw?before");
+			gid.draw(canvas, canvasMatrix, ma.engine);
 			fid.draw(canvas, canvasMatrix);
-			Log.e("test","really draw?after");
 			break;
 		case Constants.STATUS_DIALOGUE:
 			break;
@@ -482,31 +481,49 @@ public class MyView extends View {
 				}
 				else {
 					status = Constants.STATUS_FIGHT;
-					//[0,1,2,3,4,5] with relationship to [oa,od,oh,sa,sd,sh]
-					postInvalidate();
-					float[] attributes = new float[6];
-					attributes[0] = log.get(0).getOpponentAttack();
-					attributes[1] = log.get(0).getOpponentDefense();
-					attributes[3] = log.get(0).getSelfAttack();
-					attributes[4] = log.get(0).getSelfDefense();
-					for(int i = 0;i < log.size();i++) {
-						postInvalidate();
-						attributes[2] = log.get(i).getOpponentHealth();
-						attributes[5] = log.get(i).getSelfHealth();
-						fid.setAttributes(attributes);
-						try {
-							Thread.sleep(fightinterval);
-						}
-						catch(Exception e) {
-						}
-					}
-					//add winning message here
-					status = Constants.STATUS_GAME;
-					postInvalidate();
+					invalidate();
+					FightHandler fh = new FightHandler(log);
+					fh.start();
 				}
 			}
 		}
 	}
+	
+	class FightHandler extends Thread {
+		
+		private List<Fight.Attributes> log;
+	
+		public FightHandler(List<Fight.Attributes> log) {
+			this.log = log;
+		}
+	
+		@Override
+		public void run() {
+			//[0,1,2,3,4,5] with relationship to [oa,od,oh,sa,sd,sh]
+			float[] attributes = new float[6];
+			attributes[0] = log.get(0).getOpponentAttack();
+			attributes[1] = log.get(0).getOpponentDefense();
+			attributes[3] = log.get(0).getSelfAttack();
+			attributes[4] = log.get(0).getSelfDefense();
+			for(Fight.Attributes logEntry : log) {
+				postInvalidate();
+				attributes[2] = Math.max(0, logEntry.getOpponentHealth());
+				attributes[5] = Math.max(0, logEntry.getSelfHealth());
+				fid.setAttributes(attributes);
+				postInvalidate();
+				try {
+					Thread.sleep(fightinterval);
+				}
+				catch(Exception e) {
+				}
+			}
+			//add winning message here
+			status = Constants.STATUS_GAME;
+			postInvalidate();
+		}
+		
+	}
+
 }
 
 interface Drawer {

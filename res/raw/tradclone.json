@@ -6,9 +6,9 @@
 		"y": 11
 	},
 	"attributes": {
-		"health": 1000,
-		"attack": 1000,
-		"defense": 1000,
+		"health": 10000,
+		"attack": 10,
+		"defense": 10,
 		"gold": 0,
 		"exp": 0,
 		"key-y": 0,
