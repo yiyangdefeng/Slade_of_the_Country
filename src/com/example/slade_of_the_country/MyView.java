@@ -1,11 +1,13 @@
-package com.example.slade_of_the_contury;
+package com.example.slade_of_the_country;
 
+import java.io.DataInput;
+import java.io.DataInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.slade_of_the_contury.LoadInterfaceDrawer.Position;
+import com.example.slade_of_the_country.LoadInterfaceDrawer.Position;
 
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Coordinate;
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.DataException;
@@ -347,15 +349,12 @@ public class MyView extends View {
 	}
 	
 	protected void reloadGame() throws IOException, DataException {
-		byte[] bufferedbyte = new byte[1048576];
-		int offset = 0, read;
-		InputStream is = ma.getAssets().open("tradclone.json.txt");
-		while ((read = is.read(bufferedbyte, offset, bufferedbyte.length
-				- offset)) != -1) {
-			offset += read;
-		}
+		InputStream is = ma.getResources().openRawResource(R.raw.tradclone);
+		byte[] bufferedbyte = new byte[is.available()];
+		DataInput di = new DataInputStream(is);
+		di.readFully(bufferedbyte);
 		is.close();
-		sg = new StandardGame(new String(bufferedbyte, 0, offset, "utf-8"));
+		sg = new StandardGame(new String(bufferedbyte, "utf-8"));
 		event = (StandardEvent)ma.engine.loadGame(sg);
 	}
 	
@@ -439,32 +438,36 @@ public class MyView extends View {
 		}
 		MoveButton button = this.getButtonFromXY(x, y);
 		if (button != null) {
-			Coordinate coord = ma.engine.getCurrentCoordinate();
-			int coordx = coord.getX();
-			int coordy = coord.getY();
-			switch (button) {
-			case DOWN:
-				coordx++;
-				break;
-			case LEFT:
-				coordy--;
-				break;
-			case RIGHT:
-				coordy++;
-				break;
-			case UP:
-				coordx--;
-				break;
-			}
-			Coordinate newcoord = new Coordinate(coord.getZ(), coordx, coordy);
-			if (!newcoord.equals(coord)) {
-				try {
-					event = (StandardEvent)ma.engine.moveTo(newcoord);
-				} catch (Exception e) {
+			doMove(button);
+		}
+	}
+	
+	void doMove(MoveButton button) {
+		Coordinate coord = ma.engine.getCurrentCoordinate();
+		int coordx = coord.getX();
+		int coordy = coord.getY();
+		switch (button) {
+		case DOWN:
+			coordx++;
+			break;
+		case LEFT:
+			coordy--;
+			break;
+		case RIGHT:
+			coordy++;
+			break;
+		case UP:
+			coordx--;
+			break;
+		}
+		Coordinate newcoord = new Coordinate(coord.getZ(), coordx, coordy);
+		if (!newcoord.equals(coord)) {
+			try {
+				event = (StandardEvent)ma.engine.moveTo(newcoord);
+			} catch (Exception e) {
 
-				}
-				eventHandler();
 			}
+			eventHandler();
 		}
 	}
 

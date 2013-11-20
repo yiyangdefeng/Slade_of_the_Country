@@ -1,8 +1,10 @@
-package com.example.slade_of_the_contury;
+package com.example.slade_of_the_country;
 
 
 
 import java.io.IOException;
+
+import com.example.slade_of_the_country.MyView.MoveButton;
 
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
 
@@ -94,6 +96,34 @@ public class MainActivity extends Activity {
 			return true;
 		} else {
 			return super.onKeyDown(keyCode, event);
+		}
+	}
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		MoveButton button = null;
+		if (view.status == Constants.STATUS_GAME) {
+			switch (keyCode) {
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+				button = MoveButton.DOWN;
+				break;
+			case KeyEvent.KEYCODE_DPAD_UP:
+				button = MoveButton.UP;
+				break;
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+				button = MoveButton.LEFT;
+				break;
+			case KeyEvent.KEYCODE_DPAD_RIGHT:
+				button = MoveButton.RIGHT;
+				break;
+			}
+		}
+		if (button == null) {
+			return super.onKeyUp(keyCode, event);
+		} else {
+			view.doMove(button);
+			view.invalidate();
+			return true;
 		}
 	}
 
