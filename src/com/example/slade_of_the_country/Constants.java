@@ -130,8 +130,8 @@ public class Constants {
 	public static final int FIGHT_LOGO_LEFT = 870;
 	public static final int FIGHT_LOGO_TOP = 310;
 	public static final int OPPOHEALTH_LEFT = 580;
-	public static final int OPPOHEALTH_BOTTOM = 390;
-	public static final int OPPOATTACK_BOTTOM = 440;
+	public static final int OPPOHEALTH_BOTTOM = 410;
+	public static final int OPPOATTACK_BOTTOM = 460;
 	public static final int OPPODEFENSE_BOTTOM = 510;
 	public static final int SELFHEALTH_LEFT = 1000;
 	//public static final int 
