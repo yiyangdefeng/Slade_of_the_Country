@@ -46,6 +46,12 @@ public class Texts {
 	//
 	//
 	//
+	String[] dialogue = new String[]
+			{"就你这点实力也想打过我，再等五百年吧！",
+			"你竟然能达到这里，已经很不错了，但是你是不可能打过我的。"
+			
+			};
+	
 	public static final String TEXT_CANNOTBEAT = "你太弱了，打不过强大的敌人。\n" + "试试其他的路线吧~";
 	
 }  

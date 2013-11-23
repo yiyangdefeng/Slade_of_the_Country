@@ -1,5 +1,8 @@
 package com.example.slade_of_the_country;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -13,7 +16,12 @@ public class PictureCollector {
 	private  Bitmap background;// = BitmapFactory.decodeResource(view.getResources(), R.drawable.background);
 	private  Bitmap buttonup ;//= BitmapFactory.decodeResource(view.getResources(), R.drawable.buttonup);
 	private  Bitmap buttondown ;//= BitmapFactory.decodeResource(view.getResources(), R.drawable.buttondown);
-	public  Bitmap warrior ;//= BitmapFactory.decodeResource(myview.getResources(), R.drawable.warrior);
+	public  Bitmap warrior ;
+	public Bitmap warrior_left;
+	public Bitmap warrior_right;
+	public Bitmap warrior_up;
+	public Bitmap warrior_down;
+	//= BitmapFactory.decodeResource(myview.getResources(), R.drawable.warrior);
 	public  Bitmap scaledbuttonup ;//= Bitmap.createScaledBitmap(buttonup, (int)(Constants.BUTTONWIDTH),(int)(Constants.BUTTONWIDTH), true);
 	public  Bitmap scaledbackground ;//= Bitmap.createScaledBitmap(background, (int)(Constants.MYSCREENHEIGHT),(int)(Constants.MYSCREENHEIGHT), true);
 	public  Bitmap scaledbuttondown ;//= Bitmap.createScaledBitmap(buttondown, (int)(Constants.BUTTONWIDTH), (int)(Constants.BUTTONWIDTH), true);
@@ -51,6 +59,12 @@ public class PictureCollector {
 		 buttonup = BitmapFactory.decodeResource(view.getResources(), R.drawable.buttonup);
 		 buttondown = BitmapFactory.decodeResource(view.getResources(), R.drawable.buttondown);
 		 warrior = BitmapFactory.decodeResource(view.getResources(), R.drawable.warrior);
+		 warrior_left = BitmapFactory.decodeResource(view.getResources(),R.drawable.warrior_left);
+		 warrior_right = BitmapFactory.decodeResource(view.getResources(),R.drawable.warrior_right);
+		 warrior_up = BitmapFactory.decodeResource(view.getResources(),R.drawable.warrior_up);
+		 warrior_down = BitmapFactory.decodeResource(view.getResources(),R.drawable.warrior_down);
+		 
+		 
 		 save = BitmapFactory.decodeResource(view.getResources(), R.drawable.save);
 		 scaledbuttonup = Bitmap.createScaledBitmap(buttonup, (int)(Constants.BUTTONWIDTH),(int)(Constants.BUTTONWIDTH), true);
 		 scaledbackground = Bitmap.createScaledBitmap(background, (int)(Constants.MYSCREENHEIGHT),(int)(Constants.MYSCREENHEIGHT), true);
@@ -81,6 +95,15 @@ public class PictureCollector {
 		 scaledrrreturn = Bitmap.createScaledBitmap(rrreturn, (int)(Constants.INSTRUCTION_LOGOWIDTH),(int)(Constants.INSTRUCTION_LOGOHEIGHT), true);
 		 scalednextpage = Bitmap.createScaledBitmap(nextpage, (int)(Constants.INSTRUCTION_LOGOWIDTH),(int)(Constants.INSTRUCTION_LOGOHEIGHT), true);
 		 scaledpreviouspage = Bitmap.createScaledBitmap(previouspage, (int)(Constants.INSTRUCTION_LOGOWIDTH),(int)(Constants.INSTRUCTION_LOGOHEIGHT), true);
+		 
+		 //for dialogue interface
+		 //
+		 //
+		 //
+		 Bitmap oppo1 = BitmapFactory.decodeResource(view.getResources(), R.drawable.oppo);
+		 Map<String,Bitmap> dialoguers = new HashMap<String, Bitmap>();
+		 dialoguers.put("oppo1", oppo1);
+		 //dialoguers.put("oppo2",oppo2);
 		 
 
 	}

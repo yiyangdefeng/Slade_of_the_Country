@@ -123,6 +123,9 @@ public class Constants {
 	public static final boolean BACK = false;
 	
 	//for fight interface
+	//
+	//
+	//
 	public static final int FIGHT_INTERFACE_LEFT = 560;
 	public static final int FIGHT_INTERFACE_RIGHT = 1280;
 	public static final int FIGHT_INTERFACE_TOP = 180;
@@ -134,6 +137,13 @@ public class Constants {
 	public static final int OPPOATTACK_BOTTOM = 460;
 	public static final int OPPODEFENSE_BOTTOM = 510;
 	public static final int SELFHEALTH_LEFT = 1000;
-	//public static final int 
 	
+	//for dialogue interface
+	//
+	//
+	//
+	public static int DIALOGUE_INTERFACE_X = 560;
+	public static int DIALOGUE_INTERFACE_Y = 432;
+	public static int DIALOGUE_INTERFACE_WIDTH = 720;
+	public static int DIALOGUE_INTERFACE_HEIGHT = 288;
 }

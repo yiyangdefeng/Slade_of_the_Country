@@ -11,6 +11,8 @@ import com.example.slade_of_the_country.LoadInterfaceDrawer.Position;
 
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Coordinate;
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.DataException;
+import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
+import cn.edu.tsinghua.academic.c00740273.magictower.engine.GameTerminationException;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardEvent;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGame;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight;
@@ -39,6 +41,7 @@ public class MyView extends View {
 	private LoadInterfaceDrawer lid;
 	private WarningMessageDrawer wid;
 	private FailureWarningDrawer failureid;
+	private DialogueInterfaceDrawer did;
 	protected PictureCollector pictures;
 	private StandardGame sg;
 	private MainActivity ma;
@@ -47,10 +50,11 @@ public class MyView extends View {
 	protected FightInterfaceDrawer fid;
 	protected StandardEvent event;
 	protected int fightinterval;
+	protected MoveButton button;
 	
 	// private StandardRenderer mr = (StandardRenderer) sg.getRenderer();
 
-	protected enum MoveButton {
+	public enum MoveButton {
 		UP, DOWN, LEFT, RIGHT
 	}
 
@@ -76,7 +80,7 @@ public class MyView extends View {
 		failureid = new FailureWarningDrawer();
 		fid = new FightInterfaceDrawer(pictures);
 		dm = new DataManager(c);
-		fightinterval = 200;
+		fightinterval = 100;
 		this.invalidate();
 	}
 
@@ -355,6 +359,7 @@ public class MyView extends View {
 		is.close();
 		sg = new StandardGame(new String(bufferedbyte, "utf-8"));
 		event = (StandardEvent)ma.engine.loadGame(sg);
+		ma.engine.setFailureTermination(Engine.Termination.AUTOMATIC);
 	}
 	
 	private void StartInterfaceHandler() {
@@ -435,7 +440,8 @@ public class MyView extends View {
 				&& y < (Constants.SAVEBUTTONY + Constants.SAVEBUTTONHEIGHT)) {
 			status = Constants.STATUS_SAVE;
 		}
-		MoveButton button = this.getButtonFromXY(x, y);
+		button = this.getButtonFromXY(x, y);
+		gid.setButton(button);
 		if (button != null) {
 			doMove(button);
 		}
@@ -461,10 +467,16 @@ public class MyView extends View {
 		}
 		Coordinate newcoord = new Coordinate(coord.getZ(), coordx, coordy);
 		if (!newcoord.equals(coord)) {
+			event = null;
 			try {
 				event = (StandardEvent)ma.engine.moveTo(newcoord);
-			} catch (Exception e) {
-
+			} catch (GameTerminationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (event == null) {
+				//not in real game
+				event = (StandardEvent)ma.engine.attemptMoveTo(newcoord);
 			}
 			eventHandler();
 		}
