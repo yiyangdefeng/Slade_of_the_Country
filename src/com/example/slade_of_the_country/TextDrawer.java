@@ -8,6 +8,7 @@ import android.graphics.Paint.FontMetrics;
 
 
 
+
 public class TextDrawer {
 
 	private int textX;
@@ -83,7 +84,7 @@ public class TextDrawer {
 		fontheight = (int) Math.ceil(fm.descent - fm.top)
 				+ Constants.NORMALMARGIN;
 
-		pagelinenum =(int)((textheight - textsize) /(float) fontheight);
+		pagelinenum = (int)((textheight - textsize) /(float) fontheight);
 
 		for (int i = 0; i < text.length(); i++) {
 			ch = text.charAt(i);
@@ -127,7 +128,7 @@ public class TextDrawer {
 	}
 
 	public boolean MoveText(boolean backorforward) {
-		int moveline = pagelinenum;
+		int moveline = pagelinenum + 1;
 		if (backorforward == Constants.BACK) {
 			curline = Math.max(0, curline - moveline);
 		}
@@ -136,4 +137,13 @@ public class TextDrawer {
 		}
         return false;
     }
+	
+	public boolean isEnd() {
+		if( realline - curline - pagelinenum - 2 > 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 }

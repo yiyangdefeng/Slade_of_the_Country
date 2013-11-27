@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 
 
+
 public class InstructionInterfaceDrawer {
     private Map<Long, TextDrawer> tds;
 	private PictureCollector pictures;

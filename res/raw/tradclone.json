@@ -6,7 +6,7 @@
 		"y": 11
 	},
 	"attributes": {
-		"health": 10000,
+		"health": 300,
 		"attack": 10,
 		"defense": 10,
 		"gold": 0,
@@ -626,7 +626,7 @@
 					"health-attribute": "health",
 					"death-attribute": "failure",
 					"attack-opponent": 15,
-					"defense-opponent": 2,
+					"defense-opponent":20,
 					"health-opponent": 70
 				},
 				{
@@ -678,8 +678,8 @@
 					"defense-attribute": "defense",
 					"health-attribute": "health",
 					"death-attribute": "failure",
-					"attack-opponent": 20,
-					"defense-opponent": 5,
+					"attack-opponent": 1,
+					"defense-opponent": 500,
 					"health-opponent": 100
 				},
 				{

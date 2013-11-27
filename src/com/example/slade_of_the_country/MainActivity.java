@@ -82,15 +82,22 @@ public class MainActivity extends Activity {
 			case Constants.STATUS_GAME:
 			case Constants.STATUS_LOAD:
 			case Constants.STATUS_INSTRUCTION:
+			case Constants.STATUS_GAME_OVER:
+			case Constants.STATUS_GAME_WIN:
 				view.status = Constants.STATUS_START;
 				view.invalidate();
 				break;
-			case Constants.STATUS_SAVE:
 			case Constants.STATUS_FIGHT:
+				view.fh.exec = false;
+			case Constants.STATUS_SAVE:
 			case Constants.STATUS_DIALOGUE:
 			case Constants.STATUS_SHOP:
+			case Constants.STATUS_FAILURE_WARNING:
 				view.status = Constants.STATUS_GAME;
 				view.invalidate();
+				break;
+			case Constants.STATUS_WARNING:
+				view.status = Constants.STATUS_SAVE;
 				break;
 			}
 			return true;

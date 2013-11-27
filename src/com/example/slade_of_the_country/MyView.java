@@ -15,6 +15,8 @@ import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.GameTerminationException;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardEvent;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGame;
+import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGameFailureTerminationException;
+import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGameSuccessTerminationException;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight;
 import android.app.Activity;
 import android.content.Context;
@@ -42,16 +44,19 @@ public class MyView extends View {
 	private WarningMessageDrawer wid;
 	private FailureWarningDrawer failureid;
 	private DialogueInterfaceDrawer did;
+	protected FightInterfaceDrawer fid;
+	protected GameOverInterfaceDrawer gameoverid;
+	protected GameWinInterfaceDrawer gamewinid;
 	protected PictureCollector pictures;
 	private StandardGame sg;
 	private MainActivity ma;
 	private DataManager dm;
 	private Position position;
-	protected FightInterfaceDrawer fid;
 	protected StandardEvent event;
 	protected int fightinterval;
 	protected MoveButton button;
-	
+	protected FightHandler fh;
+
 	// private StandardRenderer mr = (StandardRenderer) sg.getRenderer();
 
 	public enum MoveButton {
@@ -70,7 +75,7 @@ public class MyView extends View {
 		canvasMatrix.invert(inverseMatrix);
 		drawers = new ArrayList<Drawer>();
 		status = Constants.STATUS_START;
-		position = Position.AUTO;		
+		position = Position.AUTO;
 		pictures = new PictureCollector(this);
 		sid = new StartInterfaceDrawer(pictures);
 		gid = new GameInterfaceDrawer(pictures);
@@ -79,8 +84,12 @@ public class MyView extends View {
 		wid = new WarningMessageDrawer();
 		failureid = new FailureWarningDrawer();
 		fid = new FightInterfaceDrawer(pictures);
+		did = new DialogueInterfaceDrawer(pictures);
+		gameoverid = new GameOverInterfaceDrawer(pictures);
+		gamewinid = new GameWinInterfaceDrawer(pictures);
+		
 		dm = new DataManager(c);
-		fightinterval = 100;
+		fightinterval = 50;
 		this.invalidate();
 	}
 
@@ -122,18 +131,26 @@ public class MyView extends View {
 			iid.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_WARNING:
-			wid.drawWarningMessage(canvas,canvasMatrix);
+			wid.drawWarningMessage(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_FIGHT:
 			gid.draw(canvas, canvasMatrix, ma.engine);
 			fid.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_DIALOGUE:
+			did.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_SHOP:
 			break;
 		case Constants.STATUS_FAILURE_WARNING:
+			gid.draw(canvas, canvasMatrix, ma.engine);
 			failureid.drawWarningMessage(canvas, canvasMatrix);
+			break;
+		case Constants.STATUS_GAME_OVER:
+			gameoverid.draw(canvas,canvasMatrix);
+			break;
+		case Constants.STATUS_GAME_WIN:
+			gamewinid.draw(canvas,canvasMatrix);
 			break;
 		}
 
@@ -149,11 +166,11 @@ public class MyView extends View {
 		inverseMatrix.mapPoints(point);
 		x = point[0];
 		y = point[1];
-		if (event.getAction() == MotionEvent.ACTION_DOWN && status == Constants.STATUS_GAME) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN
+				&& status == Constants.STATUS_GAME) {
 			GameInterfaceDownHandler();
-		}
-		else if (event.getAction() == MotionEvent.ACTION_UP) {
-			switch(status) {
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (status) {
 			case Constants.STATUS_GAME:
 				GameInterfaceUpHandler();
 				break;
@@ -171,6 +188,19 @@ public class MyView extends View {
 				break;
 			case Constants.STATUS_WARNING:
 				WarningInterfaceHandler();
+			case Constants.STATUS_FAILURE_WARNING:
+				FailureWarningInterfaceHandler();
+				break;
+			case Constants.STATUS_SHOP:
+				ShopInterfaceHandler();
+				break;
+			case Constants.STATUS_DIALOGUE:
+				DialogueInterfaceHandler();
+				break;
+			case Constants.STATUS_GAME_OVER:
+			case Constants.STATUS_GAME_WIN:
+			case Constants.STATUS_FIGHT:
+				break;
 			default:
 				break;
 			}
@@ -211,14 +241,43 @@ public class MyView extends View {
 
 		return null;
 	}
+
+	private void DialogueInterfaceHandler() {
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		
+	}
 	
+	private void ShopInterfaceHandler() {
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		
+	}
+	
+	private void FailureWarningInterfaceHandler() {
+		if (x > Constants.SINGLE_BUTTON_LEFT && y > Constants.SINGLE_BUTTON_UP
+				&& x < Constants.SINGLE_BUTTON_RIGHT
+				&& y < Constants.SINGLE_BUTTON_DOWN) {
+			status = Constants.STATUS_GAME;
+		}
+	}
+
 	private void LoadInterfaceHandler() {
 		if (x > Constants.INSTRUCTION_LOGO_X1
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
 				&& y > Constants.INSTRUCTION_LOGO_Y) {
 			status = Constants.STATUS_START;
-		}
-		else if (x > Constants.MARGIN && y > Constants.MARGIN
+		} else if (x > Constants.MARGIN && y > Constants.MARGIN
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
 			if (lid.getAvailable(Position.ONE)) {
@@ -249,15 +308,13 @@ public class MyView extends View {
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
 				&& y > Constants.INSTRUCTION_LOGO_Y) {
 			status = Constants.STATUS_GAME;
-		}
-		else if (x > Constants.MARGIN && y > Constants.MARGIN
+		} else if (x > Constants.MARGIN && y > Constants.MARGIN
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
 			if (lid.getAvailable(Position.ONE)) {
 				status = Constants.STATUS_WARNING;
-				position = Position.ONE; 
-			}
-			else if (!lid.getAvailable(Position.ONE)) {
+				position = Position.ONE;
+			} else if (!lid.getAvailable(Position.ONE)) {
 				try {
 					dm.SaveSavings(ma.engine, "save0.txt");
 				} catch (IOException e) {
@@ -271,8 +328,7 @@ public class MyView extends View {
 			if (lid.getAvailable(Position.TWO)) {
 				status = Constants.STATUS_WARNING;
 				position = Position.TWO;
-			}
-			else if(!lid.getAvailable(Position.TWO)) {
+			} else if (!lid.getAvailable(Position.TWO)) {
 				try {
 					dm.SaveSavings(ma.engine, "save1.txt");
 				} catch (IOException e) {
@@ -286,8 +342,7 @@ public class MyView extends View {
 			if (lid.getAvailable(Position.AUTO)) {
 				status = Constants.STATUS_WARNING;
 				position = Position.AUTO;
-			}
-			else if(!lid.getAvailable(Position.AUTO)) {
+			} else if (!lid.getAvailable(Position.AUTO)) {
 				try {
 					dm.SaveSavings(ma.engine, "save2.txt");
 				} catch (IOException e) {
@@ -297,10 +352,8 @@ public class MyView extends View {
 		} else {
 			return;
 		}
-		
+
 	}
-	
-	
 
 	public void WarningInterfaceHandler() {
 		if (x > Constants.CONFIRM_BUTTON_LEFT
@@ -330,11 +383,15 @@ public class MyView extends View {
 				status = Constants.STATUS_GAME;
 				break;
 			}
-		} else if (x > Constants.CANCEL_BUTTON_LEFT && x < Constants.CANCEL_BUTTON_RIGHT && y > Constants.CONFIRM_BUTTON_UP && y < Constants.CONFIRM_BUTTON_DOWN) {
+		} else if (x > Constants.CANCEL_BUTTON_LEFT
+				&& x < Constants.CANCEL_BUTTON_RIGHT
+				&& y > Constants.CONFIRM_BUTTON_UP
+				&& y < Constants.CONFIRM_BUTTON_DOWN) {
 			status = Constants.STATUS_SAVE;
 		}
-		
+
 	}
+
 	private void InstructionInterfaceHandler() {
 		if (x > Constants.INSTRUCTION_LOGO_X1
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
@@ -350,7 +407,7 @@ public class MyView extends View {
 			iid.MoveText(Constants.FORWARD);
 		}
 	}
-	
+
 	protected void reloadGame() throws IOException, DataException {
 		InputStream is = ma.getResources().openRawResource(R.raw.tradclone);
 		byte[] bufferedbyte = new byte[is.available()];
@@ -358,10 +415,10 @@ public class MyView extends View {
 		di.readFully(bufferedbyte);
 		is.close();
 		sg = new StandardGame(new String(bufferedbyte, "utf-8"));
-		event = (StandardEvent)ma.engine.loadGame(sg);
+		event = (StandardEvent) ma.engine.loadGame(sg);
 		ma.engine.setFailureTermination(Engine.Termination.AUTOMATIC);
 	}
-	
+
 	private void StartInterfaceHandler() {
 		if (x >= Constants.START_LOGO_X
 				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
@@ -372,7 +429,7 @@ public class MyView extends View {
 				reloadGame();
 				dm.SaveSavings(ma.engine, "save2.txt");
 			} catch (Exception e) {
-				
+
 				throw new RuntimeException(e);
 			}
 		}
@@ -397,12 +454,12 @@ public class MyView extends View {
 	}
 
 	private void GameInterfaceDownHandler() {
-		MoveButton button = this.getButtonFromXY(x, y);
-		if (button == null) {
+		MoveButton tempbutton = this.getButtonFromXY(x, y);
+		if (tempbutton == null) {
 			return;
 		}
 		final int buttonX, buttonY;
-		switch (button) {
+		switch (tempbutton) {
 		case DOWN:
 			buttonX = Constants.UPBUTTONX;
 			buttonY = Constants.DOWNBUTTONY;
@@ -426,13 +483,13 @@ public class MyView extends View {
 		if (buttonX >= 0 && buttonY >= 0) {
 			this.drawers.add(new Drawer() {
 				public void draw(Canvas canvas, Matrix matrix) {
-					canvas.drawBitmap(pictures.scaledbuttondown,
-							buttonX, buttonY, paint);
+					canvas.drawBitmap(pictures.scaledbuttondown, buttonX,
+							buttonY, paint);
 				}
 			});
 		}
 	}
-	
+
 	private void GameInterfaceUpHandler() {
 		if (x > Constants.SAVEBUTTONX
 				&& x < (Constants.SAVEBUTTONX + Constants.SAVEBUTTONWIDTH)
@@ -440,13 +497,14 @@ public class MyView extends View {
 				&& y < (Constants.SAVEBUTTONY + Constants.SAVEBUTTONHEIGHT)) {
 			status = Constants.STATUS_SAVE;
 		}
-		button = this.getButtonFromXY(x, y);
-		gid.setButton(button);
-		if (button != null) {
+		MoveButton nextbutton = this.getButtonFromXY(x, y);
+		if (nextbutton != null) {
+			button = nextbutton;
+			gid.setButton(button);
 			doMove(button);
 		}
 	}
-	
+
 	void doMove(MoveButton button) {
 		Coordinate coord = ma.engine.getCurrentCoordinate();
 		int coordx = coord.getX();
@@ -467,73 +525,112 @@ public class MyView extends View {
 		}
 		Coordinate newcoord = new Coordinate(coord.getZ(), coordx, coordy);
 		if (!newcoord.equals(coord)) {
-			event = null;
 			try {
-				event = (StandardEvent)ma.engine.moveTo(newcoord);
+				event = (StandardEvent) ma.engine.moveTo(newcoord);
+				eventHandler();
+			} catch (StandardGameSuccessTerminationException e) {
+				eventHandler();
+				status = Constants.STATUS_GAME_WIN;
+			} catch (StandardGameFailureTerminationException e) {
+				if (e.getAttributeCheck().getAttributeName().equals("health")) {
+					eventHandler();
+					status = Constants.STATUS_GAME_OVER;
+					Log.e("test", "Game Over!");
+				} else if (e.getAttributeCheck().getAttributeName()
+						.equals("key-y")) {
+					failureid.setMessage(Texts.TEXT_NOYELLOWKEY);
+					status = Constants.STATUS_FAILURE_WARNING;
+				} else if (e.getAttributeCheck().getAttributeName()
+						.equals("key-b")) {
+					failureid.setMessage(Texts.TEXT_NOBLUEKEY);
+					status = Constants.STATUS_FAILURE_WARNING;
+				} else if (e.getAttributeCheck().getAttributeName()
+						.equals("key-r")) {
+					failureid.setMessage(Texts.TEXT_NOREDKEY);
+					status = Constants.STATUS_FAILURE_WARNING;
+				} else if (e.getAttributeCheck().getAttributeName()
+						.equals("key-x")) {
+					failureid.setMessage(Texts.TEXT_NOSPECIALKEY);
+					status = Constants.STATUS_FAILURE_WARNING;
+				} else if (e.getAttributeCheck().getAttributeName()
+						.equals("gold")) {
+					failureid.setMessage(Texts.TEXT_NOMONEY);
+					status = Constants.STATUS_FAILURE_WARNING;
+				} else if (e.getAttributeCheck().getAttributeName()
+						.equals("exp")) {
+					failureid.setMessage(Texts.TEXT_NOEXP);
+					status = Constants.STATUS_FAILURE_WARNING;
+				} else if (e.getAttributeCheck().getAttributeName()
+						.equals("failure")) {
+					failureid.setMessage(Texts.TEXT_INFINITELOOP);
+					status = Constants.STATUS_FAILURE_WARNING;
+				}
+
 			} catch (GameTerminationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
-			if (event == null) {
-				//not in real game
-				event = (StandardEvent)ma.engine.attemptMoveTo(newcoord);
-			}
-			eventHandler();
+			// if (event == null) {
+			// not in real game
+			// event = (StandardEvent) ma.engine.attemptMoveTo(newcoord);
+			// }
+
 		}
 	}
 
 	public void eventHandler() {
 		@SuppressWarnings("unchecked")
-		List<List<Fight.Attributes>> logs = (List<List<Fight.Attributes>>) event.getExtraInformation().get("fight-logs");
+		List<List<Fight.Attributes>> logs = (List<List<Fight.Attributes>>) event
+				.getExtraInformation().get("fight-logs");
 		if (logs != null) {
-			for (List<Fight.Attributes> log:logs) {
-				if(log == null) {
-					failureid.setMessage(Texts.TEXT_CANNOTBEAT);
-					status = Constants.STATUS_FAILURE_WARNING;
-				}
-				else {
+			for (List<Fight.Attributes> log : logs) {
+				if (log == null) {
+					throw new RuntimeException();
+				} else {
 					status = Constants.STATUS_FIGHT;
 					invalidate();
-					FightHandler fh = new FightHandler(log);
+					fh = new FightHandler(log);
 					fh.start();
 				}
 			}
 		}
 	}
-	
+
 	class FightHandler extends Thread {
-		
+
+		public boolean exec = true;
 		private List<Fight.Attributes> log;
-	
+
 		public FightHandler(List<Fight.Attributes> log) {
 			this.log = log;
 		}
-	
+
 		@Override
 		public void run() {
-			//[0,1,2,3,4,5] with relationship to [oa,od,oh,sa,sd,sh]
+			// [0,1,2,3,4,5] with relationship to [oa,od,oh,sa,sd,sh]
 			int[] attributes = new int[6];
-			attributes[0] = (int)log.get(0).getOpponentAttack();
-			attributes[1] = (int)log.get(0).getOpponentDefense();
-			attributes[3] = (int)log.get(0).getSelfAttack();
-			attributes[4] = (int)log.get(0).getSelfDefense();
-			for(Fight.Attributes logEntry : log) {
+			attributes[0] = (int) log.get(0).getOpponentAttack();
+			attributes[1] = (int) log.get(0).getOpponentDefense();
+			attributes[3] = (int) log.get(0).getSelfAttack();
+			attributes[4] = (int) log.get(0).getSelfDefense();
+			for (Fight.Attributes logEntry : log) {
 				postInvalidate();
-				attributes[2] = (int)Math.max(0, logEntry.getOpponentHealth());
-				attributes[5] = (int)Math.max(0, logEntry.getSelfHealth());
+				attributes[2] = (int) Math.max(0, logEntry.getOpponentHealth());
+				attributes[5] = (int) Math.max(0, logEntry.getSelfHealth());
 				fid.setAttributes(attributes);
 				postInvalidate();
 				try {
 					Thread.sleep(fightinterval);
+				} catch (Exception e) {
 				}
-				catch(Exception e) {
+				if (!exec) {
+					return;
 				}
 			}
-			//add winning message here
+			// add winning message here
 			status = Constants.STATUS_GAME;
 			postInvalidate();
 		}
-		
+
 	}
 
 }

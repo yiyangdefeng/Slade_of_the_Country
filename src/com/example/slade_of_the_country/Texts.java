@@ -46,6 +46,13 @@ public class Texts {
 	//
 	//
 	//
+	public static final String TEXT_NOYELLOWKEY = "你没有足够的黄钥匙哦！TAT";
+	public static final String TEXT_NOBLUEKEY = "你没有足够的蓝钥匙哦！:-(";
+	public static final String TEXT_NOREDKEY = "你没有足够的红钥匙哦！~555~";
+	public static final String TEXT_NOSPECIALKEY = "这是一道特殊的门，目前无法打开，注意收集信息，它总会开的，加油！";
+	public static final String TEXT_NOMONEY = "很抱歉，你已经没有足够的钱了，多打点敌人再说吧！";
+	public static final String TEXT_NOEXP = "很抱歉，你已经没有足够的经验，或许你该考虑下与敌人战斗了。";
+	public static final String TEXT_INFINITELOOP = "有意思的事情发生了，你和这个敌人的实力不分伯仲，你们谁都打不过对方，试试让自己变强大后再来吧。";
 	String[] dialogue = new String[]
 			{"就你这点实力也想打过我，再等五百年吧！",
 			"你竟然能达到这里，已经很不错了，但是你是不可能打过我的。"

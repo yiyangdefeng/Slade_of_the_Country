@@ -54,8 +54,8 @@ public class Constants {
 	public static final int STATUS_DIALOGUE = 2;
 	public static final int STATUS_SHOP = 3;
 	public static final int STATUS_FIGHT = 4;
-	public static final int GAME_WIN = 5;
-	public static final int GAME_OVER =6;
+	public static final int STATUS_GAME_WIN = 5;
+	public static final int STATUS_GAME_OVER =6;
 	public static final int STATUS_LOAD = 7;
 	public static final int STATUS_INSTRUCTION = 8;
 	public static final int STATUS_SAVE = 9;
@@ -109,9 +109,12 @@ public class Constants {
 	public static final int CONFIRM_TEXT_DOWN = 490;
 	public static final int CONFIRM_TEXT_LEFT = 360;
 	public static final int CANCEL_TEXT_LEFT = 860;
-	public static final int SINGLE_BUTTON_LEFT = 600;
-	public static final int SINGLE_BUTTON_RIGHT = 680;
-	public static final int TEXT_SINGLE_LEFT = 610;
+	public static final int SINGLE_BUTTON_LEFT = 880;
+	public static final int SINGLE_BUTTON_RIGHT = 960;
+	public static final int TEXT_SINGLE_LEFT = 890;
+	public static final int TEXT_SINGLE_DOWN = 690;
+	public static final int SINGLE_BUTTON_UP = 650;
+	public static final int SINGLE_BUTTON_DOWN = 700;
 	
 	//for text
 	//
@@ -137,6 +140,7 @@ public class Constants {
 	public static final int OPPOATTACK_BOTTOM = 460;
 	public static final int OPPODEFENSE_BOTTOM = 510;
 	public static final int SELFHEALTH_LEFT = 1000;
+	public static final int FIGHT_CHARACTER_SCALE = 100;
 	
 	//for dialogue interface
 	//

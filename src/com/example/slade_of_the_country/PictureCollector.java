@@ -26,6 +26,7 @@ public class PictureCollector {
 	public  Bitmap scaledbackground ;//= Bitmap.createScaledBitmap(background, (int)(Constants.MYSCREENHEIGHT),(int)(Constants.MYSCREENHEIGHT), true);
 	public  Bitmap scaledbuttondown ;//= Bitmap.createScaledBitmap(buttondown, (int)(Constants.BUTTONWIDTH), (int)(Constants.BUTTONWIDTH), true);
 	public Bitmap save;
+	public Map<String,Bitmap> bitmaps;
 	//public  scaledwarrior = Bitmap.createScaledBitmap(warrior,(int)(hero.getGridHeight()),(int)(hero.getGridWidth()),true);
 	
 	
@@ -52,6 +53,9 @@ public class PictureCollector {
 	public Bitmap scaledpreviouspage;
 	public Bitmap scalednextpage;
 	public Bitmap scaledrrreturn;
+	
+	//for fight interface
+	public Bitmap scaledwarrior_left;
 	
 	public PictureCollector(View view) {
 
@@ -96,13 +100,18 @@ public class PictureCollector {
 		 scalednextpage = Bitmap.createScaledBitmap(nextpage, (int)(Constants.INSTRUCTION_LOGOWIDTH),(int)(Constants.INSTRUCTION_LOGOHEIGHT), true);
 		 scaledpreviouspage = Bitmap.createScaledBitmap(previouspage, (int)(Constants.INSTRUCTION_LOGOWIDTH),(int)(Constants.INSTRUCTION_LOGOHEIGHT), true);
 		 
+		 scaledwarrior_left = Bitmap.createScaledBitmap(warrior_left, Constants.FIGHT_CHARACTER_SCALE, Constants.FIGHT_CHARACTER_SCALE, true);
 		 //for dialogue interface
 		 //
 		 //
 		 //
 		 Bitmap oppo1 = BitmapFactory.decodeResource(view.getResources(), R.drawable.oppo);
-		 Map<String,Bitmap> dialoguers = new HashMap<String, Bitmap>();
-		 dialoguers.put("oppo1", oppo1);
+		 
+		 
+		 
+		 bitmaps = new HashMap<String, Bitmap>();
+		 bitmaps.put("oppo1", oppo1);
+		 bitmaps.put("warrior_fight", scaledwarrior_left);
 		 //dialoguers.put("oppo2",oppo2);
 		 
 
