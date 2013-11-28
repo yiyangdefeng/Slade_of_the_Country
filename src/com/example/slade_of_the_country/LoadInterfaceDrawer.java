@@ -64,7 +64,9 @@ public class LoadInterfaceDrawer {
 				(Constants.MYSCREENWIDTH - Constants.MARGIN),
 				(Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 3, paint);
 		paint.setColor(Color.BLACK);
-		canvas.drawBitmap(pictures.scaledrrreturn,
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.rrreturn, "rrreturn", 
+				(int) (Constants.INSTRUCTION_LOGOWIDTH),
+				(int) (Constants.INSTRUCTION_LOGOHEIGHT)),
 				Constants.INSTRUCTION_LOGO_X1, Constants.INSTRUCTION_LOGO_Y,
 				paint);
 		paint.setColor(Color.BLACK);

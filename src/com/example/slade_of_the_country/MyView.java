@@ -87,7 +87,6 @@ public class MyView extends View {
 		did = new DialogueInterfaceDrawer(pictures);
 		gameoverid = new GameOverInterfaceDrawer(pictures);
 		gamewinid = new GameWinInterfaceDrawer(pictures);
-		
 		dm = new DataManager(c);
 		fightinterval = 50;
 		this.invalidate();
@@ -147,10 +146,10 @@ public class MyView extends View {
 			failureid.drawWarningMessage(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_GAME_OVER:
-			gameoverid.draw(canvas,canvasMatrix);
+			gameoverid.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_GAME_WIN:
-			gamewinid.draw(canvas,canvasMatrix);
+			gamewinid.draw(canvas, canvasMatrix);
 			break;
 		}
 
@@ -250,9 +249,9 @@ public class MyView extends View {
 		//
 		//
 		//
-		
+
 	}
-	
+
 	private void ShopInterfaceHandler() {
 		//
 		//
@@ -261,15 +260,11 @@ public class MyView extends View {
 		//
 		//
 		//
-		
+
 	}
-	
+
 	private void FailureWarningInterfaceHandler() {
-		if (x > Constants.SINGLE_BUTTON_LEFT && y > Constants.SINGLE_BUTTON_UP
-				&& x < Constants.SINGLE_BUTTON_RIGHT
-				&& y < Constants.SINGLE_BUTTON_DOWN) {
-			status = Constants.STATUS_GAME;
-		}
+		status = Constants.STATUS_GAME;
 	}
 
 	private void LoadInterfaceHandler() {
@@ -408,16 +403,7 @@ public class MyView extends View {
 		}
 	}
 
-	protected void reloadGame() throws IOException, DataException {
-		InputStream is = ma.getResources().openRawResource(R.raw.tradclone);
-		byte[] bufferedbyte = new byte[is.available()];
-		DataInput di = new DataInputStream(is);
-		di.readFully(bufferedbyte);
-		is.close();
-		sg = new StandardGame(new String(bufferedbyte, "utf-8"));
-		event = (StandardEvent) ma.engine.loadGame(sg);
-		ma.engine.setFailureTermination(Engine.Termination.AUTOMATIC);
-	}
+	
 
 	private void StartInterfaceHandler() {
 		if (x >= Constants.START_LOGO_X
@@ -483,8 +469,11 @@ public class MyView extends View {
 		if (buttonX >= 0 && buttonY >= 0) {
 			this.drawers.add(new Drawer() {
 				public void draw(Canvas canvas, Matrix matrix) {
-					canvas.drawBitmap(pictures.scaledbuttondown, buttonX,
-							buttonY, paint);
+					canvas.drawBitmap(pictures.getScaledTileBitmap(
+							pictures.buttonup, "buttonup",
+							(int) (Constants.BUTTONWIDTH),
+							(int) (Constants.BUTTONWIDTH)), buttonX, buttonY,
+							paint);
 				}
 			});
 		}
@@ -633,6 +622,16 @@ public class MyView extends View {
 
 	}
 
+	protected void reloadGame() throws IOException, DataException {
+		InputStream is = ma.getResources().openRawResource(R.raw.tradclone);
+		byte[] bufferedbyte = new byte[is.available()];
+		DataInput di = new DataInputStream(is);
+		di.readFully(bufferedbyte);
+		is.close();
+		sg = new StandardGame(new String(bufferedbyte, "utf-8"));
+		event = (StandardEvent) ma.engine.loadGame(sg);
+		ma.engine.setFailureTermination(Engine.Termination.AUTOMATIC);
+	}
 }
 
 interface Drawer {

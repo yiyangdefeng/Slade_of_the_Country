@@ -19,13 +19,10 @@ public class InstructionInterfaceDrawer {
 		this.pictures = pictures;
 	}
 	
-	protected TextDrawer getTextDrawer(int width, int height, Matrix matrix) {
+	protected TextDrawer getTextDrawer(int width, int height) {
 		long key = (width << 32) | height;
 		if (!tds.containsKey(key)) {
 			float[] wh = {width,height};
-			Matrix inverse = new Matrix();
-			matrix.invert(inverse);
-			inverse.mapPoints(wh);
 			tds.put(key,new TextDrawer(Texts.TEXT_INSTRUCTION,0,0,(int)(wh[0]),(int)(wh[1] - Constants.NORMALFONTSIZE - Constants.MARGIN),Color.BLACK,Color.WHITE,Constants.NORMALFONTSIZE));
 		}
 		return tds.get(key);
@@ -33,10 +30,16 @@ public class InstructionInterfaceDrawer {
 	
 	public void draw (Canvas canvas, Matrix matrix) {
 		canvas.setMatrix(matrix);
-		getTextDrawer(canvas.getWidth(),canvas.getHeight(),matrix).DrawText(canvas);
-		canvas.drawBitmap(pictures.scaledrrreturn, Constants.INSTRUCTION_LOGO_X1, Constants.INSTRUCTION_LOGO_Y,new Paint());
-		canvas.drawBitmap(pictures.scaledpreviouspage, Constants.INSTRUCTION_LOGO_X2, Constants.INSTRUCTION_LOGO_Y,new Paint());
-		canvas.drawBitmap(pictures.scalednextpage, Constants.INSTRUCTION_LOGO_X3, Constants.INSTRUCTION_LOGO_Y,new Paint());
+		getTextDrawer(Constants.MYSCREENWIDTH,Constants.INSTRUCTION_LOGO_Y).DrawText(canvas);
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.rrreturn, "rrreturn", 
+				(int) (Constants.INSTRUCTION_LOGOWIDTH),
+				(int) (Constants.INSTRUCTION_LOGOHEIGHT)), Constants.INSTRUCTION_LOGO_X1, Constants.INSTRUCTION_LOGO_Y,new Paint());
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.nextpage, "nextpage", 
+				(int) (Constants.INSTRUCTION_LOGOWIDTH),
+				(int) (Constants.INSTRUCTION_LOGOHEIGHT)), Constants.INSTRUCTION_LOGO_X2, Constants.INSTRUCTION_LOGO_Y,new Paint());
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.previouspage, "previouspage", 
+				(int) (Constants.INSTRUCTION_LOGOWIDTH),
+				(int) (Constants.INSTRUCTION_LOGOHEIGHT)), Constants.INSTRUCTION_LOGO_X3, Constants.INSTRUCTION_LOGO_Y,new Paint());
 	}
 	
 	public void MoveText(boolean backorforward) {

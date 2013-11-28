@@ -84,7 +84,7 @@ public class TextDrawer {
 		fontheight = (int) Math.ceil(fm.descent - fm.top)
 				+ Constants.NORMALMARGIN;
 
-		pagelinenum = (int)((textheight - textsize) /(float) fontheight);
+		pagelinenum = (int)((textheight) /(float) fontheight);
 
 		for (int i = 0; i < text.length(); i++) {
 			ch = text.charAt(i);

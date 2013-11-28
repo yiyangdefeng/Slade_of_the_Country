@@ -19,7 +19,7 @@ public class FailureWarningDrawer {
 		paint.setColor(Color.BLACK);
 		canvas.drawRect(Constants.FIGHT_INTERFACE_LEFT,
 				Constants.FIGHT_INTERFACE_TOP, Constants.FIGHT_INTERFACE_RIGHT,
-				Constants.FIGHT_INTERFACE_BOTTOM, paint);
+				Constants.MYSCREENHEIGHT, paint);
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(Constants.SMALLFONTSIZE);
 		String[] strings = StringSpliter(message,

@@ -14,7 +14,7 @@ public class DialogueInterfaceDrawer {
 		td = new TextDrawer("", Constants.DIALOGUE_INTERFACE_X,
 				Constants.DIALOGUE_INTERFACE_Y,
 				Constants.DIALOGUE_INTERFACE_WIDTH,
-				Constants.DIALOGUE_INTERFACE_HEIGHT, Color.WHITE, Color.BLACK,
+				Constants.DIALOGUE_INTERFACE_HEIGHT, Color.BLACK, Color.WHITE,
 				Constants.SMALLFONTSIZE);
 		this.pictures = pictures;
 		dialoguecontent = "";

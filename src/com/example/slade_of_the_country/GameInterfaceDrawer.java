@@ -1,13 +1,9 @@
 package com.example.slade_of_the_country;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.example.slade_of_the_country.MyView.MoveButton;
 
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardTile;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -16,8 +12,7 @@ import android.graphics.Paint;
 public class GameInterfaceDrawer {
 	private Paint paint = new Paint();
 	private PictureCollector pictures;
-	protected Map<String, Bitmap> scaledBitmaps = new HashMap<String, Bitmap>();
-	protected int cachedWidth = -1, cachedHeight = -1;
+
 	protected MoveButton button;
 
 	public GameInterfaceDrawer(PictureCollector pictures) {
@@ -30,13 +25,21 @@ public class GameInterfaceDrawer {
 		canvas.drawColor(Color.BLACK);
 		// canvas.drawBitmap(pictures.scaledbackground, Constants.MAINSURFACEX,
 		// Constants.MAINSURFACEY, paint);
-		canvas.drawBitmap(pictures.scaledbuttonup, Constants.UPBUTTONX,
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.buttonup,
+				"buttonup", (int) (Constants.BUTTONWIDTH),
+				(int) (Constants.BUTTONWIDTH)), Constants.UPBUTTONX,
 				Constants.UPBUTTONY, paint);
-		canvas.drawBitmap(pictures.scaledbuttonup, Constants.UPBUTTONX,
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.buttonup,
+				"buttonup", (int) (Constants.BUTTONWIDTH),
+				(int) (Constants.BUTTONWIDTH)), Constants.UPBUTTONX,
 				Constants.DOWNBUTTONY, paint);
-		canvas.drawBitmap(pictures.scaledbuttonup, Constants.LEFTBUTTONX,
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.buttonup,
+				"buttonup", (int) (Constants.BUTTONWIDTH),
+				(int) (Constants.BUTTONWIDTH)), Constants.LEFTBUTTONX,
 				Constants.LEFTBUTTONY, paint);
-		canvas.drawBitmap(pictures.scaledbuttonup, Constants.RIGHTBUTTONX,
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.buttonup,
+				"buttonup", (int) (Constants.BUTTONWIDTH),
+				(int) (Constants.BUTTONWIDTH)), Constants.RIGHTBUTTONX,
 				Constants.LEFTBUTTONY, paint);
 		// canvas.drawBitmap(pictures.scaledwarrior,
 		// hero.CalcPixelNumber()[0],hero.CalcPixelNumber()[1],paint);
@@ -87,7 +90,7 @@ public class GameInterfaceDrawer {
 		int z = engine.getCurrentCoordinate().getZ();
 		canvas.drawText(Integer.toString(z), Constants.TEXT_DIX
 				+ Constants.NORMALFONTSIZE, Constants.TEXT_DIY, paint);
-		canvas.drawBitmap(this.getScaledTileBitmap(pictures.save, "save",
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.save, "save",
 				Constants.SAVEBUTTONWIDTH, Constants.SAVEBUTTONHEIGHT),
 				Constants.SAVEBUTTONX, Constants.SAVEBUTTONY, paint);
 
@@ -105,7 +108,7 @@ public class GameInterfaceDrawer {
 					if (button != null) {
 						switch (button) {
 						case UP:
-							canvas.drawBitmap(this.getScaledTileBitmap(
+							canvas.drawBitmap(pictures.getScaledTileBitmap(
 									pictures.warrior_up, "warrior_up",
 									(int) tilewidth, (int) tileheight),
 									Constants.MAINGRID_LEFTX + tilewidth * i,
@@ -113,7 +116,7 @@ public class GameInterfaceDrawer {
 									paint);
 							break;
 						case DOWN:
-							canvas.drawBitmap(this.getScaledTileBitmap(
+							canvas.drawBitmap(pictures.getScaledTileBitmap(
 									pictures.warrior_down, "warrior_down",
 									(int) tilewidth, (int) tileheight),
 									Constants.MAINGRID_LEFTX + tilewidth * i,
@@ -121,7 +124,7 @@ public class GameInterfaceDrawer {
 									paint);
 							break;
 						case LEFT:
-							canvas.drawBitmap(this.getScaledTileBitmap(
+							canvas.drawBitmap(pictures.getScaledTileBitmap(
 									pictures.warrior_left, "warrior_left",
 									(int) tilewidth, (int) tileheight),
 									Constants.MAINGRID_LEFTX + tilewidth * i,
@@ -129,7 +132,7 @@ public class GameInterfaceDrawer {
 									paint);
 							break;
 						case RIGHT:
-							canvas.drawBitmap(this.getScaledTileBitmap(
+							canvas.drawBitmap(pictures.getScaledTileBitmap(
 									pictures.warrior_right, "warrior_right",
 									(int) tilewidth, (int) tileheight),
 									Constants.MAINGRID_LEFTX + tilewidth * i,
@@ -147,24 +150,6 @@ public class GameInterfaceDrawer {
 			}
 		}
 
-	}
-
-	protected Bitmap getScaledTileBitmap(Bitmap original, String key,
-			int width, int height) {
-		if (width != cachedWidth || height == cachedHeight) {
-			scaledBitmaps.clear();
-		}
-		makeScaledTileBitmap(original, key, width, height);
-		return scaledBitmaps.get(key);
-	}
-
-	protected void makeScaledTileBitmap(Bitmap original, String key, int width,
-			int height) {
-		if (scaledBitmaps.containsKey(key)) {
-			return;
-		}
-		scaledBitmaps.put(key,
-				Bitmap.createScaledBitmap(original, width, height, true));
 	}
 
 	public void setButton(MoveButton button) {

@@ -67,8 +67,8 @@ public class Constants {
 	//
 	//
 	public static final int START_LOGOHEIGHT = 100;
-	public static final int START_LOGOWIDTH = 400;
-	public static final int START_LOGO_X = 440;
+	public static final int START_LOGOWIDTH = 300;
+	public static final int START_LOGO_X = 490;
 	public static final int START_LOGO_Y1 = 230;
 	public static final int START_LOGO_Y2 = 350;
 	public static final int START_LOGO_Y3 = 470;
@@ -141,6 +141,10 @@ public class Constants {
 	public static final int OPPODEFENSE_BOTTOM = 510;
 	public static final int SELFHEALTH_LEFT = 1000;
 	public static final int FIGHT_CHARACTER_SCALE = 100;
+	public static final int FIGHT_WARRIOR_X = 950;
+	public static final int FIGHT_WARRIOR_Y = 260;
+	public static final int FIGHT_OPPO_X = 790;
+	public static final int FIGHT_OPPO_Y = 260;
 	
 	//for dialogue interface
 	//

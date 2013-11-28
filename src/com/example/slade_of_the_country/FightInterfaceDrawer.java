@@ -19,24 +19,36 @@ public class FightInterfaceDrawer {
 	public void draw(Canvas canvas, Matrix canvasMatrix) {
 		canvas.setMatrix(canvasMatrix);
 		paint.setColor(Color.BLACK);
-		canvas.drawRect(Constants.FIGHT_INTERFACE_LEFT, Constants.FIGHT_INTERFACE_TOP, Constants.FIGHT_INTERFACE_RIGHT,Constants.FIGHT_INTERFACE_BOTTOM,paint);	
+		canvas.drawRect(Constants.FIGHT_INTERFACE_LEFT,
+				Constants.FIGHT_INTERFACE_TOP, Constants.FIGHT_INTERFACE_RIGHT,
+				Constants.FIGHT_INTERFACE_BOTTOM, paint);
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.warrior_left,
+				"warrior_left_for_fight", Constants.FIGHT_CHARACTER_SCALE,
+				Constants.FIGHT_CHARACTER_SCALE), Constants.FIGHT_WARRIOR_X,
+				Constants.FIGHT_WARRIOR_Y, paint);
 		paint.setColor(Color.RED);
 		paint.setTextSize(Constants.NORMALSMALLFONTSIZE);
-		canvas.drawText(Texts.TEXT_BLOOD + attributes[2],Constants.OPPOHEALTH_LEFT, Constants.OPPOHEALTH_BOTTOM, paint);
-		//oh
-		canvas.drawText(Texts.TEXT_BLOOD + attributes[5],Constants.SELFHEALTH_LEFT, Constants.OPPOHEALTH_BOTTOM, paint);
-		//sh
+		canvas.drawText(Texts.TEXT_BLOOD + attributes[2],
+				Constants.OPPOHEALTH_LEFT, Constants.OPPOHEALTH_BOTTOM, paint);
+		// oh
+		canvas.drawText(Texts.TEXT_BLOOD + attributes[5],
+				Constants.SELFHEALTH_LEFT, Constants.OPPOHEALTH_BOTTOM, paint);
+		// sh
 		paint.setColor(Color.WHITE);
-		canvas.drawText(Texts.TEXT_ATTACK + attributes[0],Constants.OPPOHEALTH_LEFT, Constants.OPPOATTACK_BOTTOM, paint);
-		//oa
-		canvas.drawText(Texts.TEXT_DEFENCE + attributes[1],Constants.OPPOHEALTH_LEFT, Constants.OPPODEFENSE_BOTTOM, paint);
-		//od
-		canvas.drawText(Texts.TEXT_ATTACK + attributes[3],Constants.SELFHEALTH_LEFT, Constants.OPPOATTACK_BOTTOM, paint);
-		//sa
-		canvas.drawText(Texts.TEXT_DEFENCE + attributes[4],Constants.SELFHEALTH_LEFT, Constants.OPPODEFENSE_BOTTOM, paint);
-		//sd
+		canvas.drawText(Texts.TEXT_ATTACK + attributes[0],
+				Constants.OPPOHEALTH_LEFT, Constants.OPPOATTACK_BOTTOM, paint);
+		// oa
+		canvas.drawText(Texts.TEXT_DEFENCE + attributes[1],
+				Constants.OPPOHEALTH_LEFT, Constants.OPPODEFENSE_BOTTOM, paint);
+		// od
+		canvas.drawText(Texts.TEXT_ATTACK + attributes[3],
+				Constants.SELFHEALTH_LEFT, Constants.OPPOATTACK_BOTTOM, paint);
+		// sa
+		canvas.drawText(Texts.TEXT_DEFENCE + attributes[4],
+				Constants.SELFHEALTH_LEFT, Constants.OPPODEFENSE_BOTTOM, paint);
+		// sd
 	}
-	
+
 	public void setAttributes(int[] attributes) {
 		this.attributes = attributes;
 	}
