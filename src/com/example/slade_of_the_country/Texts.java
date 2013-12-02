@@ -53,12 +53,18 @@ public class Texts {
 	public static final String TEXT_NOMONEY = "很抱歉，你已经没有足够的钱了，多打点敌人再说吧！";
 	public static final String TEXT_NOEXP = "很抱歉，你已经没有足够的经验，或许你该考虑下与敌人战斗了。";
 	public static final String TEXT_INFINITELOOP = "有意思的事情发生了，你和这个敌人的实力不分伯仲，你们谁都打不过对方，试试让自己变强大后再来吧。";
-	String[] dialogue = new String[]
-			{"就你这点实力也想打过我，再等五百年吧！",
-			"你竟然能达到这里，已经很不错了，但是你是不可能打过我的。"
-			
-			};
 	
 	public static final String TEXT_CANNOTBEAT = "你太弱了，打不过强大的敌人。\n" + "试试其他的路线吧~";
 	
+	//for elevator interface
+	//
+	//
+	//
+	public static final String TEXT_STOORCHOICE = "请选择想去的楼层：";
+	
+	//for shop interface
+	public static final String TEXT_NOTICE = "你可以消耗30金币加强自己的实力！";
+	public static final String TEXT_ATTACKUP = "增加5点攻击";
+	public static final String TEXT_DEFENCEUP = "增加5点防御";
+	public static final String TEXT_BLOODUP = "增加1000点生命";
 }  

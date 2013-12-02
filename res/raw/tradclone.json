@@ -611,7 +611,9 @@
 				"text-codes": [
 					"background-red",
 					"foreground-white"
-				]
+				],
+				"ismonster":true,
+				"isboss":false
 			}
 		},
 		"MmstB": {
@@ -664,7 +666,17 @@
 				"text-codes": [
 					"background-red",
 					"foreground-white"
-				]
+				],
+				"ismonster":true,
+				"isboss":true,
+				"dialogue-before": [
+					["this","小样，就你这点本事也敢来挑战我？"],
+					["warrior","哼，我要让你们这些狂妄的人尝尝失败的滋味！"]		
+				],
+				"dialogue-after": {
+					"this":"不可能！我就然被打败了！！！",
+					"this":"别高兴太早，这个监狱中训练有素的看守者多得是，你早晚要死在这里的！"		
+				}
 			}
 		},
 		"MmstC": {

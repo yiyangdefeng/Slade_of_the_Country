@@ -47,6 +47,9 @@ public class MyView extends View {
 	protected FightInterfaceDrawer fid;
 	protected GameOverInterfaceDrawer gameoverid;
 	protected GameWinInterfaceDrawer gamewinid;
+	protected FireEyeInterfaceDrawer feid;
+	protected ElevatorInterfaceDrawer eid;
+	protected ShopInterfaceDrawer shopid;
 	protected PictureCollector pictures;
 	private StandardGame sg;
 	private MainActivity ma;
@@ -87,6 +90,9 @@ public class MyView extends View {
 		did = new DialogueInterfaceDrawer(pictures);
 		gameoverid = new GameOverInterfaceDrawer(pictures);
 		gamewinid = new GameWinInterfaceDrawer(pictures);
+		shopid = new ShopInterfaceDrawer(pictures);
+		feid = new FireEyeInterfaceDrawer();
+		eid = new ElevatorInterfaceDrawer();
 		dm = new DataManager(c);
 		fightinterval = 50;
 		this.invalidate();
@@ -140,6 +146,7 @@ public class MyView extends View {
 			did.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_SHOP:
+			shopid.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_FAILURE_WARNING:
 			gid.draw(canvas, canvasMatrix, ma.engine);
@@ -200,6 +207,10 @@ public class MyView extends View {
 			case Constants.STATUS_GAME_WIN:
 			case Constants.STATUS_FIGHT:
 				break;
+			case Constants.STATUS_ELEVATOR:
+				ElevatorInterfaceHandler();
+			case Constants.STATUS_FIREEYE:
+				break;
 			default:
 				break;
 			}
@@ -241,6 +252,25 @@ public class MyView extends View {
 		return null;
 	}
 
+	public void ElevatorInterfaceHandler() {
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (x > Constants.ELEVATOR_LEFT_MARGIN
+						+ Constants.ELEVATOR_GRIDWIDTH * i
+						&& y > Constants.ELEVATOR_TOP_MARGIN
+								+ Constants.ELEVATOR_GRIDHEIGHT * j
+						&& x < Constants.ELEVATOR_LEFT_MARGIN
+								+ Constants.ELEVATOR_GRIDWIDTH * i
+								+ Constants.ELEVATOR_TABWIDTH
+						&& y < Constants.ELEVATOR_TOP_MARGIN
+								+ Constants.ELEVATOR_GRIDHEIGHT * j
+								+ Constants.ELEVATOR_TABHEIGHT) {
+					//put warrior near the stair
+				}
+			}
+		}
+	}
+
 	private void DialogueInterfaceHandler() {
 		//
 		//
@@ -249,18 +279,23 @@ public class MyView extends View {
 		//
 		//
 		//
-
+		//
 	}
 
 	private void ShopInterfaceHandler() {
-		//
-		//
-		//
-		//
-		//
-		//
-		//
+		if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y1
+				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
+				&& y < Constants.SHOPBUTTON_Y1 + Constants.SHOPBUTTON_HEIGHT) {
 
+		} else if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y2
+				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
+				&& y < Constants.SHOPBUTTON_Y2 + Constants.SHOPBUTTON_HEIGHT) {
+
+		} else if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y3
+				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
+				&& y < Constants.SHOPBUTTON_Y3 + Constants.SHOPBUTTON_HEIGHT) {
+
+		}
 	}
 
 	private void FailureWarningInterfaceHandler() {
@@ -402,8 +437,6 @@ public class MyView extends View {
 			iid.MoveText(Constants.FORWARD);
 		}
 	}
-
-	
 
 	private void StartInterfaceHandler() {
 		if (x >= Constants.START_LOGO_X
@@ -628,7 +661,7 @@ public class MyView extends View {
 		DataInput di = new DataInputStream(is);
 		di.readFully(bufferedbyte);
 		is.close();
-		sg = new StandardGame(new String(bufferedbyte, "utf-8"));
+		sg = new StandardGame(new String(bufferedbyte, "gbk"));
 		event = (StandardEvent) ma.engine.loadGame(sg);
 		ma.engine.setFailureTermination(Engine.Termination.AUTOMATIC);
 	}

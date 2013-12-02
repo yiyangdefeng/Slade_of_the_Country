@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
 		engine = new Engine();
 		view = new MyView(this);
 		setContentView(view);
+		
 	}
 
 	@Override
@@ -93,6 +94,8 @@ public class MainActivity extends Activity {
 			case Constants.STATUS_DIALOGUE:
 			case Constants.STATUS_SHOP:
 			case Constants.STATUS_FAILURE_WARNING:
+			case Constants.STATUS_ELEVATOR:
+			case Constants.STATUS_FIREEYE:
 				view.status = Constants.STATUS_GAME;
 				view.invalidate();
 				break;

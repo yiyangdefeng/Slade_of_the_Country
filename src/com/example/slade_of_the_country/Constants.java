@@ -61,6 +61,8 @@ public class Constants {
 	public static final int STATUS_SAVE = 9;
 	public static final int STATUS_WARNING = 10;
 	public static final int STATUS_FAILURE_WARNING = 11;
+	public static final int STATUS_FIREEYE = 12;
+	public static final int STATUS_ELEVATOR = 13;
 	
 	//for start interface
 	//
@@ -154,4 +156,33 @@ public class Constants {
 	public static int DIALOGUE_INTERFACE_Y = 432;
 	public static int DIALOGUE_INTERFACE_WIDTH = 720;
 	public static int DIALOGUE_INTERFACE_HEIGHT = 288;
+	
+	//for elevator interface
+	//
+	//
+	//
+	public static int FLOOR_CHOICE_X = 40;
+	public static int FLOOR_CHOICE_Y = 80;
+	public static int ELEVATOR_LEFT_MARGIN = 60;
+	public static int ELEVATOR_TOP_MARGIN = 100;
+	public static int ELEVATOR_TABWIDTH = 200;
+	public static int ELEVATOR_TABHEIGHT = 120;
+	public static int ELEVATOR_GRIDWIDTH = 240;
+	public static int ELEVATOR_GRIDHEIGHT = 160;
+	public static int ELEVATOR_TEXTTOGRIDLEFT = 75;
+	public static int ELEVATOR_TEXTTOGRIDUP = 85;
+	
+	//for shop interface
+	public static int SHOPBUTTON_X = 720;
+	public static int SHOPBUTTON_Y1 = 300;
+	public static int SHOPBUTTON_Y2 = 450;
+	public static int SHOPBUTTON_Y3 = 600;
+	public static int SHOPBUTTON_WIDTH = 400;
+	public static int SHOPBUTTON_HEIGHT = 100;
+	public static int SHOP_TEXT1_X = 830;
+	public static int SHOP_TEXT2_X = 830;
+	public static int SHOP_TEXT3_X = 810;
+	public static int SHOP_TEXT_YTOTOP = 60;
+	public static int SHOP_TEXT_NOTICEX = 680;
+	public static int SHOP_TEXT_NOTICEY = 270;
 }

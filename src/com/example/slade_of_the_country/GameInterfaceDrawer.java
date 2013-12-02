@@ -1,5 +1,7 @@
 package com.example.slade_of_the_country;
 
+import java.util.Arrays;
+import java.util.List;
 import com.example.slade_of_the_country.MyView.MoveButton;
 
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
@@ -8,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 
 public class GameInterfaceDrawer {
 	private Paint paint = new Paint();
@@ -103,6 +106,17 @@ public class GameInterfaceDrawer {
 		paint.setTextSize(tileheight / 2);
 		for (int i = 0; i < Y; i++) {
 			for (int j = 0; j < X; j++) {
+				if(currenttile[j][i].getRenderingData().get("ismonster") != null) {
+					Log.e("test","monster at " + i + "," + j);
+				}
+				if(Boolean.TRUE.equals(currenttile[j][i].getRenderingData().get("isboss"))) {
+					Log.e("test","boss at " + i + "," + j);
+					@SuppressWarnings("unchecked")
+					List<List<String>> dialogue = (List<List<String>>)currenttile[j][i].getRenderingData().get("dialogue-before");
+					for(List<String> dialogueLine: dialogue) {
+						Log.e("test",Arrays.toString(dialogueLine.toArray()));
+					}
+				}
 				if ((Boolean) currenttile[j][i].getRenderingData().get(
 						"character") == true) {
 					if (button != null) {
