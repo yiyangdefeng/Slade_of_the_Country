@@ -20,7 +20,7 @@ import android.view.WindowManager;
 public class MainActivity extends Activity {
 	private DataManager dm;
 	Engine engine;
-	protected 		MyView view;
+	protected MyView view;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

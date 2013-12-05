@@ -16,6 +16,10 @@ public class StartInterfaceDrawer {
 	public void draw(Canvas canvas, Matrix canvasMatrix) {
 		canvas.setMatrix(canvasMatrix);
 		canvas.drawColor(Color.BLACK);
+		canvas.drawBitmap(pictures.getScaledTileBitmap(
+				pictures.slade_of_the_country, "big_slade_of_the_country",
+				Constants.START_TITLEWIDTH, Constants.START_TITLEHEIGHT),
+				Constants.START_TITLE_X, Constants.START_TITLE_Y, paint);
 		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.start, "start",
 				(int) (Constants.START_LOGOWIDTH),
 				(int) (Constants.START_LOGOHEIGHT)), Constants.START_LOGO_X,

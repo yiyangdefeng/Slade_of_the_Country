@@ -9,20 +9,30 @@ import android.view.View;
 
 public class PictureCollector {
 	public Map<String, Bitmap> scaledBitmaps;
-	public Map<String, Bitmap> bitmaps;
+	public Map<String, Bitmap> imagebitmaps;
 	// for gameinterface
 	//
 	//
 	//
 	public Bitmap background;
-	public Bitmap buttonup;// =
-	public Bitmap buttondown;
 	public Bitmap warrior;
 	public Bitmap warrior_left;
 	public Bitmap warrior_right;
 	public Bitmap warrior_up;
 	public Bitmap warrior_down;
 	public Bitmap save;
+	public Bitmap button_up_pop;
+	public Bitmap button_up_press;
+	public Bitmap button_down_pop;
+	public Bitmap button_down_press;
+	public Bitmap button_left_pop;
+	public Bitmap button_left_press;
+	public Bitmap button_right_pop;
+	public Bitmap button_right_press;
+	public Bitmap wall;
+	public Bitmap floor;
+	
+	public Bitmap slade_of_the_country;//sacle 3:1
 
 	// for startinterface
 	//
@@ -50,6 +60,7 @@ public class PictureCollector {
     public Bitmap oppo9;
     public Bitmap oppo10;
     
+    
 	// for instructioninterface
 	//
 	//
@@ -57,17 +68,39 @@ public class PictureCollector {
 	public Bitmap previouspage;
 	public Bitmap nextpage;
 	public Bitmap rrreturn;
+
 	
 
 	public PictureCollector(View view) {
 		scaledBitmaps = new HashMap<String, Bitmap>();
-		bitmaps = new HashMap<String, Bitmap>();
+		imagebitmaps = new HashMap<String, Bitmap>();
 		background = BitmapFactory.decodeResource(view.getResources(),
 				R.drawable.background);
-		buttonup = BitmapFactory.decodeResource(view.getResources(),
-				R.drawable.buttonup);
-		buttondown = BitmapFactory.decodeResource(view.getResources(),
-				R.drawable.buttondown);
+		button_up_pop = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.button_up_pop);
+		button_up_press = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.button_up_press);
+		button_left_pop = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.button_left_pop);
+		button_left_press = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.button_left_press);
+		button_right_pop = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.button_right_pop);
+		button_right_press = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.button_right_press);
+		button_down_pop = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.button_down_pop);
+		button_down_press = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.button_down_press);
+		
+		wall = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.wall);
+		floor = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.floor);
+		
+		slade_of_the_country = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.slade_of_the_country);
+		
 		warrior = BitmapFactory.decodeResource(view.getResources(),
 				R.drawable.warrior);
 		warrior_left = BitmapFactory.decodeResource(view.getResources(),
@@ -99,7 +132,7 @@ public class PictureCollector {
 				R.drawable.nextpage);
 		
 		oppo1 = BitmapFactory.decodeResource(view.getResources(),
-				R.drawable.oppo);
+				R.drawable.oppo1);
 		oppo2 = BitmapFactory.decodeResource(view.getResources(),
 				R.drawable.oppo2);
 		oppo3 = BitmapFactory.decodeResource(view.getResources(),
@@ -139,5 +172,7 @@ public class PictureCollector {
 	public Bitmap getBitmapFromKey(String key) {
 		return scaledBitmaps.get(key);
 	}
+	
+	
 
 }

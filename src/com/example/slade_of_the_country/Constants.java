@@ -2,10 +2,13 @@ package com.example.slade_of_the_country;
 
 public class Constants {
 	
+	public static final int ZERO = 0;
 	//for game interface
 	//
 	//
 	//
+	public static final int GAMELOGOWIDTH = 240;
+	public static final int GAMELOGOHEIGHT = 80;
 	public static final int BUTTONWIDTH = 150;
 	public static final float SCREENSCALE = (9f / 16);
 	public static final int MYSCREENWIDTH = 1280;
@@ -23,7 +26,7 @@ public class Constants {
 	public static final int NORMALSMALLFONTSIZE = 40;
 	public static final int NORMALFONTSIZE = 50;
 	public static final int TITLEX = 120;
-	public static final int TITLEY = 90;
+	public static final int TITLEY = 5;
 	public static final int TEXT_DIX = 160;
 	public static final int TEXT_DIY = 140;
 	public static final int TEXT_FLOORX = 260;
@@ -68,6 +71,11 @@ public class Constants {
 	//
 	//
 	//
+	public static final int START_TITLEHEIGHT = 200;
+	public static final int START_TITLEWIDTH = 600;
+	public static final int START_TITLE_X = 340;
+	public static final int START_TITLE_Y = 5;
+	
 	public static final int START_LOGOHEIGHT = 100;
 	public static final int START_LOGOWIDTH = 300;
 	public static final int START_LOGO_X = 490;

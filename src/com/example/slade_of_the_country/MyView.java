@@ -482,33 +482,58 @@ public class MyView extends View {
 		case DOWN:
 			buttonX = Constants.UPBUTTONX;
 			buttonY = Constants.DOWNBUTTONY;
-			break;
-		case LEFT:
-			buttonX = Constants.LEFTBUTTONX;
-			buttonY = Constants.LEFTBUTTONY;
-			break;
-		case RIGHT:
-			buttonX = Constants.RIGHTBUTTONX;
-			buttonY = Constants.LEFTBUTTONY;
-			break;
-		case UP:
-			buttonX = Constants.UPBUTTONX;
-			buttonY = Constants.UPBUTTONY;
-			break;
-		default:
-			buttonX = buttonY = -1;
-			break;
-		}
-		if (buttonX >= 0 && buttonY >= 0) {
 			this.drawers.add(new Drawer() {
 				public void draw(Canvas canvas, Matrix matrix) {
 					canvas.drawBitmap(pictures.getScaledTileBitmap(
-							pictures.buttonup, "buttonup",
+							pictures.button_down_press, "button_down_press",
 							(int) (Constants.BUTTONWIDTH),
 							(int) (Constants.BUTTONWIDTH)), buttonX, buttonY,
 							paint);
 				}
 			});
+			break;
+		case LEFT:
+			buttonX = Constants.LEFTBUTTONX;
+			buttonY = Constants.LEFTBUTTONY;
+			this.drawers.add(new Drawer() {
+				public void draw(Canvas canvas, Matrix matrix) {
+					canvas.drawBitmap(pictures.getScaledTileBitmap(
+							pictures.button_left_press, "button_left_press",
+							(int) (Constants.BUTTONWIDTH),
+							(int) (Constants.BUTTONWIDTH)), buttonX, buttonY,
+							paint);
+				}
+			});
+			break;
+		case RIGHT:
+			buttonX = Constants.RIGHTBUTTONX;
+			buttonY = Constants.LEFTBUTTONY;
+			this.drawers.add(new Drawer() {
+				public void draw(Canvas canvas, Matrix matrix) {
+					canvas.drawBitmap(pictures.getScaledTileBitmap(
+							pictures.button_right_press, "button_right_press",
+							(int) (Constants.BUTTONWIDTH),
+							(int) (Constants.BUTTONWIDTH)), buttonX, buttonY,
+							paint);
+				}
+			});
+			break;
+		case UP:
+			buttonX = Constants.UPBUTTONX;
+			buttonY = Constants.UPBUTTONY;
+			this.drawers.add(new Drawer() {
+				public void draw(Canvas canvas, Matrix matrix) {
+					canvas.drawBitmap(pictures.getScaledTileBitmap(
+							pictures.button_up_press, "button_up_press",
+							(int) (Constants.BUTTONWIDTH),
+							(int) (Constants.BUTTONWIDTH)), buttonX, buttonY,
+							paint);
+				}
+			});
+			break;
+		default:
+			buttonX = buttonY = -1;
+			break;
 		}
 	}
 
