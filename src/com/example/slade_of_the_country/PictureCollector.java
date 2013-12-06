@@ -9,7 +9,6 @@ import android.view.View;
 
 public class PictureCollector {
 	public Map<String, Bitmap> scaledBitmaps;
-	public Map<String, Bitmap> imagebitmaps;
 	// for gameinterface
 	//
 	//
@@ -59,6 +58,37 @@ public class PictureCollector {
     public Bitmap oppo8;
     public Bitmap oppo9;
     public Bitmap oppo10;
+    public Bitmap elevator;
+    public Bitmap special_warrior;
+    public Bitmap ak47;
+    public Bitmap banner_trans;
+    public Bitmap big_cure_box;
+    public Bitmap blue_key;
+    public Bitmap bluegate;
+    public Bitmap blackcoat;
+    public Bitmap silvercoat;
+    public Bitmap goldcoat;
+    public Bitmap cure_box;
+    public Bitmap dog;
+    public Bitmap downstairs;
+    public Bitmap fire_eye;
+    public Bitmap mastiff;
+    public Bitmap m16;
+    public Bitmap milktea;
+    public Bitmap npc;
+    public Bitmap pistol;
+    public Bitmap purple_kyrin;
+    public Bitmap red_key;
+    public Bitmap redgate;
+    public Bitmap shop;
+    public Bitmap sword;
+    public Bitmap u95;
+    public Bitmap upstairs;
+    public Bitmap tgate;
+    public Bitmap wolf;
+    
+   
+    
     
     
 	// for instructioninterface
@@ -73,7 +103,6 @@ public class PictureCollector {
 
 	public PictureCollector(View view) {
 		scaledBitmaps = new HashMap<String, Bitmap>();
-		imagebitmaps = new HashMap<String, Bitmap>();
 		background = BitmapFactory.decodeResource(view.getResources(),
 				R.drawable.background);
 		button_up_pop = BitmapFactory.decodeResource(view.getResources(),
@@ -101,8 +130,6 @@ public class PictureCollector {
 		slade_of_the_country = BitmapFactory.decodeResource(view.getResources(),
 				R.drawable.slade_of_the_country);
 		
-		warrior = BitmapFactory.decodeResource(view.getResources(),
-				R.drawable.warrior);
 		warrior_left = BitmapFactory.decodeResource(view.getResources(),
 				R.drawable.warrior_left);
 		warrior_right = BitmapFactory.decodeResource(view.getResources(),
@@ -151,7 +178,63 @@ public class PictureCollector {
 				R.drawable.oppo9);
 		oppo10 = BitmapFactory.decodeResource(view.getResources(),
 				R.drawable.oppo10);
-
+		
+		elevator = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.elevator);
+		special_warrior = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.special_warrior);
+		ak47 = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.ak47);
+		banner_trans = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.banner_trans);
+		big_cure_box = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.big_cure_box);
+		blue_key = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.blue_key);
+		bluegate = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.bluegate);
+		blackcoat = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.blackcoat);
+		silvercoat = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.silvercoat);
+		goldcoat = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.goldcoat);
+		cure_box = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.cure_box);
+		dog = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.dog);
+		downstairs = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.downstairs);
+		fire_eye = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.fire_eye);
+		mastiff = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.mastiff);
+		m16 = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.m16);
+		milktea = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.milktea);
+		npc = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.npc);
+		pistol = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.pistol);
+		purple_kyrin = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.purple_kyrin);
+		red_key = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.red_key);
+		redgate = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.redgate);
+		shop = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.shop);
+		sword = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.sword);
+		u95 = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.u95);
+		upstairs = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.upstairs);
+		tgate = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.tgate);
+		wolf = BitmapFactory.decodeResource(view.getResources(),
+				R.drawable.wolf);
 	}
 	
 	protected void makeScaledTileBitmap(Bitmap original, String key, int width,

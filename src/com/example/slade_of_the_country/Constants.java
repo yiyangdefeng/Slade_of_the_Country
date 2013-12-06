@@ -77,8 +77,8 @@ public class Constants {
 	public static final int START_TITLE_Y = 5;
 	
 	public static final int START_LOGOHEIGHT = 100;
-	public static final int START_LOGOWIDTH = 300;
-	public static final int START_LOGO_X = 490;
+	public static final int START_LOGOWIDTH = 400;
+	public static final int START_LOGO_X = 440;
 	public static final int START_LOGO_Y1 = 230;
 	public static final int START_LOGO_Y2 = 350;
 	public static final int START_LOGO_Y3 = 470;
@@ -122,9 +122,12 @@ public class Constants {
 	public static final int SINGLE_BUTTON_LEFT = 880;
 	public static final int SINGLE_BUTTON_RIGHT = 960;
 	public static final int TEXT_SINGLE_LEFT = 890;
-	public static final int TEXT_SINGLE_DOWN = 690;
-	public static final int SINGLE_BUTTON_UP = 650;
-	public static final int SINGLE_BUTTON_DOWN = 700;
+	public static final int TEXT_SINGLE_DOWN = 670;
+	public static final int SINGLE_BUTTON_UP = 630;
+	public static final int SINGLE_BUTTON_DOWN = 680;
+	
+	public static final int MESSAGE_TOP = 360;
+	public static final int MESSAGE_BOTTOM = 710;
 	
 	//for text
 	//
@@ -139,8 +142,8 @@ public class Constants {
 	//
 	//
 	//
-	public static final int FIGHT_INTERFACE_LEFT = 560;
-	public static final int FIGHT_INTERFACE_RIGHT = 1280;
+	public static final int FIGHT_INTERFACE_LEFT = 570;
+	public static final int FIGHT_INTERFACE_RIGHT = 1270;
 	public static final int FIGHT_INTERFACE_TOP = 180;
 	public static final int FIGHT_INTERFACE_BOTTOM = 540;
 	public static final int FIGHT_LOGO_LEFT = 870;
@@ -160,10 +163,15 @@ public class Constants {
 	//
 	//
 	//
-	public static int DIALOGUE_INTERFACE_X = 560;
+	public static int DIALOGUE_INTERFACE_X = 570;
 	public static int DIALOGUE_INTERFACE_Y = 432;
-	public static int DIALOGUE_INTERFACE_WIDTH = 720;
-	public static int DIALOGUE_INTERFACE_HEIGHT = 288;
+	public static int DIALOGUE_INTERFACE_WIDTH = 700;
+	public static int DIALOGUE_INTERFACE_HEIGHT = 278;
+	
+	public static int DIALOGUE_CHARACTER_X = 370;
+	public static int DIALOGUE_CHARACTER_Y = 1070;
+	public static int DIALOGUE_CHARACTER_WIDTH = 200;
+	public static int DIALOGUE_CHARACTER_HEIGHT = 200;
 	
 	//for elevator interface
 	//

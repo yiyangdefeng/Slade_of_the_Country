@@ -681,7 +681,7 @@ public class MyView extends View {
 	}
 
 	protected void reloadGame() throws IOException, DataException {
-		InputStream is = ma.getResources().openRawResource(R.raw.tradclone);
+		InputStream is = ma.getResources().openRawResource(R.raw.map);
 		byte[] bufferedbyte = new byte[is.available()];
 		DataInput di = new DataInputStream(is);
 		di.readFully(bufferedbyte);

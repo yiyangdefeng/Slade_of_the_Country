@@ -49,7 +49,7 @@ public class GameInterfaceDrawer {
 		// canvas.drawBitmap(pictures.scaledwarrior,
 		// hero.CalcPixelNumber()[0],hero.CalcPixelNumber()[1],paint);
 		canvas.drawBitmap(pictures.getScaledTileBitmap(
-				pictures.slade_of_the_country, "slade_of_the_country",
+				pictures.banner_trans, "banner_trans",
 				Constants.GAMELOGOWIDTH, Constants.GAMELOGOHEIGHT),
 				Constants.TITLEX, Constants.TITLEY, paint);
 		paint.setColor(Color.BLACK);
@@ -168,14 +168,7 @@ public class GameInterfaceDrawer {
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
-				} else {
-					canvas.drawText((String) currenttile[j][i]
-							.getRenderingData().get("text"),
-							Constants.MAINGRID_LEFTX + tilewidth * i,
-							Constants.MAINGRID_UPY + tileheight * (j + 1),
-							paint);
-				}
-
+				} 
 			}
 		}
 

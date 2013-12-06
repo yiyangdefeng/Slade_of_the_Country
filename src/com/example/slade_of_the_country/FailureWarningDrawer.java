@@ -17,18 +17,18 @@ public class FailureWarningDrawer {
 	public void drawWarningMessage(Canvas canvas, Matrix canvasmatrix) {
 		canvas.setMatrix(canvasmatrix);
 		paint.setColor(Color.BLACK);
-		canvas.drawRect(Constants.FIGHT_INTERFACE_LEFT,
-				Constants.FIGHT_INTERFACE_TOP, Constants.FIGHT_INTERFACE_RIGHT,
-				Constants.MYSCREENHEIGHT, paint);
+		canvas.drawRect(Constants.FIGHT_INTERFACE_LEFT + Constants.MARGIN * 2,
+				Constants.MESSAGE_TOP, Constants.FIGHT_INTERFACE_RIGHT - Constants.MARGIN * 2,
+				Constants.MESSAGE_BOTTOM, paint);
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(Constants.SMALLFONTSIZE);
 		String[] strings = StringSpliter(message,
-				Constants.FIGHT_INTERFACE_LEFT,
-				Constants.FIGHT_INTERFACE_RIGHT, Constants.SMALLFONTSIZE);
+				Constants.FIGHT_INTERFACE_LEFT + Constants.MARGIN * 3,
+				Constants.FIGHT_INTERFACE_RIGHT - Constants.MARGIN * 3, Constants.SMALLFONTSIZE);
 		for (int i = 0; i < strings.length; i++) {
 			canvas.drawText(
 					strings[i],
-					(Constants.FIGHT_INTERFACE_LEFT),
+					(Constants.FIGHT_INTERFACE_LEFT + Constants.MARGIN * 3),
 					(Constants.FIGHT_INTERFACE_TOP + Constants.SMALLFONTSIZE * (i + 1) + Constants.MARGIN * 10),
 					paint);
 

@@ -34,10 +34,10 @@ public class InstructionInterfaceDrawer {
 		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.rrreturn, "rrreturn", 
 				(int) (Constants.INSTRUCTION_LOGOWIDTH),
 				(int) (Constants.INSTRUCTION_LOGOHEIGHT)), Constants.INSTRUCTION_LOGO_X1, Constants.INSTRUCTION_LOGO_Y,new Paint());
-		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.nextpage, "nextpage", 
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.previouspage, "previouspage", 
 				(int) (Constants.INSTRUCTION_LOGOWIDTH),
 				(int) (Constants.INSTRUCTION_LOGOHEIGHT)), Constants.INSTRUCTION_LOGO_X2, Constants.INSTRUCTION_LOGO_Y,new Paint());
-		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.previouspage, "previouspage", 
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.nextpage, "nextpage", 
 				(int) (Constants.INSTRUCTION_LOGOWIDTH),
 				(int) (Constants.INSTRUCTION_LOGOHEIGHT)), Constants.INSTRUCTION_LOGO_X3, Constants.INSTRUCTION_LOGO_Y,new Paint());
 	}
