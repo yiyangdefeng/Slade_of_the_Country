@@ -195,12 +195,12 @@
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
             "mixin": {
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
-                "mixins": [
-                    {
+                "mixins": [	
+		    {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
                         "attribute": "key-x",
                         "operator": "+",
-                        "operand": -1
+                        "operand": 0
                     },
                     {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
@@ -290,14 +290,8 @@
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
                 "next": {
                     "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
-                    "//mixin": {
-                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
-                    },
                     "rendering": {
-                        "text": "Na",
-                        "text-codes": [
-                            "background-magenta",
-                            "foreground-white"
+                        "image": "npc",
                         ]
                     }
                 }
@@ -347,7 +341,10 @@
         },
         "npc": {
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
-            "rendering": {
+            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+		"rendering": {
                 "image": "npc"
             }
         },
