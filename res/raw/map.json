@@ -1,0 +1,4674 @@
+{
+    "size": {
+        "z": 19,
+        "x": 11,
+        "y": 11
+    },
+    "attributes": {
+        "health": 1000,
+        "attack": 1000,
+        "defense": 1000,
+        "gold": 0,
+        "exp": 0,
+        "key-y": 0,
+        "key-b": 0,
+        "key-r": 0,
+        "key-x": 0,
+        "npc-b": 0,
+        "success": 0,
+        "failure": 0,
+        "trade": 0
+    },
+    "failure-checks": [
+        "health",
+        "gold",
+        "exp",
+        "key-y",
+        "key-b",
+        "key-r",
+        "key-x",
+        "failure"
+    ],
+    "success-checks": [
+        "success"
+    ],
+    "tile-values": {
+        "wall": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "rendering": {
+                "image": "wall"
+            }
+        },
+        "floor": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+            },
+            "rendering": {}
+        },
+        "begin": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.CharacterTile",
+            "base": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                "mixin": {
+                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                },
+                "rendering": {}
+            }
+        },
+        "bluekey": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-b",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "blue_key"
+            }
+        },
+        "redkey": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-r",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "red_key"
+            }
+        },
+        "bluegate": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-b",
+                        "operator": "+",
+                        "operand": -1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "bluegate"
+            }
+        },
+        "redgate": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-r",
+                        "operator": "+",
+                        "operand": -1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "redgate"
+            }
+        },
+        "tgate": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-x",
+                        "operator": "+",
+                        "operand": -1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "tgate"
+            }
+        },
+        "spgate": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-x",
+                        "operator": "+",
+                        "operand": -1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "tgate"
+            }
+        },
+        "free": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-x",
+                        "operator": "+",
+                        "operand": 0
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "elevator"
+            }
+        },
+        "npcA": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-b",
+                        "operator": "+",
+                        "operand": 3
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "key-r",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                        "z": 0,
+                        "x": 2,
+                        "y": 5
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "npc"
+            }
+        },
+        ".npcA": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                "next": {
+                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                    "//mixin": {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                    },
+                    "rendering": {
+                        "text": "Na",
+                        "text-codes": [
+                            "background-magenta",
+                            "foreground-white"
+                        ]
+                    }
+                }
+            },
+            "rendering": {
+                "image": "npc"
+            }
+        },
+        "NnpcB": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+                        "attribute": "npc-b",
+                        "reference": 0,
+                        "==": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                            "mixins": [
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "key-x",
+                                    "operator": "+",
+                                    "operand": 1
+                                },
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "npc-b",
+                                    "operator": "+",
+                                    "operand": 1
+                                },
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                                    "z": 2,
+                                    "x": 5,
+                                    "y": 1
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "npc"
+            }
+        },
+        "npc": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "rendering": {
+                "image": "npc"
+            }
+        },
+	"book": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+                        "attribute": "npc-b",
+                        "reference": 0,
+                        "==": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                            "mixins": [
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "key-x",
+                                    "operator": "+",
+                                    "operand": 1
+                                },
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "npc-b",
+                                    "operator": "+",
+                                    "operand": 1
+                                },
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                                    "z": 2,
+                                    "x": 5,
+                                    "y": 1
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "fire_eye"
+            }
+        },
+        "down00": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 1,
+                "x": 9,
+                "y": 5
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up01": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 0,
+                "x": 1,
+                "y": 5
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down01": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 2,
+                "x": 10,
+                "y": 9
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up02": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 1,
+                "x": 0,
+                "y": 1
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down02": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 3,
+                "x": 1,
+                "y": 0
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up03": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 2,
+                "x": 10,
+                "y": 1
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down03": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 4,
+                "x": 9,
+                "y": 10
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up04": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 3,
+                "x": 10,
+                "y": 1
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down04": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 5,
+                "x": 9,
+                "y": 0
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up05": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 4,
+                "x": 1,
+                "y": 0
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down05": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 6,
+                "x": 9,
+                "y": 0
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up06": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 5,
+                "x": 1,
+                "y": 0
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down06": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 7,
+                "x": 1,
+                "y": 5
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up07": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 6,
+                "x": 9,
+                "y": 10
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down07": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 8,
+                "x": 9,
+                "y": 0
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up08": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 7,
+                "x": 9,
+                "y": 5
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down08": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 9,
+                "x": 9,
+                "y": 10
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up09": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 8,
+                "x": 1,
+                "y": 5
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down09": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 10,
+                "x": 1,
+                "y": 5
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up10": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 9,
+                "x": 1,
+                "y": 0
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down10": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 11,
+                "x": 1,
+                "y": 10
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up11": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 10,
+                "x": 9,
+                "y": 0
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down11": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 12,
+                "x": 1,
+                "y": 5
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up12": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 11,
+                "x": 10,
+                "y": 1
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down12": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 13,
+                "x": 9,
+                "y": 5
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up13": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 12,
+                "x": 9,
+                "y": 5
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down13": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 14,
+                "x": 1,
+                "y": 5
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up14": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 13,
+                "x": 1,
+                "y": 5
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down14": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 15,
+                "x": 0,
+                "y": 4
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up15": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 14,
+                "x": 9,
+                "y": 5
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down15": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 16,
+                "x": 1,
+                "y": 0
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up16": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 0,
+                "x": 10,
+                "y": 9
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down16": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 17,
+                "x": 9,
+                "y": 10
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up17": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 16,
+                "x": 9,
+                "y": 5
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "down17": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 18,
+                "x": 1,
+                "y": 10
+            },
+            "rendering": {
+                "image": "downstairs"
+            }
+        },
+        "up18": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 17,
+                "x": 0,
+                "y": 1
+            },
+            "rendering": {
+                "image": "upstairs"
+            }
+        },
+        "oppo1": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo1",
+                "isoppo": 1
+            }
+        },
+        "oppo2": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo2",
+                "isoppo": 1
+            }
+        },
+        "oppo3": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo3",
+                "isoppo": 1
+            }
+        },
+        "oppo4": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo4",
+                "isoppo": 1
+            }
+        },
+        "oppo5": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo5",
+                "isoppo": 1
+            }
+        },
+        "oppo6": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo6",
+                "isoppo": 1
+            }
+        },
+        "oppo7": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo7",
+                "isoppo": 1
+            }
+        },
+        "oppo8": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo8",
+                "isoppo": 1
+            }
+        },
+        "oppo9": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo9",
+                "isoppo": 1
+            }
+        },
+        "toppo10": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "oppo10",
+                "isoppo": 3
+            }
+        },
+        "toppo10x": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+            }
+        },
+        "anim1": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "dog",
+                "isoppo": 1
+            }
+        },
+        "anim2": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "mastiff",
+                "isoppo": 1
+            }
+        },
+        "anim3": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "wolf",
+                "isoppo": 1
+            }
+        },
+        "anim4": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 20,
+                        "defense-opponent": 1,
+                        "health-opponent": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 1
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "purple_kyrin",
+                "isoppo": 1
+            }
+        },
+        "boppo3": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight",
+                        "attack-attribute": "attack",
+                        "defense-attribute": "defense",
+                        "health-attribute": "health",
+                        "death-attribute": "failure",
+                        "attack-opponent": 15,
+                        "defense-opponent": 20,
+                        "health-opponent": 70
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": 2
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "exp",
+                        "operator": "+",
+                        "operand": 2
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {
+                                "text": "..",
+                                "text-codes": [
+                                    "background-white",
+                                    "foreground-black"
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "text": "Mb",
+                "text-codes": [
+                    "background-red",
+                    "foreground-white"
+                ],
+                "isoppo": 2,
+                "dialogue-before": [
+                    [
+                        "this",
+                        "小样，就你这点本事也敢来挑战我？"
+                    ],
+                    [
+                        "warrior",
+                        "哼，我要让你们这些狂妄的人尝尝失败的滋味！"
+                    ]
+                ],
+                "dialogue-after": {
+                    "this": "别高兴太早，这个监狱中训练有素的看守者多得是，你早晚要死在这里的！"
+                }
+            }
+        },
+        "curebox": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "health",
+                        "operator": "+",
+                        "operand": 200
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "cure_box"
+            }
+        },
+        "bigcbox": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "health",
+                        "operator": "+",
+                        "operand": 1000
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "big_cure_box"
+            }
+        },
+        "milk": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "health",
+                        "operator": "*",
+                        "operand": 2
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "attack",
+                        "operator": "*",
+                        "operand": 2
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "defense",
+                        "operator": "*",
+                        "operand": 2
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "milktea"
+            }
+        },
+        "gun1": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "attack",
+                        "operator": "+",
+                        "operand": 5
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "pistol"
+            }
+        },
+        "blackcoat": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "defense",
+                        "operator": "+",
+                        "operand": 5
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "blackcoat"
+            }
+        },
+        "silvercoat": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "defense",
+                        "operator": "+",
+                        "operand": 15
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "silvercoat"
+            }
+        },
+        "goldcoat": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "defense",
+                        "operator": "+",
+                        "operand": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "goldcoat"
+            }
+        },
+        "gun2": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "attack",
+                        "operator": "+",
+                        "operand": 10
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "u95"
+            }
+        },
+        "gun3": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "attack",
+                        "operator": "+",
+                        "operand": 20
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "m16"
+            }
+        },
+        "gun4": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "attack",
+                        "operator": "+",
+                        "operand": 50
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "image": "ak47"
+            }
+        },
+        "Tgld1": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+                        "attribute": "trade",
+                        "reference": 1,
+                        "==": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                            "mixins": [
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "gold",
+                                    "operator": "+",
+                                    "operand": -25
+                                },
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "health",
+                                    "operator": "+",
+                                    "operand": 800
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+                        "attribute": "trade",
+                        "reference": 2,
+                        "==": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                            "mixins": [
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "gold",
+                                    "operator": "+",
+                                    "operand": -25
+                                },
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "attack",
+                                    "operator": "+",
+                                    "operand": 4
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
+                        "attribute": "trade",
+                        "reference": 3,
+                        "==": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                            "mixins": [
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "gold",
+                                    "operator": "+",
+                                    "operand": -25
+                                },
+                                {
+                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                                    "attribute": "defense",
+                                    "operator": "+",
+                                    "operand": 4
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "rendering": {
+                "text": "Sg",
+                "text-codes": [
+                    "background-magenta",
+                    "foreground-white"
+                ]
+            }
+        }
+    },
+    "tiles": [
+        [
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "down00",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "npcA",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "curebox",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "curebox",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "curebox",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "begin",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "tgate",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ]
+        ],
+        [
+            [
+                "down01",
+                "floor",
+                "oppo2",
+                "oppo2",
+                "anim1",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor"
+            ],
+            [
+                "gun1",
+                "floor",
+                "floor",
+                "bluegate",
+                "floor",
+                "wall",
+                "gun1",
+                "bluekey",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "floor",
+                "oppo4",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "gun1",
+                "gun1",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "floor"
+            ],
+            [
+                "bluekey",
+                "floor",
+                "gun2",
+                "wall",
+                "floor",
+                "bluegate",
+                "oppo4",
+                "oppo4",
+                "oppo4",
+                "wall",
+                "floor"
+            ],
+            [
+                "floor",
+                "oppo5",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor"
+            ],
+            [
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "oppo5",
+                "oppo5",
+                "oppo5",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "floor"
+            ],
+            [
+                "npc",
+                "floor",
+                "gun2",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "oppo4",
+                "floor"
+            ],
+            [
+                "book",
+                "floor",
+                "gun2",
+                "wall",
+                "floor",
+                "up01",
+                "floor",
+                "wall",
+                "oppo4",
+                "gun2",
+                "floor"
+            ]
+        ],
+        [
+            [
+                "bluekey",
+                "blackcoat",
+                "wall",
+                "bluekey",
+                "gun1",
+                "bluekey",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "curebox"
+            ],
+            [
+                "floor",
+                "blackcoat",
+                "wall",
+                "curebox",
+                "bluekey",
+                "gun1",
+                "wall",
+                "floor",
+                "bluegate",
+                "oppo3",
+                "floor"
+            ],
+            [
+                "oppo3",
+                "floor",
+                "wall",
+                "bluekey",
+                "redkey",
+                "bluekey",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "anim1",
+                "floor",
+                "floor",
+                "floor",
+                "anim1",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "bluegate",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "oppo3",
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "curebox"
+            ],
+            [
+                "floor",
+                "bluekey",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "bluegate",
+                "oppo3",
+                "bluekey"
+            ],
+            [
+                "curebox",
+                "curebox",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "oppo4",
+                "wall",
+                "floor",
+                "floor"
+            ],
+            [
+                "down02",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "bluegate",
+                "floor",
+                "up02"
+            ]
+        ],
+        [
+            [
+                "up03",
+                "wall",
+                "floor",
+                "oppo4",
+                "bluegate",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "bluegate",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "wall",
+                "bluekey",
+                "wall",
+                "oppo3",
+                "oppo3",
+                "wall",
+                "oppo3"
+            ],
+            [
+                "floor",
+                "bluegate",
+                "oppo5",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "bluekey",
+                "bluekey",
+                "wall",
+                "floor"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "floor",
+                "wall",
+                "bluekey",
+                "bluekey",
+                "wall",
+                "floor"
+            ],
+            [
+                "bluekey",
+                "floor",
+                "oppo3",
+                "floor",
+                "wall",
+                "oppo4",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor"
+            ],
+            [
+                "bluekey",
+                "floor",
+                "floor",
+                "oppo3",
+                "wall",
+                "floor",
+                "oppo4",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "wall",
+                "oppo4",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "redgate"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "anim2",
+                "wall",
+                "floor",
+                "oppo5",
+                "oppo5",
+                "floor"
+            ],
+            [
+                "blackcoat",
+                "bluekey",
+                "blackcoat",
+                "blackcoat",
+                "wall",
+                "floor",
+                "wall",
+                "npc",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "oppo6",
+                "oppo6",
+                "wall",
+                "wall"
+            ],
+            [
+                "down03",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "oppo6",
+                "oppo6",
+                "npc",
+                "milk"
+            ]
+        ],
+        [
+            [
+                "down04",
+                "wall",
+                "bluekey",
+                "bluekey",
+                "wall",
+                "floor",
+                "oppo4",
+                "floor",
+                "bluekey",
+                "oppo4",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "bluekey",
+                "bluekey",
+                "wall",
+                "oppo4",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate"
+            ],
+            [
+                "floor",
+                "wall",
+                "wall",
+                "oppo5",
+                "wall",
+                "oppo3",
+                "wall",
+                "gun2",
+                "floor",
+                "oppo4",
+                "floor"
+            ],
+            [
+                "floor",
+                "bluegate",
+                "bluegate",
+                "floor",
+                "bluegate",
+                "oppo4",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "oppo4"
+            ],
+            [
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "floor",
+                "floor",
+                "anim2",
+                "anim2",
+                "floor",
+                "bluekey",
+                "floor",
+                "anim2",
+                "anim2",
+                "floor",
+                "floor"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor"
+            ],
+            [
+                "oppo4",
+                "floor",
+                "floor",
+                "oppo4",
+                "wall",
+                "curebox",
+                "bluegate",
+                "bluegate",
+                "floor",
+                "bluegate",
+                "floor"
+            ],
+            [
+                "floor",
+                "oppo4",
+                "floor",
+                "floor",
+                "wall",
+                "curebox",
+                "wall",
+                "wall",
+                "oppo5",
+                "wall",
+                "oppo4"
+            ],
+            [
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "curebox",
+                "wall",
+                "floor",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "floor",
+                "anim2",
+                "floor",
+                "floor",
+                "oppo3",
+                "floor",
+                "wall",
+                "gun2",
+                "gun2",
+                "wall",
+                "up04"
+            ]
+        ],
+        [
+            [
+                "down05",
+                "floor",
+                "redgate",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "anim2",
+                "oppo5",
+                "anim2",
+                "floor",
+                "wall",
+                "wall"
+            ],
+            [
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "floor",
+                "wall",
+                "bluekey",
+                "bluekey",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "gun2"
+            ],
+            [
+                "floor",
+                "wall",
+                "bluekey",
+                "floor",
+                "oppo5",
+                "floor",
+                "floor",
+                "floor",
+                "oppo5",
+                "floor",
+                "floor"
+            ],
+            [
+                "blackcoat",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "blackcoat",
+                "wall",
+                "redkey",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "gun2"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "oppo5",
+                "floor",
+                "floor",
+                "floor",
+                "oppo5",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "floor",
+                "wall",
+                "curebox",
+                "curebox",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "curebox",
+                "curebox"
+            ],
+            [
+                "up05",
+                "wall",
+                "curebox",
+                "floor",
+                "oppo5",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "curebox"
+            ]
+        ],
+        [
+            [
+                "bluekey",
+                "bluekey",
+                "bluekey",
+                "wall",
+                "blackcoat",
+                "blackcoat",
+                "blackcoat",
+                "wall",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "blackcoat",
+                "bluekey",
+                "blackcoat",
+                "wall",
+                "oppo5",
+                "oppo5",
+                "oppo5",
+                "wall",
+                "bluekey",
+                "floor",
+                "gun2"
+            ],
+            [
+                "bluekey",
+                "oppo5",
+                "bluekey",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "oppo5",
+                "floor"
+            ],
+            [
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "bluegate",
+                "floor",
+                "anim2",
+                "floor",
+                "floor",
+                "anim2",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "npc",
+                "floor",
+                "floor",
+                "floor",
+                "blackcoat",
+                "blackcoat",
+                "blackcoat",
+                "oppo4",
+                "oppo4",
+                "oppo4",
+                "floor"
+            ],
+            [
+                "spgate",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "oppo3"
+            ],
+            [
+                "floor",
+                "wall",
+                "oppo5",
+                "oppo5",
+                "oppo5",
+                "wall",
+                "floor",
+                "oppo5",
+                "floor",
+                "wall",
+                "oppo2"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "curebox",
+                "floor",
+                "wall",
+                "gun1",
+                "floor",
+                "wall",
+                "wall",
+                "floor"
+            ],
+            [
+                "up06",
+                "wall",
+                "floor",
+                "curebox",
+                "floor",
+                "wall",
+                "floor",
+                "gun2",
+                "floor",
+                "wall",
+                "down06"
+            ]
+        ],
+        [
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "down07",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor"
+            ],
+            [
+                "wall",
+                "curebox",
+                "curebox",
+                "curebox",
+                "curebox",
+                "floor",
+                "curebox",
+                "curebox",
+                "curebox",
+                "curebox",
+                "wall"
+            ],
+            [
+                "wall",
+                "blackcoat",
+                "wall",
+                "wall",
+                "blackcoat",
+                "npc",
+                "blackcoat",
+                "wall",
+                "wall",
+                "blackcoat",
+                "wall"
+            ],
+            [
+                "wall",
+                "blackcoat",
+                "wall",
+                "wall",
+                "blackcoat",
+                "bluekey",
+                "blackcoat",
+                "wall",
+                "wall",
+                "blackcoat",
+                "wall"
+            ],
+            [
+                "wall",
+                "blackcoat",
+                "wall",
+                "wall",
+                "blackcoat",
+                "bluekey",
+                "blackcoat",
+                "wall",
+                "wall",
+                "blackcoat",
+                "wall"
+            ],
+            [
+                "wall",
+                "blackcoat",
+                "wall",
+                "wall",
+                "gun2",
+                "redkey",
+                "gun2",
+                "wall",
+                "wall",
+                "blackcoat",
+                "wall"
+            ],
+            [
+                "wall",
+                "blackcoat",
+                "wall",
+                "wall",
+                "gun2",
+                "curebox",
+                "gun2",
+                "wall",
+                "wall",
+                "blackcoat",
+                "wall"
+            ],
+            [
+                "wall",
+                "blackcoat",
+                "wall",
+                "wall",
+                "gun2",
+                "curebox",
+                "gun2",
+                "wall",
+                "wall",
+                "blackcoat",
+                "wall"
+            ],
+            [
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "gun2",
+                "curebox",
+                "gun2",
+                "wall",
+                "wall",
+                "floor",
+                "wall"
+            ],
+            [
+                "wall",
+                "gun2",
+                "gun3",
+                "gun2",
+                "gun3",
+                "oppo5",
+                "gun2",
+                "gun3",
+                "gun2",
+                "gun3",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "up07",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor"
+            ]
+        ],
+        [
+            [
+                "floor",
+                "oppo5",
+                "oppo5",
+                "bluegate",
+                "floor",
+                "down08",
+                "floor",
+                "bluegate",
+                "oppo5",
+                "oppo5",
+                "floor"
+            ],
+            [
+                "floor",
+                "oppo5",
+                "oppo5",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "oppo5",
+                "oppo5",
+                "floor"
+            ],
+            [
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "bluegate",
+                "bluegate",
+                "floor",
+                "floor"
+            ],
+            [
+                "gun3",
+                "floor",
+                "floor",
+                "bluegate",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "gun4",
+                "oppo5",
+                "floor"
+            ],
+            [
+                "oppo5",
+                "oppo5",
+                "bluegate",
+                "oppo6",
+                "oppo6",
+                "wall",
+                "oppo5",
+                "wall",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "gun3",
+                "oppo5",
+                "wall",
+                "oppo6",
+                "oppo6",
+                "wall",
+                "oppo5",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate"
+            ],
+            [
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "bigcbox",
+                "wall",
+                "floor",
+                "oppo5",
+                "oppo5"
+            ],
+            [
+                "floor",
+                "floor",
+                "wall",
+                "bluegate",
+                "bluegate",
+                "wall",
+                "bigcbox",
+                "wall",
+                "floor",
+                "oppo5",
+                "oppo5"
+            ],
+            [
+                "up08",
+                "floor",
+                "redgate",
+                "redgate",
+                "bluegate",
+                "bluegate",
+                "floor",
+                "bluegate",
+                "floor",
+                "floor",
+                "floor"
+            ]
+        ],
+        [
+            [
+                "down09",
+                "wall",
+                "floor",
+                "wall",
+                "blackcoat",
+                "oppo6",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "blackcoat",
+                "oppo6",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat"
+            ],
+            [
+                "floor",
+                "wall",
+                "oppo6",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat"
+            ],
+            [
+                "floor",
+                "wall",
+                "bluegate",
+                "wall",
+                "bluegate",
+                "wall",
+                "bluegate",
+                "wall",
+                "bluegate",
+                "wall",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "anim2",
+                "floor",
+                "anim2",
+                "floor",
+                "anim2",
+                "floor",
+                "anim2",
+                "floor"
+            ],
+            [
+                "oppo6",
+                "wall",
+                "bluegate",
+                "wall",
+                "bluegate",
+                "wall",
+                "bluegate",
+                "wall",
+                "bluegate",
+                "wall",
+                "oppo7"
+            ],
+            [
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "npc"
+            ],
+            [
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "free"
+            ],
+            [
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "oppo6",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "floor"
+            ],
+            [
+                "blackcoat",
+                "bluegate",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "oppo6",
+                "blackcoat",
+                "wall",
+                "blackcoat",
+                "wall",
+                "up09"
+            ]
+        ],
+        [
+            [
+                "floor",
+                "anim3",
+                "anim3",
+                "floor",
+                "floor",
+                "up10",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "redgate",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "floor",
+                "oppo8",
+                "oppo8",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "oppo6",
+                "oppo6",
+                "gun3"
+            ],
+            [
+                "floor",
+                "oppo8",
+                "oppo8",
+                "gun3",
+                "floor",
+                "floor",
+                "floor",
+                "bluegate",
+                "oppo6",
+                "oppo6",
+                "floor"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "oppo6",
+                "oppo6",
+                "gun3",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "gun3",
+                "oppo6",
+                "oppo6"
+            ],
+            [
+                "oppo6",
+                "oppo6",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "oppo6",
+                "oppo6"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "anim3",
+                "anim3"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "redgate",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "npc",
+                "floor",
+                "wall",
+                "anim2",
+                "floor",
+                "anim2"
+            ],
+            [
+                "down10",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "bluegate",
+                "floor",
+                "floor",
+                "floor"
+            ]
+        ],
+        [
+            [
+                "oppo6",
+                "gun4",
+                "oppo6",
+                "gun3",
+                "oppo6",
+                "floor",
+                "oppo6",
+                "floor",
+                "anim3",
+                "floor",
+                "up11"
+            ],
+            [
+                "gun4",
+                "wall",
+                "gun3",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "oppo6",
+                "gun3",
+                "oppo6",
+                "floor",
+                "oppo6",
+                "floor",
+                "oppo6",
+                "floor",
+                "anim3",
+                "floor",
+                "floor"
+            ],
+            [
+                "gun3",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "oppo6",
+                "floor",
+                "oppo6",
+                "floor",
+                "oppo7",
+                "floor",
+                "oppo7",
+                "floor",
+                "anim3",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "gun3",
+                "wall",
+                "gun3",
+                "wall",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "oppo6",
+                "floor",
+                "oppo6",
+                "floor",
+                "oppo7",
+                "floor",
+                "oppo7",
+                "floor",
+                "anim3",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "anim3",
+                "floor",
+                "anim3",
+                "floor",
+                "anim3",
+                "floor",
+                "anim3",
+                "floor",
+                "anim3",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor"
+            ],
+            [
+                "down11",
+                "floor",
+                "npc",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ]
+        ],
+        [
+            [
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "up12",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "curebox",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "curebox"
+            ],
+            [
+                "curebox",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "redgate",
+                "wall",
+                "wall",
+                "blackcoat",
+                "floor",
+                "curebox"
+            ],
+            [
+                "curebox",
+                "wall",
+                "blackcoat",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "blackcoat",
+                "wall",
+                "curebox"
+            ],
+            [
+                "curebox",
+                "wall",
+                "blackcoat",
+                "wall",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "wall",
+                "blackcoat",
+                "wall",
+                "curebox"
+            ],
+            [
+                "curebox",
+                "wall",
+                "blackcoat",
+                "wall",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "wall",
+                "blackcoat",
+                "wall",
+                "curebox"
+            ],
+            [
+                "gun2",
+                "wall",
+                "blackcoat",
+                "wall",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "wall",
+                "blackcoat",
+                "wall",
+                "gun2"
+            ],
+            [
+                "gun2",
+                "wall",
+                "blackcoat",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "blackcoat",
+                "wall",
+                "gun2"
+            ],
+            [
+                "gun2",
+                "wall",
+                "blackcoat",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "blackcoat",
+                "wall",
+                "gun2"
+            ],
+            [
+                "oppo7",
+                "wall",
+                "oppo7",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "oppo7",
+                "wall",
+                "oppo7"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "down12",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ]
+        ],
+        [
+            [
+                "bluekey",
+                "oppo6",
+                "floor",
+                "wall",
+                "floor",
+                "down13",
+                "floor",
+                "wall",
+                "floor",
+                "gun3",
+                "oppo6"
+            ],
+            [
+                "bluekey",
+                "oppo6",
+                "floor",
+                "bluegate",
+                "oppo5",
+                "floor",
+                "oppo5",
+                "bluegate",
+                "oppo6",
+                "floor",
+                "floor"
+            ],
+            [
+                "bluekey",
+                "oppo6",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "bluekey",
+                "wall",
+                "floor",
+                "floor",
+                "bigcbox"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "redgate",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall"
+            ],
+            [
+                "blackcoat",
+                "bluekey",
+                "floor",
+                "wall",
+                "bigcbox",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "oppo6",
+                "gun3"
+            ],
+            [
+                "blackcoat",
+                "floor",
+                "oppo6",
+                "bluegate",
+                "floor",
+                "oppo7",
+                "floor",
+                "bluegate",
+                "oppo6",
+                "floor",
+                "bigcbox"
+            ],
+            [
+                "bigcbox",
+                "bluekey",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "bluekey",
+                "wall",
+                "oppo6",
+                "floor",
+                "redkey"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall"
+            ],
+            [
+                "gun3",
+                "oppo6",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "oppo6",
+                "floor"
+            ],
+            [
+                "gun3",
+                "floor",
+                "oppo6",
+                "bluegate",
+                "floor",
+                "floor",
+                "floor",
+                "bluegate",
+                "oppo6",
+                "wall",
+                "wall"
+            ],
+            [
+                "bigcbox",
+                "bigcbox",
+                "blackcoat",
+                "wall",
+                "floor",
+                "up13",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "floor"
+            ]
+        ],
+        [
+            [
+                "bigcbox",
+                "floor",
+                "floor",
+                "wall",
+                "npc",
+                "up14",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "bigcbox"
+            ],
+            [
+                "floor",
+                "gun4",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "gun4",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "bigcbox",
+                "wall",
+                "anim3",
+                "wall",
+                "anim3",
+                "wall",
+                "bigcbox",
+                "floor",
+                "floor"
+            ],
+            [
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "wall"
+            ],
+            [
+                "anim3",
+                "oppo6",
+                "anim3",
+                "wall",
+                "bluegate",
+                "wall",
+                "redgate",
+                "wall",
+                "anim3",
+                "oppo6",
+                "anim3"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "wall"
+            ],
+            [
+                "anim3",
+                "oppo7",
+                "anim3",
+                "wall",
+                "gun3",
+                "gun4",
+                "gun3",
+                "wall",
+                "anim3",
+                "oppo6",
+                "anim3"
+            ],
+            [
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "oppo7",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "bluegate",
+                "wall"
+            ],
+            [
+                "blackcoat",
+                "floor",
+                "floor",
+                "anim3",
+                "floor",
+                "down14",
+                "floor",
+                "anim3",
+                "floor",
+                "floor",
+                "blackcoat"
+            ]
+        ],
+        [
+            [
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "up15",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "wall",
+                "wall",
+                "bluegate",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "gun4",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "anim3",
+                "bluegate",
+                "floor"
+            ],
+            [
+                "blackcoat",
+                "wall",
+                "anim4",
+                "anim4",
+                "anim4",
+                "floor",
+                "floor",
+                "floor",
+                "oppo7",
+                "wall",
+                "oppo7"
+            ],
+            [
+                "blackcoat",
+                "wall",
+                "anim4",
+                "anim4",
+                "anim4",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "oppo7"
+            ],
+            [
+                "bigcbox",
+                "wall",
+                "anim4",
+                "anim4",
+                "anim4",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "oppo7"
+            ],
+            [
+                "bigcbox",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "oppo7"
+            ],
+            [
+                "bigcbox",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "oppo7"
+            ],
+            [
+                "bigcbox",
+                "anim3",
+                "anim3",
+                "anim3",
+                "oppo6",
+                "oppo6",
+                "oppo6",
+                "oppo6",
+                "oppo6",
+                "oppo6",
+                "oppo7"
+            ],
+            [
+                "bigcbox",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "floor",
+                "floor",
+                "down15"
+            ]
+        ],
+        [
+            [
+                "up16",
+                "floor",
+                "wall",
+                "curebox",
+                "floor",
+                "gun4",
+                "floor",
+                "curebox",
+                "wall",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "wall",
+                "oppo7",
+                "wall",
+                "gun4",
+                "wall",
+                "oppo7",
+                "wall",
+                "bluegate",
+                "wall"
+            ],
+            [
+                "floor",
+                "floor",
+                "wall",
+                "anim3",
+                "floor",
+                "oppo8",
+                "floor",
+                "anim3",
+                "wall",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "floor",
+                "floor"
+            ],
+            [
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "bluegate"
+            ],
+            [
+                "floor",
+                "curebox",
+                "curebox",
+                "gun2",
+                "blackcoat",
+                "gun3",
+                "gun2",
+                "curebox",
+                "curebox",
+                "curebox",
+                "curebox"
+            ],
+            [
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "curebox",
+                "wall",
+                "wall",
+                "floor",
+                "floor",
+                "floor"
+            ],
+            [
+                "anim3",
+                "wall",
+                "oppo7",
+                "bluegate",
+                "floor",
+                "floor",
+                "floor",
+                "wall",
+                "wall",
+                "wall",
+                "oppo8"
+            ],
+            [
+                "gun2",
+                "curebox",
+                "gun2",
+                "wall",
+                "floor",
+                "down16",
+                "floor",
+                "bluegate",
+                "gun2",
+                "curebox",
+                "gun2"
+            ]
+        ],
+        [
+            [
+                "down17",
+                "oppo9",
+                "oppo8",
+                "oppo8",
+                "oppo8",
+                "oppo9",
+                "bigcbox",
+                "bigcbox",
+                "blackcoat",
+                "blackcoat",
+                "blackcoat"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "gun4",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "gun3",
+                "npc",
+                "gun3",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "bigcbox",
+                "bigcbox",
+                "bigcbox",
+                "bigcbox",
+                "bigcbox",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "oppo9",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "oppo7",
+                "oppo8",
+                "oppo8",
+                "oppo8",
+                "oppo8",
+                "oppo8",
+                "oppo8",
+                "oppo8",
+                "oppo8",
+                "bigcbox",
+                "bigcbox"
+            ],
+            [
+                "oppo7",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "oppo7",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall"
+            ],
+            [
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "oppo7",
+                "oppo6",
+                "oppo5",
+                "oppo4",
+                "oppo3",
+                "oppo2",
+                "oppo1"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "up17"
+            ],
+            [
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "floor",
+                "wall",
+                "floor"
+            ]
+        ],
+        [
+            [
+                "anim3",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "wall",
+                "up18"
+            ],
+            [
+                "anim3",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "oppo9",
+                "wall",
+                "floor"
+            ],
+            [
+                "anim3",
+                "wall",
+                "anim4",
+                "anim4",
+                "anim4",
+                "anim4",
+                "anim4",
+                "wall",
+                "oppo9",
+                "wall",
+                "oppo1"
+            ],
+            [
+                "anim3",
+                "wall",
+                "anim4",
+                "wall",
+                "wall",
+                "wall",
+                "anim4",
+                "wall",
+                "oppo9",
+                "wall",
+                "oppo2"
+            ],
+            [
+                "anim3",
+                "wall",
+                "anim4",
+                "wall",
+                "toppo10",
+                "toppo10x",
+                "toppo10x",
+                "wall",
+                "oppo9",
+                "wall",
+                "oppo2"
+            ],
+            [
+                "anim3",
+                "wall",
+                "anim4",
+                "wall",
+                "toppo10x",
+                "toppo10x",
+                "toppo10x",
+                "wall",
+                "oppo9",
+                "wall",
+                "oppo3"
+            ],
+            [
+                "oppo3",
+                "wall",
+                "anim4",
+                "wall",
+                "toppo10x",
+                "toppo10x",
+                "toppo10x",
+                "wall",
+                "oppo9",
+                "wall",
+                "oppo3"
+            ],
+            [
+                "anim2",
+                "wall",
+                "anim4",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "oppo9",
+                "wall",
+                "oppo4"
+            ],
+            [
+                "anim2",
+                "wall",
+                "anim4",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "oppo9",
+                "wall",
+                "oppo4"
+            ],
+            [
+                "anim2",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "wall",
+                "oppo6",
+                "wall",
+                "oppo5"
+            ],
+            [
+                "anim1",
+                "anim1",
+                "anim1",
+                "anim1",
+                "oppo8",
+                "oppo8",
+                "oppo7",
+                "oppo7",
+                "floor",
+                "oppo6",
+                "oppo5"
+            ]
+        ]
+    ],
+	"renderer": {
+		"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.DummyStandardRenderer"
+	}
+}
