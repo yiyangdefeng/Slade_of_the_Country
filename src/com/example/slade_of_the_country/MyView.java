@@ -163,9 +163,7 @@ public class MyView extends View {
 			eid.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_FIREEYE:
-			//
-			//
-			//
+			feid.draw(canvas,canvasMatrix);
 			break;
 		}
 
@@ -263,11 +261,13 @@ public class MyView extends View {
 	}
 
 	public void FireEyeInterfaceHandler() {
-		//
-		//
-		//
-		//
-		//
+		if (feid.getIsEnd()) {
+			feid.Reset();
+			status = Constants.STATUS_GAME;
+		}
+		else {
+			feid.goNextPage();
+		}
 	}
 
 	public void ElevatorInterfaceHandler() {
