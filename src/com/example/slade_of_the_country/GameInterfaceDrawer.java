@@ -27,7 +27,16 @@ public class GameInterfaceDrawer {
 				.getScaledTileBitmap(pictures.background, "background",
 						Constants.MYSCREENWIDTH, Constants.MYSCREENHEIGHT),
 				Constants.ZERO, Constants.ZERO, paint);
-		
+		engine.setAttribute("haselevator", true);
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.fire_eye,
+				"big_fire_eye", Constants.TOOL_SIZE, Constants.TOOL_SIZE),
+				Constants.FIRE_EYE_X, Constants.TOOL_Y, paint);
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.elevator,
+				"big_elevator", Constants.TOOL_SIZE, Constants.TOOL_SIZE),
+				Constants.ELEVATOR_X, Constants.TOOL_Y, paint);
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.shop,
+				"big_shop", Constants.TOOL_SIZE, Constants.TOOL_SIZE),
+				Constants.SHOP_X, Constants.TOOL_Y, paint);
 		// canvas.drawBitmap(pictures.scaledbackground, Constants.MAINSURFACEX,
 		// Constants.MAINSURFACEY, paint);
 		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.button_up_pop,
@@ -48,10 +57,10 @@ public class GameInterfaceDrawer {
 				Constants.RIGHTBUTTONX, Constants.LEFTBUTTONY, paint);
 		// canvas.drawBitmap(pictures.scaledwarrior,
 		// hero.CalcPixelNumber()[0],hero.CalcPixelNumber()[1],paint);
-		canvas.drawBitmap(pictures.getScaledTileBitmap(
-				pictures.banner_trans, "banner_trans",
-				Constants.GAMELOGOWIDTH, Constants.GAMELOGOHEIGHT),
-				Constants.TITLEX, Constants.TITLEY, paint);
+		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.banner_trans,
+				"banner_trans", Constants.GAMELOGOWIDTH,
+				Constants.GAMELOGOHEIGHT), Constants.TITLEX, Constants.TITLEY,
+				paint);
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(Constants.NORMALFONTSIZE);
 		canvas.drawText(Texts.TEXT_DI, Constants.TEXT_DIX, Constants.TEXT_DIY,
@@ -73,25 +82,23 @@ public class GameInterfaceDrawer {
 				Constants.TEXT_BLOODX,
 				(Constants.TEXT_DIY + Constants.NORMALFONTSIZE + 2 * Constants.SMALLFONTSIZE),
 				paint);
-		canvas.drawText(
-				Texts.TEXT_GOLD + engine.getAttribute("gold").toString(),
-				Constants.TEXT_BLOODX,
-				(Constants.TEXT_DIY + Constants.NORMALFONTSIZE + 3 * Constants.SMALLFONTSIZE),
-				paint);
-		canvas.drawText(Texts.TEXT_YELLOW_KEY
-				+ engine.getAttribute("key-y").toString(),
-				Constants.TEXT_YELLOWKEYX,
+		paint.setARGB(255, 255, 175, 0);
+		canvas.drawText(Texts.TEXT_GOLD
+				+ engine.getAttribute("gold").toString(), Constants.TEXT_GOLDX,
 				(Constants.TEXT_DIY + Constants.NORMALFONTSIZE), paint);
+		paint.setColor(Color.BLUE);
 		canvas.drawText(Texts.TEXT_BLUE_KEY
 				+ engine.getAttribute("key-b").toString(),
-				Constants.TEXT_YELLOWKEYX, (Constants.TEXT_DIY
+				Constants.TEXT_GOLDX, (Constants.TEXT_DIY
 						+ Constants.NORMALFONTSIZE + Constants.SMALLFONTSIZE),
 				paint);
+		paint.setColor(Color.RED);
 		canvas.drawText(
 				Texts.TEXT_RED_KEY + engine.getAttribute("key-r").toString(),
-				Constants.TEXT_YELLOWKEYX,
+				Constants.TEXT_GOLDX,
 				(Constants.TEXT_DIY + Constants.NORMALFONTSIZE + 2 * Constants.SMALLFONTSIZE),
 				paint);
+		paint.setColor(Color.BLACK);
 		int z = engine.getCurrentCoordinate().getZ();
 		paint.setTextSize(Constants.NORMALFONTSIZE);
 		canvas.drawText(Integer.toString(z), Constants.TEXT_DIX
@@ -106,17 +113,16 @@ public class GameInterfaceDrawer {
 		int Y = currenttile[0].length;
 		float tilewidth = ((float) (Constants.MAINGRID_RIGHTX - Constants.MAINGRID_LEFTX) / X);
 		float tileheight = ((float) (Constants.MAINGRID_BOTTOMY - Constants.MAINGRID_UPY) / Y);
-		int picturewidth = (int)Math.ceil(tilewidth);
-		int pictureheight = (int)Math.ceil(tileheight);
+		int picturewidth = (int) Math.ceil(tilewidth);
+		int pictureheight = (int) Math.ceil(tileheight);
 		paint.setTextSize(tileheight / 2);
 		String imagename;
 		for (int i = 0; i < Y; i++) {
 			for (int j = 0; j < X; j++) {
 				canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.floor,
-						"floor",picturewidth,pictureheight),
+						"floor", picturewidth, pictureheight),
 						Constants.MAINGRID_LEFTX + tilewidth * i,
-						Constants.MAINGRID_UPY + tileheight * j,
-						paint);
+						Constants.MAINGRID_UPY + tileheight * j, paint);
 				if ((Boolean) currenttile[j][i].getRenderingData().get(
 						"character") == true) {
 					if (button != null) {
@@ -124,7 +130,7 @@ public class GameInterfaceDrawer {
 						case UP:
 							canvas.drawBitmap(pictures.getScaledTileBitmap(
 									pictures.warrior_up, "warrior_up",
-									picturewidth,pictureheight),
+									picturewidth, pictureheight),
 									Constants.MAINGRID_LEFTX + tilewidth * i,
 									Constants.MAINGRID_UPY + tileheight * j,
 									paint);
@@ -132,7 +138,7 @@ public class GameInterfaceDrawer {
 						case DOWN:
 							canvas.drawBitmap(pictures.getScaledTileBitmap(
 									pictures.warrior_down, "warrior_down",
-									picturewidth,pictureheight),
+									picturewidth, pictureheight),
 									Constants.MAINGRID_LEFTX + tilewidth * i,
 									Constants.MAINGRID_UPY + tileheight * j,
 									paint);
@@ -140,7 +146,7 @@ public class GameInterfaceDrawer {
 						case LEFT:
 							canvas.drawBitmap(pictures.getScaledTileBitmap(
 									pictures.warrior_left, "warrior_left",
-									picturewidth,pictureheight),
+									picturewidth, pictureheight),
 									Constants.MAINGRID_LEFTX + tilewidth * i,
 									Constants.MAINGRID_UPY + tileheight * j,
 									paint);
@@ -148,7 +154,7 @@ public class GameInterfaceDrawer {
 						case RIGHT:
 							canvas.drawBitmap(pictures.getScaledTileBitmap(
 									pictures.warrior_right, "warrior_right",
-									picturewidth,pictureheight),
+									picturewidth, pictureheight),
 									Constants.MAINGRID_LEFTX + tilewidth * i,
 									Constants.MAINGRID_UPY + tileheight * j,
 									paint);
@@ -162,13 +168,13 @@ public class GameInterfaceDrawer {
 						canvas.drawBitmap(pictures.getScaledTileBitmap(
 								(Bitmap) pictures.getClass()
 										.getField(imagename).get(pictures),
-								imagename,picturewidth,pictureheight),
+								imagename, picturewidth, pictureheight),
 								Constants.MAINGRID_LEFTX + tilewidth * i,
 								Constants.MAINGRID_UPY + tileheight * j, paint);
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
-				} 
+				}
 			}
 		}
 

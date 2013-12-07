@@ -1,23 +1,37 @@
 {
     "size": {
-        "z": 19,
+        "z": 20,
         "x": 11,
         "y": 11
     },
     "attributes": {
         "health": 1000,
-        "attack": 1000,
-        "defense": 1000,
+        "attack": 20,
+        "defense": 20,
         "gold": 0,
         "exp": 0,
         "key-y": 0,
-        "key-b": 0,
-        "key-r": 0,
+        "key-b": 100,
+        "key-r": 100,
         "key-x": 0,
         "npc-b": 0,
         "success": 0,
         "failure": 0,
-        "trade": 0
+        "trade": 0,
+        "highestfloor": 0,
+        "hasfireeye": false,
+        "haselevator": false,
+        "hasshop": false,
+        "goldcost": 30,
+        "attackup": 5,
+        "defenseup": 5,
+        "healthup": 1000,
+        "specialfloor":19,
+        "size":11,
+        "shopx":2,
+        "attackupy":0,
+        "defenseupy":1,
+        "healthupy":2
     },
     "failure-checks": [
         "health",
@@ -195,8 +209,8 @@
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
             "mixin": {
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
-                "mixins": [	
-		    {
+                "mixins": [
+                    {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
                         "attribute": "key-x",
                         "operator": "+",
@@ -291,14 +305,13 @@
                 "next": {
                     "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
                     "rendering": {
-                        "image": "npc",
-                        ]
+                        "image": "npc"
                     }
                 }
-            },
-            "rendering": {
-                "image": "npc"
             }
+        },
+        "rendering": {
+            "image": "npc"
         },
         "NnpcB": {
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
@@ -342,13 +355,13 @@
         "npc": {
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
             "mixin": {
-                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
-                            },
-		"rendering": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+            },
+            "rendering": {
                 "image": "npc"
             }
         },
-	"book": {
+        "book": {
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
             "mixin": {
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
@@ -385,6 +398,18 @@
             },
             "rendering": {
                 "image": "fire_eye"
+            }
+        },
+        "downm1": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
+                "z": 0,
+                "x": 9,
+                "y": 5
+            },
+            "rendering": {
+                "image": "downstairs"
             }
         },
         "down00": {
@@ -536,7 +561,7 @@
             "mixin": {
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
                 "z": 7,
-                "x": 1,
+                "x": 9,
                 "y": 5
             },
             "rendering": {
@@ -763,7 +788,7 @@
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
             "mixin": {
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
-                "z": 0,
+                "z": 15,
                 "x": 10,
                 "y": 9
             },
@@ -1298,8 +1323,7 @@
                     }
                 ]
             },
-            "rendering": {
-            }
+            "rendering": {}
         },
         "anim1": {
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
@@ -1826,84 +1850,63 @@
                 "image": "ak47"
             }
         },
-        "Tgld1": {
+        "shopaup": {
             "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
             "mixin": {
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
                 "mixins": [
                     {
-                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
-                        "attribute": "trade",
-                        "reference": 1,
-                        "==": {
-                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
-                            "mixins": [
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                                    "attribute": "gold",
-                                    "operator": "+",
-                                    "operand": -25
-                                },
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                                    "attribute": "health",
-                                    "operator": "+",
-                                    "operand": 800
-                                }
-                            ]
-                        }
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "attack",
+                        "operator": "+",
+                        "operand": 5
                     },
                     {
-                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
-                        "attribute": "trade",
-                        "reference": 2,
-                        "==": {
-                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
-                            "mixins": [
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                                    "attribute": "gold",
-                                    "operator": "+",
-                                    "operand": -25
-                                },
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                                    "attribute": "attack",
-                                    "operator": "+",
-                                    "operand": 4
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
-                        "attribute": "trade",
-                        "reference": 3,
-                        "==": {
-                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
-                            "mixins": [
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                                    "attribute": "gold",
-                                    "operator": "+",
-                                    "operand": -25
-                                },
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                                    "attribute": "defense",
-                                    "operator": "+",
-                                    "operand": 4
-                                }
-                            ]
-                        }
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": -30
                     }
                 ]
-            },
-            "rendering": {
-                "text": "Sg",
-                "text-codes": [
-                    "background-magenta",
-                    "foreground-white"
+            }
+        },
+        "shopdup": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "defense",
+                        "operator": "+",
+                        "operand": 5
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": -30
+                    }
+                ]
+            }
+        },
+        "shophup": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "health",
+                        "operator": "+",
+                        "operand": 1000
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                        "attribute": "gold",
+                        "operator": "+",
+                        "operand": -30
+                    }
                 ]
             }
         }
@@ -2170,7 +2173,7 @@
                 "wall",
                 "wall",
                 "bluegate",
-                "floor"
+                "wall"
             ],
             [
                 "npc",
@@ -4503,7 +4506,7 @@
                 "wall",
                 "wall",
                 "wall",
-                "up17"
+                "floor"
             ],
             [
                 "wall",
@@ -4516,7 +4519,7 @@
                 "wall",
                 "floor",
                 "wall",
-                "floor"
+                "up17"
             ]
         ],
         [
@@ -4663,9 +4666,161 @@
                 "oppo6",
                 "oppo5"
             ]
+        ],
+        [
+            [ 
+            	"downm1",
+            	"down00",
+            	"down01",
+            	"down02",
+            	"down03",
+            	"down04",
+            	"down05",
+            	"down06",
+            	"down07",
+            	"down08",
+            	"down09"
+            ],
+            [
+            	"down10",
+            	"down11",
+            	"down12",
+            	"down13",
+            	"down14",
+            	"down15",
+            	"down16",
+            	"down17",
+            	"floor",
+            	"floor",
+            	"floor"
+            ],
+            [
+                "shopaup",
+                "shopdup",
+                "shophup",
+                "floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            ],
+            [
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            	
+            ],
+            [
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            	
+            ],
+            [
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            	
+            ],
+            [
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            	
+            ],
+            [
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            	
+            ],
+            [
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            	
+            ],
+            [
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            	
+            ],
+            [
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor",
+            	"floor"
+            ]
         ]
     ],
-	"renderer": {
-		"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.DummyStandardRenderer"
-	}
+    "renderer": {
+        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.DummyStandardRenderer"
+    }
 }

@@ -27,7 +27,12 @@ public class Texts {
 	"        就在A国首脑正在商量如何拿这些人去做谈判的砝码之时，有一个人却在监狱里悄悄的活动着。\n" +
 	"        这个人代号“幽灵帝皇”，他是唯一没有被俘的眼镜蛇队员，并且正在一步步计划着从魔塔监狱里救出自己的队友们！\n" +
 	"        【游戏说明】：使用左下角的方向键控制人物行动，通过触摸触发其他操作,遇到对话时触摸对话框进入下一段。通过你的努力打败监狱的最高长官，就可以让你和你的队友重获自由！\n" +
-	"        谨慎的选择你的行动路线，否则你不能打过强大的敌人。";
+	"        游戏中的各种枪支可以帮助你提升自己的攻击力，各种防弹衣则可以提升防御力，医药箱可以帮助你回复体力。\n" +
+	"        解锁商店功能后你也可以在那里不断使自己变得强大。\n" +
+	"        此外，所有穿黑白相间囚衣的人不是敌人，而是能够给你提供各种信息帮助的队员，希望你谨记他们的话。\n" +
+	"        同时请注意钥匙的合理使用，如果没有留下足够的钥匙开门，再强大的你也没有办法取得胜利。\n" +
+	"        谨慎的选择你的行动路线，否则你不能打过强大的敌人。" +
+	"        祝你好运！";
 	
 	//for load interface
 	//
@@ -67,4 +72,7 @@ public class Texts {
 	public static final String TEXT_ATTACKUP = "增加5点攻击";
 	public static final String TEXT_DEFENCEUP = "增加5点防御";
 	public static final String TEXT_BLOODUP = "增加1000点生命";
+	
+	public static final String TEXT_WARRIOR = "幽灵帝皇";
+	public static final String TEXT_WARRIORTITLE = "眼镜蛇";
 }  

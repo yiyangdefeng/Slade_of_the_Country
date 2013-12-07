@@ -91,10 +91,10 @@ public class MyView extends View {
 		gameoverid = new GameOverInterfaceDrawer(pictures);
 		gamewinid = new GameWinInterfaceDrawer(pictures);
 		shopid = new ShopInterfaceDrawer(pictures);
-		feid = new FireEyeInterfaceDrawer();
+		feid = new FireEyeInterfaceDrawer(ma.engine,pictures);
 		eid = new ElevatorInterfaceDrawer();
 		dm = new DataManager(c);
-		fightinterval = 50;
+		fightinterval = 200;
 		this.invalidate();
 	}
 
@@ -146,6 +146,7 @@ public class MyView extends View {
 			did.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_SHOP:
+			gid.draw(canvas, canvasMatrix, ma.engine);
 			shopid.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_FAILURE_WARNING:
@@ -157,6 +158,14 @@ public class MyView extends View {
 			break;
 		case Constants.STATUS_GAME_WIN:
 			gamewinid.draw(canvas, canvasMatrix);
+			break;
+		case Constants.STATUS_ELEVATOR:
+			eid.draw(canvas, canvasMatrix);
+			break;
+		case Constants.STATUS_FIREEYE:
+			//
+			//
+			//
 			break;
 		}
 
@@ -210,6 +219,7 @@ public class MyView extends View {
 			case Constants.STATUS_ELEVATOR:
 				ElevatorInterfaceHandler();
 			case Constants.STATUS_FIREEYE:
+				FireEyeInterfaceHandler();
 				break;
 			default:
 				break;
@@ -252,6 +262,14 @@ public class MyView extends View {
 		return null;
 	}
 
+	public void FireEyeInterfaceHandler() {
+		//
+		//
+		//
+		//
+		//
+	}
+
 	public void ElevatorInterfaceHandler() {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -265,9 +283,24 @@ public class MyView extends View {
 						&& y < Constants.ELEVATOR_TOP_MARGIN
 								+ Constants.ELEVATOR_GRIDHEIGHT * j
 								+ Constants.ELEVATOR_TABHEIGHT) {
-					//put warrior near the stair
+					int floor = i + j * 5;
+					if (floor < eid.getHighestZ() + 1) {
+						try {
+							int specialfloor = ((Number) ma.engine
+									.getAttribute("specialfloor")).intValue();
+							int size = ((Number) ma.engine.getAttribute("size"))
+									.intValue();
+							ma.engine
+									.moveTo(new Coordinate(specialfloor,
+											(floor - floor % size) / size,
+											floor % size));
+						} catch (GameTerminationException e) {
+							throw new RuntimeException(e);
+						}
+					}
 				}
 			}
+			status = Constants.STATUS_GAME;
 		}
 	}
 
@@ -283,18 +316,53 @@ public class MyView extends View {
 	}
 
 	private void ShopInterfaceHandler() {
+		int specialfloor = ((Number) ma.engine.getAttribute("specialfloor"))
+				.intValue();
+		int shopx = ((Number) ma.engine.getAttribute("shopx")).intValue();
 		if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y1
 				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
 				&& y < Constants.SHOPBUTTON_Y1 + Constants.SHOPBUTTON_HEIGHT) {
-
+			try {
+				int attackupy = ((Number) ma.engine.getAttribute("attackupy"))
+						.intValue();
+				ma.engine
+						.moveTo(new Coordinate(specialfloor, shopx, attackupy));
+				status = Constants.STATUS_GAME;
+			} catch (GameTerminationException e) {
+				Log.e("test","no money for adding up attack!");
+				failureid.setMessage(Texts.TEXT_NOMONEY);
+				status = Constants.STATUS_FAILURE_WARNING;
+			}
 		} else if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y2
 				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
 				&& y < Constants.SHOPBUTTON_Y2 + Constants.SHOPBUTTON_HEIGHT) {
-
+			try {
+				int defenseupy = ((Number) ma.engine.getAttribute("defenseupy"))
+						.intValue();
+				ma.engine
+						.moveTo(new Coordinate(specialfloor, shopx, defenseupy));
+				status = Constants.STATUS_GAME;
+			} catch (GameTerminationException e) {
+				failureid.setMessage(Texts.TEXT_NOMONEY);
+				status = Constants.STATUS_FAILURE_WARNING;
+				invalidate();
+			}
 		} else if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y3
 				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
 				&& y < Constants.SHOPBUTTON_Y3 + Constants.SHOPBUTTON_HEIGHT) {
-
+			try {
+				int healthupy = ((Number) ma.engine.getAttribute("healthupy"))
+						.intValue();
+				ma.engine
+						.moveTo(new Coordinate(specialfloor, shopx, healthupy));
+				status = Constants.STATUS_GAME;
+			} catch (GameTerminationException e) {
+				failureid.setMessage(Texts.TEXT_NOMONEY);
+				status = Constants.STATUS_FAILURE_WARNING;
+				invalidate();
+			}
+		} else {
+			status = Constants.STATUS_GAME;
 		}
 	}
 
@@ -543,7 +611,23 @@ public class MyView extends View {
 				&& y > Constants.SAVEBUTTONY
 				&& y < (Constants.SAVEBUTTONY + Constants.SAVEBUTTONHEIGHT)) {
 			status = Constants.STATUS_SAVE;
+		} else if (x > Constants.FIRE_EYE_X
+				&& x < (Constants.FIRE_EYE_X + Constants.TOOL_SIZE)
+				&& y > Constants.TOOL_Y
+				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
+			status = Constants.STATUS_FIREEYE;
+		} else if (x > Constants.ELEVATOR_X
+				&& x < (Constants.ELEVATOR_X + Constants.TOOL_SIZE)
+				&& y > Constants.TOOL_Y
+				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
+			status = Constants.STATUS_ELEVATOR;
+		} else if (x > Constants.SHOP_X
+				&& x < (Constants.SHOP_X + Constants.TOOL_SIZE)
+				&& y > Constants.TOOL_Y
+				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
+			status = Constants.STATUS_SHOP;
 		}
+
 		MoveButton nextbutton = this.getButtonFromXY(x, y);
 		if (nextbutton != null) {
 			button = nextbutton;
@@ -574,6 +658,13 @@ public class MyView extends View {
 		if (!newcoord.equals(coord)) {
 			try {
 				event = (StandardEvent) ma.engine.moveTo(newcoord);
+				int Z = event.getCoordinate().getZ();
+				int highestZ = ((Number) ma.engine.getAttribute("highestfloor"))
+						.intValue();
+				if (Z > highestZ) {
+					ma.engine.setAttribute("highestfloor", Z);
+					eid.setHighestZ(Z);
+				}
 				eventHandler();
 			} catch (StandardGameSuccessTerminationException e) {
 				eventHandler();

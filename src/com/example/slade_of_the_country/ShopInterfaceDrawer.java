@@ -30,10 +30,14 @@ public class ShopInterfaceDrawer {
 				Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH,
 				Constants.SHOPBUTTON_Y3 + Constants.SHOPBUTTON_HEIGHT, paint);
 		paint.setTextSize(Constants.SMALLFONTSIZE);
-		canvas.drawText(Texts.TEXT_NOTICE, Constants.SHOP_TEXT_NOTICEX, Constants.SHOP_TEXT_NOTICEY, paint);
+		canvas.drawText(Texts.TEXT_NOTICE, Constants.SHOP_TEXT_NOTICEX,
+				Constants.SHOP_TEXT_NOTICEY, paint);
 		paint.setColor(Color.BLACK);
-		canvas.drawText(Texts.TEXT_ATTACKUP, Constants.SHOP_TEXT1_X,Constants.SHOPBUTTON_Y1 + Constants.SHOP_TEXT_YTOTOP, paint);
-		canvas.drawText(Texts.TEXT_DEFENCEUP, Constants.SHOP_TEXT2_X,Constants.SHOPBUTTON_Y2 + Constants.SHOP_TEXT_YTOTOP, paint);
-		canvas.drawText(Texts.TEXT_BLOODUP, Constants.SHOP_TEXT3_X,Constants.SHOPBUTTON_Y3 + Constants.SHOP_TEXT_YTOTOP, paint);
+		canvas.drawText(Texts.TEXT_ATTACKUP, Constants.SHOP_TEXT1_X,
+				Constants.SHOPBUTTON_Y1 + Constants.SHOP_TEXT_YTOTOP, paint);
+		canvas.drawText(Texts.TEXT_DEFENCEUP, Constants.SHOP_TEXT2_X,
+				Constants.SHOPBUTTON_Y2 + Constants.SHOP_TEXT_YTOTOP, paint);
+		canvas.drawText(Texts.TEXT_BLOODUP, Constants.SHOP_TEXT3_X,
+				Constants.SHOPBUTTON_Y3 + Constants.SHOP_TEXT_YTOTOP, paint);
 	}
 }

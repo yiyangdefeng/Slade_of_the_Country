@@ -9,11 +9,13 @@ public class FightInterfaceDrawer {
 	protected Paint paint;
 	protected PictureCollector pictures;
 	protected int[] attributes;
+	protected String[] oppoinformation;
 
 	public FightInterfaceDrawer(PictureCollector pictures) {
 		this.pictures = pictures;
 		this.attributes = new int[6];
 		this.paint = new Paint();
+		this.oppoinformation = new String[2];
 	}
 
 	public void draw(Canvas canvas, Matrix canvasMatrix) {
@@ -26,6 +28,13 @@ public class FightInterfaceDrawer {
 				"warrior_left_for_fight", Constants.FIGHT_CHARACTER_SCALE,
 				Constants.FIGHT_CHARACTER_SCALE), Constants.FIGHT_WARRIOR_X,
 				Constants.FIGHT_WARRIOR_Y, paint);
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(Constants.NORMALFONTSIZE);
+		canvas.drawText(Texts.TEXT_WARRIOR, Constants.WARRIOR_NAME_X, Constants.WARRIOT_NAME_Y, paint);
+		paint.setColor(Color.YELLOW);
+		paint.setTextSize(Constants.SMALLFONTSIZE);
+		canvas.drawText(Texts.TEXT_WARRIORTITLE, Constants.WARRIOR_TITLE_X, Constants.WARRIOR_TITLE_Y, paint);
+		//canvas.drawText(text, x, y, paint);
 		paint.setColor(Color.RED);
 		paint.setTextSize(Constants.NORMALSMALLFONTSIZE);
 		canvas.drawText(Texts.TEXT_BLOOD + attributes[2],
@@ -51,5 +60,9 @@ public class FightInterfaceDrawer {
 
 	public void setAttributes(int[] attributes) {
 		this.attributes = attributes;
+	}
+	
+	public void setOppoInformation (String[] oppoinformation) {
+		this.oppoinformation = oppoinformation;
 	}
 }
