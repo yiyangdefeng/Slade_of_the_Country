@@ -20,16 +20,20 @@ import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGame;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGameFailureTerminationException;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGameSuccessTerminationException;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
+@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class MyView extends View {
 
 	int status;
@@ -62,6 +66,7 @@ public class MyView extends View {
 	protected MoveButton button;
 	protected FightHandler fh;
 	protected Queue<Runnable> next;
+	protected boolean nextDisabled;
 
 	// private StandardRenderer mr = (StandardRenderer) sg.getRenderer();
 
@@ -98,6 +103,7 @@ public class MyView extends View {
 		eid = new ElevatorInterfaceDrawer();
 		dm = new DataManager(c);
 		next = new LinkedList<Runnable>();
+		nextDisabled = false;
 		fightinterval = 200;
 		this.invalidate();
 	}
@@ -216,7 +222,9 @@ public class MyView extends View {
 				break;
 			case Constants.STATUS_GAME_OVER:
 			case Constants.STATUS_GAME_WIN:
+				break;
 			case Constants.STATUS_FIGHT:
+				FightInterfaceHandler();
 				break;
 			case Constants.STATUS_ELEVATOR:
 				ElevatorInterfaceHandler();
@@ -226,10 +234,14 @@ public class MyView extends View {
 			default:
 				break;
 			}
+			doNext();
 		}
-		doNext();
 		invalidate();
 		return true;
+	}
+
+	protected void FightInterfaceHandler() {
+		disableNext();
 	}
 
 	protected MoveButton getButtonFromXY(float x, float y) {
@@ -713,6 +725,7 @@ public class MyView extends View {
 	}
 
 	public void eventHandler() {
+		handleToasts("toast-before");
 		@SuppressWarnings("unchecked")
 		List<List<Fight.Attributes>> logs = (List<List<Fight.Attributes>>) event
 				.getExtraInformation().get("fight-logs");
@@ -721,11 +734,42 @@ public class MyView extends View {
 				if (log == null) {
 					throw new RuntimeException();
 				} else {
-					status = Constants.STATUS_FIGHT;
-					invalidate();
-					fh = new FightHandler(log);
-					fh.start();
+					final List<Fight.Attributes> finalLog = log;
+					next.add(new Runnable() {
+						@Override
+						public void run() {
+							status = Constants.STATUS_FIGHT;
+							fh = new FightHandler(finalLog);
+							fh.start();
+						}
+					});
 				}
+			}
+		}
+		handleToasts("toast-after");
+	}
+	
+	public void handleToasts(String key) {
+		@SuppressWarnings("unchecked")
+		List<String> toastMessages = (List<String>) event.getExtraInformation().get(key);
+		if (toastMessages != null) {
+			for (String toastMessage : toastMessages) {
+				final String toastText = toastMessage;
+				next.add(new Runnable() {
+					@Override
+					public void run() {
+						post(new Runnable(){
+							@Override
+							public void run() {
+								Context context = ma.getApplicationContext();
+								int duration = Constants.TOAST_DURATION;
+								Toast toast = Toast.makeText(context, toastText, duration);
+								toast.show();
+								doNext();
+							}
+						});
+					}
+				});
 			}
 		}
 	}
@@ -762,6 +806,7 @@ public class MyView extends View {
 				}
 			}
 			setNextStatus(Constants.STATUS_GAME);
+			doNext();
 			postInvalidate();
 		}
 
@@ -777,9 +822,18 @@ public class MyView extends View {
 		event = (StandardEvent) ma.engine.loadGame(sg);
 		ma.engine.setFailureTermination(Engine.Termination.AUTOMATIC);
 	}
+
+	private void disableNext() {
+		nextDisabled = true;
+	}
 	
 	protected void doNext() {
+		if (nextDisabled == true) {
+			nextDisabled = false;
+			return;
+		}
 		if (!next.isEmpty()) {
+			Log.i("SOTC", "Running next in status " + status);
 			next.poll().run();
 		}
 	}
