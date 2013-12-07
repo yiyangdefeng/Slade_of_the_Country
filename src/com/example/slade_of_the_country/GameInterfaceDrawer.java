@@ -27,7 +27,6 @@ public class GameInterfaceDrawer {
 				.getScaledTileBitmap(pictures.background, "background",
 						Constants.MYSCREENWIDTH, Constants.MYSCREENHEIGHT),
 				Constants.ZERO, Constants.ZERO, paint);
-		engine.setAttribute("haselevator", true);
 		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.fire_eye,
 				"big_fire_eye", Constants.TOOL_SIZE, Constants.TOOL_SIZE),
 				Constants.FIRE_EYE_X, Constants.TOOL_Y, paint);
