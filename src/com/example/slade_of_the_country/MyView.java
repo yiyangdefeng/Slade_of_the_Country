@@ -5,7 +5,9 @@ import java.io.DataInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import com.example.slade_of_the_country.LoadInterfaceDrawer.Position;
 
@@ -18,16 +20,20 @@ import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGame;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGameFailureTerminationException;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardGameSuccessTerminationException;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
+@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class MyView extends View {
 
 	int status;
@@ -59,6 +65,8 @@ public class MyView extends View {
 	protected int fightinterval;
 	protected MoveButton button;
 	protected FightHandler fh;
+	protected Queue<Runnable> next;
+	protected boolean nextDisabled;
 
 	// private StandardRenderer mr = (StandardRenderer) sg.getRenderer();
 
@@ -94,6 +102,8 @@ public class MyView extends View {
 		feid = new FireEyeInterfaceDrawer(ma.engine,pictures);
 		eid = new ElevatorInterfaceDrawer();
 		dm = new DataManager(c);
+		next = new LinkedList<Runnable>();
+		nextDisabled = false;
 		fightinterval = 200;
 		this.invalidate();
 	}
@@ -212,7 +222,9 @@ public class MyView extends View {
 				break;
 			case Constants.STATUS_GAME_OVER:
 			case Constants.STATUS_GAME_WIN:
+				break;
 			case Constants.STATUS_FIGHT:
+				FightInterfaceHandler();
 				break;
 			case Constants.STATUS_ELEVATOR:
 				ElevatorInterfaceHandler();
@@ -222,9 +234,14 @@ public class MyView extends View {
 			default:
 				break;
 			}
+			doNext();
 		}
 		invalidate();
 		return true;
+	}
+
+	protected void FightInterfaceHandler() {
+		disableNext();
 	}
 
 	protected MoveButton getButtonFromXY(float x, float y) {
@@ -263,7 +280,7 @@ public class MyView extends View {
 	public void FireEyeInterfaceHandler() {
 		if (feid.getIsEnd()) {
 			feid.Reset();
-			status = Constants.STATUS_GAME;
+			setNextStatus(Constants.STATUS_GAME);
 		}
 		else {
 			feid.goNextPage();
@@ -300,8 +317,8 @@ public class MyView extends View {
 					}
 				}
 			}
-			status = Constants.STATUS_GAME;
 		}
+		setNextStatus(Constants.STATUS_GAME);
 	}
 
 	private void DialogueInterfaceHandler() {
@@ -319,6 +336,13 @@ public class MyView extends View {
 		int specialfloor = ((Number) ma.engine.getAttribute("specialfloor"))
 				.intValue();
 		int shopx = ((Number) ma.engine.getAttribute("shopx")).intValue();
+		Runnable noMoney = new Runnable() {
+			@Override
+			public void run() {
+				failureid.setMessage(Texts.TEXT_NOMONEY);
+				status = Constants.STATUS_FAILURE_WARNING;
+			}
+		};
 		if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y1
 				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
 				&& y < Constants.SHOPBUTTON_Y1 + Constants.SHOPBUTTON_HEIGHT) {
@@ -327,11 +351,9 @@ public class MyView extends View {
 						.intValue();
 				ma.engine
 						.moveTo(new Coordinate(specialfloor, shopx, attackupy));
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			} catch (GameTerminationException e) {
-				Log.e("test","no money for adding up attack!");
-				failureid.setMessage(Texts.TEXT_NOMONEY);
-				status = Constants.STATUS_FAILURE_WARNING;
+				next.add(noMoney);
 			}
 		} else if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y2
 				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
@@ -341,11 +363,9 @@ public class MyView extends View {
 						.intValue();
 				ma.engine
 						.moveTo(new Coordinate(specialfloor, shopx, defenseupy));
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			} catch (GameTerminationException e) {
-				failureid.setMessage(Texts.TEXT_NOMONEY);
-				status = Constants.STATUS_FAILURE_WARNING;
-				invalidate();
+				next.add(noMoney);
 			}
 		} else if (x > Constants.SHOPBUTTON_X && y > Constants.SHOPBUTTON_Y3
 				&& x < Constants.SHOPBUTTON_X + Constants.SHOPBUTTON_WIDTH
@@ -355,32 +375,30 @@ public class MyView extends View {
 						.intValue();
 				ma.engine
 						.moveTo(new Coordinate(specialfloor, shopx, healthupy));
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			} catch (GameTerminationException e) {
-				failureid.setMessage(Texts.TEXT_NOMONEY);
-				status = Constants.STATUS_FAILURE_WARNING;
-				invalidate();
+				next.add(noMoney);
 			}
 		} else {
-			status = Constants.STATUS_GAME;
+			setNextStatus(Constants.STATUS_GAME);
 		}
 	}
 
 	private void FailureWarningInterfaceHandler() {
-		status = Constants.STATUS_GAME;
+		setNextStatus(Constants.STATUS_GAME);
 	}
 
 	private void LoadInterfaceHandler() {
 		if (x > Constants.INSTRUCTION_LOGO_X1
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
 				&& y > Constants.INSTRUCTION_LOGO_Y) {
-			status = Constants.STATUS_START;
+			setNextStatus(Constants.STATUS_START);
 		} else if (x > Constants.MARGIN && y > Constants.MARGIN
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
 			if (lid.getAvailable(Position.ONE)) {
 				ma.engine = lid.getEngine(Position.ONE);
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			}
 		} else if (x > Constants.MARGIN
 				&& y > (Constants.MARGIN * 2 + Constants.SAVEOPTIONHEIGHT)
@@ -388,7 +406,7 @@ public class MyView extends View {
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 2) {
 			if (lid.getAvailable(Position.TWO)) {
 				ma.engine = lid.getEngine(Position.TWO);
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			}
 		} else if (x > Constants.MARGIN
 				&& y > (Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT * 2)
@@ -396,7 +414,7 @@ public class MyView extends View {
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 3) {
 			if (lid.getAvailable(Position.AUTO)) {
 				ma.engine = lid.getEngine(Position.AUTO);
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			}
 		}
 	}
@@ -405,47 +423,47 @@ public class MyView extends View {
 		if (x > Constants.INSTRUCTION_LOGO_X1
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
 				&& y > Constants.INSTRUCTION_LOGO_Y) {
-			status = Constants.STATUS_GAME;
+			setNextStatus(Constants.STATUS_GAME);
 		} else if (x > Constants.MARGIN && y > Constants.MARGIN
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT)) {
 			if (lid.getAvailable(Position.ONE)) {
-				status = Constants.STATUS_WARNING;
+				setNextStatus(Constants.STATUS_WARNING);
 				position = Position.ONE;
 			} else if (!lid.getAvailable(Position.ONE)) {
 				try {
 					dm.SaveSavings(ma.engine, "save0.txt");
 				} catch (IOException e) {
 				}
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			}
 		} else if (x > Constants.MARGIN
 				&& y > (Constants.MARGIN * 2 + Constants.SAVEOPTIONHEIGHT)
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 2) {
 			if (lid.getAvailable(Position.TWO)) {
-				status = Constants.STATUS_WARNING;
+				setNextStatus(Constants.STATUS_WARNING);
 				position = Position.TWO;
 			} else if (!lid.getAvailable(Position.TWO)) {
 				try {
 					dm.SaveSavings(ma.engine, "save1.txt");
 				} catch (IOException e) {
 				}
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			}
 		} else if (x > Constants.MARGIN
 				&& y > (Constants.MARGIN * 3 + Constants.SAVEOPTIONHEIGHT * 2)
 				&& x < (Constants.MYSCREENWIDTH - Constants.MARGIN)
 				&& y < (Constants.MARGIN + Constants.SAVEOPTIONHEIGHT) * 3) {
 			if (lid.getAvailable(Position.AUTO)) {
-				status = Constants.STATUS_WARNING;
+				setNextStatus(Constants.STATUS_WARNING);
 				position = Position.AUTO;
 			} else if (!lid.getAvailable(Position.AUTO)) {
 				try {
 					dm.SaveSavings(ma.engine, "save2.txt");
 				} catch (IOException e) {
 				}
-				status = Constants.STATUS_GAME;
+				setNextStatus(Constants.STATUS_GAME);
 			}
 		} else {
 			return;
@@ -458,34 +476,26 @@ public class MyView extends View {
 				&& x < Constants.CONFIRM_BUTTON_RIGHT
 				&& y > Constants.CONFIRM_BUTTON_UP
 				&& y < Constants.CONFIRM_TEXT_DOWN) {
-			switch (position) {
-			case ONE:
-				try {
+			try {
+				switch (position) {
+				case ONE:
 					dm.SaveSavings(ma.engine, "save0.txt");
-				} catch (IOException e) {
-				}
-				status = Constants.STATUS_GAME;
-				break;
-			case TWO:
-				try {
+					break;
+				case TWO:
 					dm.SaveSavings(ma.engine, "save1.txt");
-				} catch (IOException e) {
-				}
-				status = Constants.STATUS_GAME;
-				break;
-			case AUTO:
-				try {
+					break;
+				case AUTO:
 					dm.SaveSavings(ma.engine, "save2.txt");
-				} catch (IOException e) {
+					break;
 				}
-				status = Constants.STATUS_GAME;
-				break;
+			} catch (IOException e) {
 			}
+			setNextStatus(Constants.STATUS_GAME);
 		} else if (x > Constants.CANCEL_BUTTON_LEFT
 				&& x < Constants.CANCEL_BUTTON_RIGHT
 				&& y > Constants.CONFIRM_BUTTON_UP
 				&& y < Constants.CONFIRM_BUTTON_DOWN) {
-			status = Constants.STATUS_SAVE;
+			setNextStatus(Constants.STATUS_GAME);
 		}
 
 	}
@@ -494,7 +504,7 @@ public class MyView extends View {
 		if (x > Constants.INSTRUCTION_LOGO_X1
 				&& x < (Constants.INSTRUCTION_LOGO_X1 + Constants.INSTRUCTION_LOGOWIDTH)
 				&& y > Constants.INSTRUCTION_LOGO_Y) {
-			status = Constants.STATUS_START;
+			setNextStatus(Constants.STATUS_START);
 		} else if (x > Constants.INSTRUCTION_LOGO_X2
 				&& x < (Constants.INSTRUCTION_LOGO_X2 + Constants.INSTRUCTION_LOGOWIDTH)
 				&& y > Constants.INSTRUCTION_LOGO_Y) {
@@ -511,10 +521,10 @@ public class MyView extends View {
 				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
 				&& y >= Constants.START_LOGO_Y1
 				&& y <= (Constants.START_LOGO_Y1 + Constants.START_LOGOHEIGHT)) {
-			status = Constants.STATUS_GAME;
 			try {
 				reloadGame();
 				dm.SaveSavings(ma.engine, "save2.txt");
+				setNextStatus(Constants.STATUS_GAME);
 			} catch (Exception e) {
 
 				throw new RuntimeException(e);
@@ -524,13 +534,13 @@ public class MyView extends View {
 				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
 				&& y >= Constants.START_LOGO_Y2
 				&& y <= (Constants.START_LOGO_Y2 + Constants.START_LOGOHEIGHT)) {
-			status = Constants.STATUS_LOAD;
+			setNextStatus(Constants.STATUS_LOAD);
 		}
 		if (x >= Constants.START_LOGO_X
 				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
 				&& y >= Constants.START_LOGO_Y3
 				&& y <= (Constants.START_LOGO_Y3 + Constants.START_LOGOHEIGHT)) {
-			status = Constants.STATUS_INSTRUCTION;
+			setNextStatus(Constants.STATUS_INSTRUCTION);
 		}
 		if (x >= Constants.START_LOGO_X
 				&& x <= (Constants.START_LOGO_X + Constants.START_LOGOWIDTH)
@@ -610,22 +620,22 @@ public class MyView extends View {
 				&& x < (Constants.SAVEBUTTONX + Constants.SAVEBUTTONWIDTH)
 				&& y > Constants.SAVEBUTTONY
 				&& y < (Constants.SAVEBUTTONY + Constants.SAVEBUTTONHEIGHT)) {
-			status = Constants.STATUS_SAVE;
+			setNextStatus(Constants.STATUS_SAVE);
 		} else if (x > Constants.FIRE_EYE_X
 				&& x < (Constants.FIRE_EYE_X + Constants.TOOL_SIZE)
 				&& y > Constants.TOOL_Y
 				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
-			status = Constants.STATUS_FIREEYE;
+			setNextStatus(Constants.STATUS_FIREEYE);
 		} else if (x > Constants.ELEVATOR_X
 				&& x < (Constants.ELEVATOR_X + Constants.TOOL_SIZE)
 				&& y > Constants.TOOL_Y
 				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
-			status = Constants.STATUS_ELEVATOR;
+			setNextStatus(Constants.STATUS_ELEVATOR);
 		} else if (x > Constants.SHOP_X
 				&& x < (Constants.SHOP_X + Constants.TOOL_SIZE)
 				&& y > Constants.TOOL_Y
 				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
-			status = Constants.STATUS_SHOP;
+			setNextStatus(Constants.STATUS_SHOP);
 		}
 
 		MoveButton nextbutton = this.getButtonFromXY(x, y);
@@ -668,40 +678,39 @@ public class MyView extends View {
 				eventHandler();
 			} catch (StandardGameSuccessTerminationException e) {
 				eventHandler();
-				status = Constants.STATUS_GAME_WIN;
+				setNextStatus(Constants.STATUS_GAME_WIN);
 			} catch (StandardGameFailureTerminationException e) {
 				if (e.getAttributeCheck().getAttributeName().equals("health")) {
 					eventHandler();
-					status = Constants.STATUS_GAME_OVER;
-					Log.e("test", "Game Over!");
+					setNextStatus(Constants.STATUS_GAME_OVER);
 				} else if (e.getAttributeCheck().getAttributeName()
 						.equals("key-y")) {
 					failureid.setMessage(Texts.TEXT_NOYELLOWKEY);
-					status = Constants.STATUS_FAILURE_WARNING;
+					setNextStatus(Constants.STATUS_FAILURE_WARNING);
 				} else if (e.getAttributeCheck().getAttributeName()
 						.equals("key-b")) {
 					failureid.setMessage(Texts.TEXT_NOBLUEKEY);
-					status = Constants.STATUS_FAILURE_WARNING;
+					setNextStatus(Constants.STATUS_FAILURE_WARNING);
 				} else if (e.getAttributeCheck().getAttributeName()
 						.equals("key-r")) {
 					failureid.setMessage(Texts.TEXT_NOREDKEY);
-					status = Constants.STATUS_FAILURE_WARNING;
+					setNextStatus(Constants.STATUS_FAILURE_WARNING);
 				} else if (e.getAttributeCheck().getAttributeName()
 						.equals("key-x")) {
 					failureid.setMessage(Texts.TEXT_NOSPECIALKEY);
-					status = Constants.STATUS_FAILURE_WARNING;
+					setNextStatus(Constants.STATUS_FAILURE_WARNING);
 				} else if (e.getAttributeCheck().getAttributeName()
 						.equals("gold")) {
 					failureid.setMessage(Texts.TEXT_NOMONEY);
-					status = Constants.STATUS_FAILURE_WARNING;
+					setNextStatus(Constants.STATUS_FAILURE_WARNING);
 				} else if (e.getAttributeCheck().getAttributeName()
 						.equals("exp")) {
 					failureid.setMessage(Texts.TEXT_NOEXP);
-					status = Constants.STATUS_FAILURE_WARNING;
+					setNextStatus(Constants.STATUS_FAILURE_WARNING);
 				} else if (e.getAttributeCheck().getAttributeName()
 						.equals("failure")) {
 					failureid.setMessage(Texts.TEXT_INFINITELOOP);
-					status = Constants.STATUS_FAILURE_WARNING;
+					setNextStatus(Constants.STATUS_FAILURE_WARNING);
 				}
 
 			} catch (GameTerminationException e) {
@@ -716,6 +725,7 @@ public class MyView extends View {
 	}
 
 	public void eventHandler() {
+		handleToasts("toast-before");
 		@SuppressWarnings("unchecked")
 		List<List<Fight.Attributes>> logs = (List<List<Fight.Attributes>>) event
 				.getExtraInformation().get("fight-logs");
@@ -724,11 +734,42 @@ public class MyView extends View {
 				if (log == null) {
 					throw new RuntimeException();
 				} else {
-					status = Constants.STATUS_FIGHT;
-					invalidate();
-					fh = new FightHandler(log);
-					fh.start();
+					final List<Fight.Attributes> finalLog = log;
+					next.add(new Runnable() {
+						@Override
+						public void run() {
+							status = Constants.STATUS_FIGHT;
+							fh = new FightHandler(finalLog);
+							fh.start();
+						}
+					});
 				}
+			}
+		}
+		handleToasts("toast-after");
+	}
+	
+	public void handleToasts(String key) {
+		@SuppressWarnings("unchecked")
+		List<String> toastMessages = (List<String>) event.getExtraInformation().get(key);
+		if (toastMessages != null) {
+			for (String toastMessage : toastMessages) {
+				final String toastText = toastMessage;
+				next.add(new Runnable() {
+					@Override
+					public void run() {
+						post(new Runnable(){
+							@Override
+							public void run() {
+								Context context = ma.getApplicationContext();
+								int duration = Constants.TOAST_DURATION;
+								Toast toast = Toast.makeText(context, toastText, duration);
+								toast.show();
+								doNext();
+							}
+						});
+					}
+				});
 			}
 		}
 	}
@@ -764,8 +805,8 @@ public class MyView extends View {
 					return;
 				}
 			}
-			// add winning message here
-			status = Constants.STATUS_GAME;
+			setNextStatus(Constants.STATUS_GAME);
+			doNext();
 			postInvalidate();
 		}
 
@@ -780,6 +821,34 @@ public class MyView extends View {
 		sg = new StandardGame(new String(bufferedbyte, "gbk"));
 		event = (StandardEvent) ma.engine.loadGame(sg);
 		ma.engine.setFailureTermination(Engine.Termination.AUTOMATIC);
+	}
+
+	private void disableNext() {
+		nextDisabled = true;
+	}
+	
+	protected void doNext() {
+		if (nextDisabled == true) {
+			nextDisabled = false;
+			return;
+		}
+		if (!next.isEmpty()) {
+			Log.i("SOTC", "Running next in status " + status);
+			next.poll().run();
+		}
+	}
+	
+	protected void setNextStatus(int nextStatus) {
+		final int finalNextStatus = nextStatus;
+		next.add(new Runnable() {
+			@Override
+			public void run() {
+				status = finalNextStatus;
+				if (status == Constants.STATUS_GAME) {
+					next.clear();
+				}
+			}
+		});
 	}
 }
 

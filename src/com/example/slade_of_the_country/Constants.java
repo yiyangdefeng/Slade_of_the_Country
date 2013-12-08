@@ -3,6 +3,8 @@ package com.example.slade_of_the_country;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.widget.Toast;
+
 public class Constants {
 	
 	public static final int ZERO = 0;
@@ -57,7 +59,7 @@ public class Constants {
 	public static final int SHOP_X = 450;
 	public static final int TOOL_Y = 260;
 	
-	
+	public static final int TOAST_DURATION = Toast.LENGTH_LONG;
 	
 	//for status
 	//
