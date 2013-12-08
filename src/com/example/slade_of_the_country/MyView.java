@@ -716,15 +716,11 @@ public class MyView extends View {
 			} catch (GameTerminationException e) {
 				throw new RuntimeException(e);
 			}
-			// if (event == null) {
-			// not in real game
-			// event = (StandardEvent) ma.engine.attemptMoveTo(newcoord);
-			// }
-
 		}
 	}
 
 	public void eventHandler() {
+		handleDialogues("dialogue-before");
 		handleToasts("toast-before");
 		@SuppressWarnings("unchecked")
 		List<List<Fight.Attributes>> logs = (List<List<Fight.Attributes>>) event
@@ -746,8 +742,31 @@ public class MyView extends View {
 				}
 			}
 		}
+		handleDialogues("dialogue-after");
 		handleToasts("toast-after");
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void handleDialogues(String key) {
+        
+        List<List<List<String>>> strangedialogemessages = ((List<List<List<String>>>)event.getExtraInformation().get(key));
+        if(strangedialogemessages != null) {
+        	List<List<String>> dialogMessages = strangedialogemessages.get(0);
+        	Log.e("test",dialogMessages.toString());
+        	for (List<String> dialogInfo : dialogMessages) {
+        		final String dialogCharacter = dialogInfo.get(0);
+                final String dialogContent = dialogInfo.get(1);
+                next.add(new Runnable() {
+                    @Override
+                    public void run() {
+                        did.setCharacter(dialogCharacter);
+                        did.setDialogueContent(dialogContent);
+                        status = Constants.STATUS_DIALOGUE;
+                    }
+                });
+            }
+        }
+    }
 	
 	public void handleToasts(String key) {
 		@SuppressWarnings("unchecked")

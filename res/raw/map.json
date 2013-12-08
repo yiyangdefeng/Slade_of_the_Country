@@ -1361,6 +1361,36 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "dialogue-before",
+                        "action":"add",
+                        "value":[
+                        			[
+                        				"dog",
+                        				"I'm a dog, can you kill me?"
+                        			],
+                        			[
+                        				"warrior_left",
+                        				"Of course I can kill you, let me try!"
+                        			]
+                        		]
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "dialogue-after",
+                        "action":"add",
+                        "value":[
+                        			[
+                        				"dog",
+                        				"Wow, you killed me!"
+                        			],
+                        			[
+                        				"warrior_left",
+                        				"Piece of cake!"
+                        			]
+                        		]
                     }
                 ]
             },

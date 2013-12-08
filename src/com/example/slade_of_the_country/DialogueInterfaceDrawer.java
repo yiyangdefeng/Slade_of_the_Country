@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 
 public class DialogueInterfaceDrawer {
 	private TextDrawer td;
@@ -28,10 +29,12 @@ public class DialogueInterfaceDrawer {
 	public void draw(Canvas canvas, Matrix canvasMatrix) {
 		canvas.setMatrix(canvasMatrix);
 		td.SetText(dialoguecontent);
+		Log.e("test",character);
+		Log.e("test",dialoguecontent);
 		td.DrawText(canvas);
 		try {
 			canvas.drawBitmap(pictures.getScaledTileBitmap((Bitmap) pictures
-					.getClass().getField(character).get(character), character
+					.getClass().getField(character).get(pictures), character
 					+ "for dialog", Constants.DIALOGUE_CHARACTER_WIDTH,
 					Constants.DIALOGUE_CHARACTER_HEIGHT),
 					Constants.DIALOGUE_CHARACTER_X,

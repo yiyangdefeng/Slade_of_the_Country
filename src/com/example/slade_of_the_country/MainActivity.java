@@ -10,13 +10,16 @@ import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
 
 
 
+import android.os.Build;
 import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
+@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class MainActivity extends Activity {
 	private DataManager dm;
 	Engine engine;
@@ -27,7 +30,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.setTheme(android.R.style.Theme_Black_NoTitleBar_Fullscreen);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		this.setRequestedOrientation(ActivityInfo. SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		dm = new DataManager(this);
 		engine = new Engine();
@@ -39,16 +42,16 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume(); 
-		if(getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		if(getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 		}
 	}
 	
 	@Override
 	public void onRestart() {
 		super.onRestart(); 
-		if(getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		if(getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 		}
 	}
 	
