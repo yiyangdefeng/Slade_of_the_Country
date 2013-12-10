@@ -28,10 +28,10 @@ public class FightInterfaceDrawer {
 				"warrior_left_for_fight", Constants.FIGHT_CHARACTER_SCALE,
 				Constants.FIGHT_CHARACTER_SCALE), Constants.FIGHT_WARRIOR_X,
 				Constants.FIGHT_WARRIOR_Y, paint);
-		paint.setColor(Color.WHITE);
+		paint.setColor(Color.YELLOW);
 		paint.setTextSize(Constants.NORMALFONTSIZE);
 		canvas.drawText(Texts.TEXT_WARRIOR, Constants.WARRIOR_NAME_X, Constants.WARRIOT_NAME_Y, paint);
-		paint.setColor(Color.YELLOW);
+		paint.setColor(Color.WHITE);
 		paint.setTextSize(Constants.SMALLFONTSIZE);
 		canvas.drawText(Texts.TEXT_WARRIORTITLE, Constants.WARRIOR_TITLE_X, Constants.WARRIOR_TITLE_Y, paint);
 		//canvas.drawText(text, x, y, paint);

@@ -27,15 +27,21 @@ public class GameInterfaceDrawer {
 				.getScaledTileBitmap(pictures.background, "background",
 						Constants.MYSCREENWIDTH, Constants.MYSCREENHEIGHT),
 				Constants.ZERO, Constants.ZERO, paint);
+		if((Boolean)engine.getAttribute("hasfireeye") == true) {
 		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.fire_eye,
 				"big_fire_eye", Constants.TOOL_SIZE, Constants.TOOL_SIZE),
 				Constants.FIRE_EYE_X, Constants.TOOL_Y, paint);
+		}
+		if ((Boolean)engine.getAttribute("haselevator") == true) {
 		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.elevator,
 				"big_elevator", Constants.TOOL_SIZE, Constants.TOOL_SIZE),
 				Constants.ELEVATOR_X, Constants.TOOL_Y, paint);
+		}
+		if ((Boolean)engine.getAttribute("hasshop") == true) {
 		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.shop,
 				"big_shop", Constants.TOOL_SIZE, Constants.TOOL_SIZE),
 				Constants.SHOP_X, Constants.TOOL_Y, paint);
+		}
 		// canvas.drawBitmap(pictures.scaledbackground, Constants.MAINSURFACEX,
 		// Constants.MAINSURFACEY, paint);
 		canvas.drawBitmap(pictures.getScaledTileBitmap(pictures.button_up_pop,
@@ -68,32 +74,32 @@ public class GameInterfaceDrawer {
 				Constants.TEXT_DIY, paint);
 		paint.setTextSize(Constants.SMALLFONTSIZE);
 		canvas.drawText(Texts.TEXT_BLOOD
-				+ engine.getAttribute("health").toString(),
+				+ ((Number)engine.getAttribute("health")).intValue(),
 				Constants.TEXT_BLOODX,
 				(Constants.TEXT_DIY + Constants.NORMALFONTSIZE), paint);
 		canvas.drawText(Texts.TEXT_ATTACK
-				+ engine.getAttribute("attack").toString(),
+				+ ((Number)engine.getAttribute("attack")).intValue(),
 				Constants.TEXT_BLOODX, (Constants.TEXT_DIY
 						+ Constants.NORMALFONTSIZE + Constants.SMALLFONTSIZE),
 				paint);
 		canvas.drawText(
-				Texts.TEXT_DEFENCE + engine.getAttribute("defense").toString(),
+				Texts.TEXT_DEFENCE + ((Number)engine.getAttribute("defense")).intValue(),
 				Constants.TEXT_BLOODX,
 				(Constants.TEXT_DIY + Constants.NORMALFONTSIZE + 2 * Constants.SMALLFONTSIZE),
 				paint);
 		paint.setARGB(255, 255, 175, 0);
 		canvas.drawText(Texts.TEXT_GOLD
-				+ engine.getAttribute("gold").toString(), Constants.TEXT_GOLDX,
+				+ ((Number)engine.getAttribute("gold")).intValue(), Constants.TEXT_GOLDX,
 				(Constants.TEXT_DIY + Constants.NORMALFONTSIZE), paint);
 		paint.setColor(Color.BLUE);
 		canvas.drawText(Texts.TEXT_BLUE_KEY
-				+ engine.getAttribute("key-b").toString(),
+				+ ((Number)engine.getAttribute("key-b")).intValue(),
 				Constants.TEXT_GOLDX, (Constants.TEXT_DIY
 						+ Constants.NORMALFONTSIZE + Constants.SMALLFONTSIZE),
 				paint);
 		paint.setColor(Color.RED);
 		canvas.drawText(
-				Texts.TEXT_RED_KEY + engine.getAttribute("key-r").toString(),
+				Texts.TEXT_RED_KEY + ((Number)engine.getAttribute("key-r")).intValue(),
 				Constants.TEXT_GOLDX,
 				(Constants.TEXT_DIY + Constants.NORMALFONTSIZE + 2 * Constants.SMALLFONTSIZE),
 				paint);

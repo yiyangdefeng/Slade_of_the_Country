@@ -26,12 +26,12 @@
         "attackup": 5,
         "defenseup": 5,
         "healthup": 1000,
-        "specialfloor":19,
-        "size":11,
-        "shopx":2,
-        "attackupy":0,
-        "defenseupy":1,
-        "healthupy":2
+        "specialfloor": 19,
+        "size": 11,
+        "shopx": 2,
+        "attackupy": 0,
+        "defenseupy": 1,
+        "healthupy": 2
     },
     "failure-checks": [
         "health",
@@ -90,6 +90,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得蓝色钥匙一把，请珍惜使用哦！"
+                        ]
                     }
                 ]
             },
@@ -117,6 +125,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得红色钥匙一把，非常珍贵呢！"
+                        ]
                     }
                 ]
             },
@@ -238,11 +254,40 @@
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
                 "mixins": [
                     {
-                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                        "attribute": "key-x",
-                        "operator": "+",
-                        "operand": 0
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
+                        }
                     },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得电梯功能，现在开始你可以任意回到去过的楼层了！"
+                        ]
+                    },
+                    {
+                    	"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                    	"attribute": "haselevator",
+                    	"operator": "=",
+                    	"operand": true
+                	}
+                ]
+            },
+            "rendering": {
+                "image": "elevator"
+            }
+        },
+        "shop": {
+            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+            "mixin": {
+                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
+                "mixins": [
                     {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
                         "next": {
@@ -252,7 +297,21 @@
                             },
                             "rendering": {}
                         }
-                    }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "你找到了这座监狱的商店，以后你可以在那里提升自己的能力了！"
+                        ]
+                    },
+                    {
+                    	"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                    	"attribute": "hasshop",
+                    	"operator": "=",
+                    	"operand": true
+                	}
                 ]
             },
             "rendering": {
@@ -367,33 +426,29 @@
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
                 "mixins": [
                     {
-                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeSelective",
-                        "attribute": "npc-b",
-                        "reference": 0,
-                        "==": {
-                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Batch",
-                            "mixins": [
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                                    "attribute": "key-x",
-                                    "operator": "+",
-                                    "operand": 1
-                                },
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
-                                    "attribute": "npc-b",
-                                    "operator": "+",
-                                    "operand": 1
-                                },
-                                {
-                                    "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
-                                    "z": 2,
-                                    "x": 5,
-                                    "y": 1
-                                }
-                            ]
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
+                        "next": {
+                            "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.RegularTile",
+                            "mixin": {
+                                "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Accessible"
+                            },
+                            "rendering": {}
                         }
-                    }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得监狱手册，现在你可以查看所在层怪物的信息了！"
+                        ]
+                    },
+                    {
+                    	"class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
+                    	"attribute": "hasfireeye",
+                    	"operator": "=",
+                    	"operand": true
+                	}
                 ]
             },
             "rendering": {
@@ -597,7 +652,7 @@
             "mixin": {
                 "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Delegate",
                 "z": 7,
-                "x": 9,
+                "x": 1,
                 "y": 5
             },
             "rendering": {
@@ -1365,32 +1420,40 @@
                     {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
                         "key": "dialogue-before",
-                        "action":"add",
-                        "value":[
-                        			[
-                        				"dog",
-                        				"I'm a dog, can you kill me?"
-                        			],
-                        			[
-                        				"warrior_left",
-                        				"Of course I can kill you, let me try!"
-                        			]
-                        		]
+                        "action": "add",
+                        "value": 
+                            [
+                                "dog",
+                                "I'm a dog, can you kill me?"
+                            ]
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "dialogue-before",
+                        "action": "add",
+                        "value": 
+                            [
+                                "dog",
+                                "I'm a dog, can you kill me?"
+                            ]
                     },
                     {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
                         "key": "dialogue-after",
-                        "action":"add",
-                        "value":[
-                        			[
-                        				"dog",
-                        				"Wow, you killed me!"
-                        			],
-                        			[
-                        				"warrior_left",
-                        				"Piece of cake!"
-                        			]
-                        		]
+                        "action": "add",
+                        "value": [
+                                "dog",
+                                "Wow, you killed me!"
+                            	]
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "dialogue-after",
+                        "action": "add",
+                        "value": [
+                                "warrior_left",
+                                "Of course I can kill you!"
+                            	]
                     }
                 ]
             },
@@ -1585,7 +1648,7 @@
                 "isoppo": 2,
                 "dialogue-before": [
                     [
-                        "this",
+                        "oppo3",
                         "小样，就你这点本事也敢来挑战我？"
                     ],
                     [
@@ -1593,9 +1656,10 @@
                         "哼，我要让你们这些狂妄的人尝尝失败的滋味！"
                     ]
                 ],
-                "dialogue-after": {
-                    "this": "别高兴太早，这个监狱中训练有素的看守者多得是，你早晚要死在这里的！"
-                }
+                "dialogue-after": [
+                    "oppo3",
+                    "别高兴太早，这个监狱中训练有素的看守者多得是，你早晚要死在这里的！"
+                ]
             }
         },
         "curebox": {
@@ -1618,6 +1682,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得小医疗箱，生命值增加200！"
+                        ]
                     }
                 ]
             },
@@ -1645,6 +1717,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得大医疗箱，生命值增加1000！"
+                        ]
                     }
                 ]
             },
@@ -1684,6 +1764,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得清华牌奶茶，所有能力值翻倍！"
+                        ]
                     }
                 ]
             },
@@ -1711,6 +1799,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得手枪，攻击增加5！"
+                        ]
                     }
                 ]
             },
@@ -1738,6 +1834,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得黑色防弹衣，防御值增加5！"
+                        ]
                     }
                 ]
             },
@@ -1765,6 +1869,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得银色防弹衣，防御值增加15！"
+                        ]
                     }
                 ]
             },
@@ -1792,6 +1904,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得金色防弹衣，防御值增加50！"
+                        ]
                     }
                 ]
             },
@@ -1819,6 +1939,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得枪支U95，攻击增加10！"
+                        ]
                     }
                 ]
             },
@@ -1846,6 +1974,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得枪支M16，攻击值增加20！"
+                        ]
                     }
                 ]
             },
@@ -1862,7 +1998,7 @@
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
                         "attribute": "attack",
                         "operator": "+",
-                        "operand": 50
+                        "operand": 40
                     },
                     {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.OneTime",
@@ -1873,6 +2009,14 @@
                             },
                             "rendering": {}
                         }
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "获得枪支AK47，攻击值增加40！"
+                        ]
                     }
                 ]
             },
@@ -1896,6 +2040,14 @@
                         "attribute": "gold",
                         "operator": "+",
                         "operand": -30
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "消耗30金币，攻击增加5！"
+                        ]
                     }
                 ]
             }
@@ -1916,6 +2068,14 @@
                         "attribute": "gold",
                         "operator": "+",
                         "operand": -30
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "消耗30金币，防御增加5！"
+                        ]
                     }
                 ]
             }
@@ -1936,11 +2096,19 @@
                         "attribute": "gold",
                         "operator": "+",
                         "operand": -30
+                    },
+                    {
+                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
+                        "key": "toast-before",
+                        "action": "set",
+                        "value": [
+                            "消耗30金币，生命值增加1000！"
+                        ]
                     }
                 ]
             }
         }
-    },
+    },    
     "tiles": [
         [
             [
@@ -2819,7 +2987,7 @@
                 "bluekey",
                 "wall",
                 "blackcoat",
-                "blackcoat",
+                "shop",
                 "blackcoat",
                 "wall",
                 "floor",
@@ -4698,155 +4866,148 @@
             ]
         ],
         [
-            [ 
-            	"downm1",
-            	"down00",
-            	"down01",
-            	"down02",
-            	"down03",
-            	"down04",
-            	"down05",
-            	"down06",
-            	"down07",
-            	"down08",
-            	"down09"
+            [
+                "downm1",
+                "down00",
+                "down01",
+                "down02",
+                "down03",
+                "down04",
+                "down05",
+                "down06",
+                "down07",
+                "down08",
+                "down09"
             ],
             [
-            	"down10",
-            	"down11",
-            	"down12",
-            	"down13",
-            	"down14",
-            	"down15",
-            	"down16",
-            	"down17",
-            	"floor",
-            	"floor",
-            	"floor"
+                "down10",
+                "down11",
+                "down12",
+                "down13",
+                "down14",
+                "down15",
+                "down16",
+                "down17",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
                 "shopaup",
                 "shopdup",
                 "shophup",
                 "floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
-            	
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
-            	
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
-            	
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
-            	
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
-            	
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
-            	
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
-            	
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ],
             [
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor",
-            	"floor"
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor",
+                "floor"
             ]
         ]
     ],

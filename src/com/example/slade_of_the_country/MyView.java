@@ -130,6 +130,7 @@ public class MyView extends View {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		Log.e("test","status:"+ status);
 		switch (status) {
 		case Constants.STATUS_START:
 			sid.draw(canvas, canvasMatrix);
@@ -153,6 +154,7 @@ public class MyView extends View {
 			fid.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_DIALOGUE:
+			gid.draw(canvas, canvasMatrix, ma.engine);
 			did.draw(canvas, canvasMatrix);
 			break;
 		case Constants.STATUS_SHOP:
@@ -322,14 +324,7 @@ public class MyView extends View {
 	}
 
 	private void DialogueInterfaceHandler() {
-		//
-		//
-		//
-		//
-		//
-		//
-		//
-		//
+		
 	}
 
 	private void ShopInterfaceHandler() {
@@ -624,17 +619,18 @@ public class MyView extends View {
 		} else if (x > Constants.FIRE_EYE_X
 				&& x < (Constants.FIRE_EYE_X + Constants.TOOL_SIZE)
 				&& y > Constants.TOOL_Y
-				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
+				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE && ((Boolean)ma.engine.getAttribute("hasfireeye") == true)) {
+			feid.SearchOppo();
 			setNextStatus(Constants.STATUS_FIREEYE);
 		} else if (x > Constants.ELEVATOR_X
 				&& x < (Constants.ELEVATOR_X + Constants.TOOL_SIZE)
 				&& y > Constants.TOOL_Y
-				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
+				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE && ((Boolean)ma.engine.getAttribute("haselevator") == true)) {
 			setNextStatus(Constants.STATUS_ELEVATOR);
 		} else if (x > Constants.SHOP_X
 				&& x < (Constants.SHOP_X + Constants.TOOL_SIZE)
 				&& y > Constants.TOOL_Y
-				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE) {
+				&& y < Constants.TOOL_Y + Constants.TOOL_SIZE && ((Boolean)ma.engine.getAttribute("hasshop") == true)) {
 			setNextStatus(Constants.STATUS_SHOP);
 		}
 
@@ -749,11 +745,9 @@ public class MyView extends View {
 	@SuppressWarnings("unchecked")
 	public void handleDialogues(String key) {
         
-        List<List<List<String>>> strangedialogemessages = ((List<List<List<String>>>)event.getExtraInformation().get(key));
-        if(strangedialogemessages != null) {
-        	List<List<String>> dialogMessages = strangedialogemessages.get(0);
-        	Log.e("test",dialogMessages.toString());
-        	for (List<String> dialogInfo : dialogMessages) {
+        List<List<String>> dialogueMessages = ((List<List<String>>)event.getExtraInformation().get(key));
+        if(dialogueMessages != null) {
+        	for (List<String> dialogInfo : dialogueMessages) {
         		final String dialogCharacter = dialogInfo.get(0);
                 final String dialogContent = dialogInfo.get(1);
                 next.add(new Runnable() {
@@ -852,7 +846,6 @@ public class MyView extends View {
 			return;
 		}
 		if (!next.isEmpty()) {
-			Log.i("SOTC", "Running next in status " + status);
 			next.poll().run();
 		}
 	}

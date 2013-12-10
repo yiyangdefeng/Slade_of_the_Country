@@ -1,8 +1,5 @@
 package com.example.slade_of_the_country;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.widget.Toast;
 
 public class Constants {
@@ -59,7 +56,7 @@ public class Constants {
 	public static final int SHOP_X = 450;
 	public static final int TOOL_Y = 260;
 	
-	public static final int TOAST_DURATION = Toast.LENGTH_LONG;
+	public static final int TOAST_DURATION = Toast.LENGTH_SHORT;
 	
 	//for status
 	//
@@ -181,12 +178,12 @@ public class Constants {
 	//
 	//
 	public static final int DIALOGUE_INTERFACE_X = 570;
-	public static final int DIALOGUE_INTERFACE_Y = 432;
+	public static final int DIALOGUE_INTERFACE_Y = 400;
 	public static final int DIALOGUE_INTERFACE_WIDTH = 700;
-	public static final int DIALOGUE_INTERFACE_HEIGHT = 278;
+	public static final int DIALOGUE_INTERFACE_HEIGHT = 210;
 	
-	public static final int DIALOGUE_CHARACTER_X = 370;
-	public static final int DIALOGUE_CHARACTER_Y = 1070;
+	public static final int DIALOGUE_CHARACTER_X = 1070;
+	public static final int DIALOGUE_CHARACTER_Y = 200;
 	public static final int DIALOGUE_CHARACTER_WIDTH = 200;
 	public static final int DIALOGUE_CHARACTER_HEIGHT = 200;
 	
@@ -218,37 +215,18 @@ public class Constants {
 	public static final int SHOP_TEXT_YTOTOP = 60;
 	public static final int SHOP_TEXT_NOTICEX = 680;
 	public static final int SHOP_TEXT_NOTICEY = 270;
-	public static Map<String,String> OPPONAME = new HashMap<String,String>();
-	public static Map<String,String> OPPOTITLE = new HashMap<String,String>();
 	
-	public Constants() {
-		OPPONAME.put("oppo1", "大头兵");
-		OPPOTITLE.put("oppo1","土狼");
-		OPPONAME.put("oppo2", "军士长");
-		OPPOTITLE.put("oppo2","恶狼");
-		OPPONAME.put("oppo3", "低级军官");
-		OPPOTITLE.put("oppo3","老狼");
-		OPPONAME.put("oppo4", "中级军官");
-		OPPOTITLE.put("oppo4","野狼");
-		OPPONAME.put("oppo5", "高级军官");
-		OPPOTITLE.put("oppo5","猛狼");
-		OPPONAME.put("oppo6", "普通特工");
-		OPPOTITLE.put("oppo6","黑狼");
-		OPPONAME.put("oppo7", "秘密特工");
-		OPPOTITLE.put("oppo7","白狼");
-		OPPONAME.put("oppo8", "士兵首领");
-		OPPOTITLE.put("oppo8","孤狼");
-		OPPONAME.put("oppo9", "特工首领");
-		OPPOTITLE.put("oppo9","毒狼");
-		OPPONAME.put("oppo10", "最高长官");
-		OPPOTITLE.put("oppo10","狼牙");
-		OPPONAME.put("dog", "警犬");
-		OPPOTITLE.put("dog","动物");
-		OPPONAME.put("mastiff", "藏獒");
-		OPPOTITLE.put("mastiff","野兽");
-		OPPONAME.put("wolf", "恶狼");
-		OPPOTITLE.put("wolf","猛兽");
-		OPPONAME.put("purple_kyrin", "紫麒麟");
-		OPPOTITLE.put("purple_kyrin","神兽");
-	}
+	//for fireeye interface
+	public static final int OPPONAME_X = 10;
+	public static final int OPPONAME_Y = 60;
+	public static final int OPPOTITLE_X = 240;
+	public static final int OPPOHEALTH_X = 470;
+	public static final int OPPOATTACK_X = 600;
+	public static final int OPPODEFENSE_X = 730;
+	public static final int SELFHEALTHLOSS_X = 860;
+	public static final int PICTURE1_X = 1090;
+	public static final int PICTURE1_Y = 70;
+	public static final int FIRST_OPPO_Y = 120;
+	public static final int FIREEYE_IMAGESIZE = 120;
+	public static final int FIREEYE_DELTAY = 130;
 }

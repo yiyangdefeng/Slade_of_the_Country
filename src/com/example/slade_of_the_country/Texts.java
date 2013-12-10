@@ -1,5 +1,8 @@
 package com.example.slade_of_the_country;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Texts {
 	//for game interface
 	//
@@ -68,6 +71,9 @@ public class Texts {
 	public static final String TEXT_STOORCHOICE = "请选择想去的楼层：";
 	
 	//for shop interface
+	//
+	//
+	//
 	public static final String TEXT_NOTICE = "你可以消耗30金币加强自己的实力！";
 	public static final String TEXT_ATTACKUP = "增加5点攻击";
 	public static final String TEXT_DEFENCEUP = "增加5点防御";
@@ -75,4 +81,67 @@ public class Texts {
 	
 	public static final String TEXT_WARRIOR = "幽灵帝皇";
 	public static final String TEXT_WARRIORTITLE = "眼镜蛇";
+	
+	//for fireeye interface
+	//
+	//
+	//
+	public static final String TEXT_OPPONAME = "敌人姓名";
+	public static final String TEXT_OPPOTITLE = "敌人称号";
+	public static final String TEXT_OPPOATTACK = "攻击";
+	public static final String TEXT_OPPODEFENSE = "防御";
+	public static final String TEXT_OPPOHEALTH = "血量";
+	public static final String TEXT_SELFHEALTHLOSS = "血量损失";
+	
+	
+	
+	public static String[] StringSpliter(String message, float left, float right,
+			float fontsize) {
+		int columncount = (int) ((right - left) / fontsize);
+		int column = message.length() / columncount + 1;
+		String[] strings = new String[column];
+		for (int i = 0; i < column; i++) {
+			strings[i] = message.substring(columncount * i, Math.min(columncount
+					* (i + 1),message.length()));
+		}
+		return strings;
+	}
+	
+	public static Map<String,String> OPPONAME;
+	public static Map<String,String> OPPOTITLE;
+	
+	public Texts() {
+		Map<String,String> OPPONAME = new HashMap<String,String>();
+		Map<String,String> OPPOTITLE = new HashMap<String,String>();
+		OPPONAME.put("oppo1", "大头兵");
+		OPPOTITLE.put("oppo1","土狼");
+		OPPONAME.put("oppo2", "军士长");
+		OPPOTITLE.put("oppo2","恶狼");
+		OPPONAME.put("oppo3", "低级军官");
+		OPPOTITLE.put("oppo3","老狼");
+		OPPONAME.put("oppo4", "中级军官");
+		OPPOTITLE.put("oppo4","野狼");
+		OPPONAME.put("oppo5", "高级军官");
+		OPPOTITLE.put("oppo5","猛狼");
+		OPPONAME.put("oppo6", "普通特工");
+		OPPOTITLE.put("oppo6","黑狼");
+		OPPONAME.put("oppo7", "秘密特工");
+		OPPOTITLE.put("oppo7","白狼");
+		OPPONAME.put("oppo8", "士兵首领");
+		OPPOTITLE.put("oppo8","孤狼");
+		OPPONAME.put("oppo9", "特工首领");
+		OPPOTITLE.put("oppo9","毒狼");
+		OPPONAME.put("oppo10", "最高长官");
+		OPPOTITLE.put("oppo10","狼牙");
+		OPPONAME.put("dog", "警犬");
+		OPPOTITLE.put("dog","动物");
+		OPPONAME.put("mastiff", "藏獒");
+		OPPOTITLE.put("mastiff","野兽");
+		OPPONAME.put("wolf", "恶狼");
+		OPPOTITLE.put("wolf","猛兽");
+		OPPONAME.put("purple_kyrin", "紫麒麟");
+		OPPOTITLE.put("purple_kyrin","神兽");
+		OPPONAME.put("warrior","幽灵帝皇");
+		OPPOTITLE.put("warrior","眼镜蛇");
+	}
 }  

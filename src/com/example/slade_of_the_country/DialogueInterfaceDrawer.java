@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.util.Log;
 
 public class DialogueInterfaceDrawer {
-	private TextDrawer td;
 	private PictureCollector pictures;
 	private String dialoguecontent;
 	private String character;
@@ -16,11 +15,6 @@ public class DialogueInterfaceDrawer {
 
 	public DialogueInterfaceDrawer(PictureCollector pictures) {
 		paint = new Paint();
-		td = new TextDrawer("", Constants.DIALOGUE_INTERFACE_X,
-				Constants.DIALOGUE_INTERFACE_Y,
-				Constants.DIALOGUE_INTERFACE_WIDTH,
-				Constants.DIALOGUE_INTERFACE_HEIGHT, Color.BLACK, Color.WHITE,
-				Constants.SMALLFONTSIZE);
 		this.pictures = pictures;
 		dialoguecontent = "";
 		character = "warrior_left";
@@ -28,10 +22,34 @@ public class DialogueInterfaceDrawer {
 
 	public void draw(Canvas canvas, Matrix canvasMatrix) {
 		canvas.setMatrix(canvasMatrix);
-		td.SetText(dialoguecontent);
-		Log.e("test",character);
-		Log.e("test",dialoguecontent);
-		td.DrawText(canvas);
+		paint.setColor(Color.BLACK);
+		canvas.drawRect(Constants.DIALOGUE_INTERFACE_X,
+				Constants.DIALOGUE_INTERFACE_Y,
+				Constants.FIGHT_INTERFACE_RIGHT, Constants.MESSAGE_BOTTOM,
+				paint);
+		
+		//String charactername = Texts.OPPONAME.get(character);
+		//Log.e("test", Texts.OPPONAME.keySet().toString());
+		//if (charactername != null) {
+			paint.setColor(Color.YELLOW);
+			paint.setTextSize(Constants.NORMALFONTSIZE);
+			canvas.drawText("”ƒ¡Èµ€ª ", Constants.DIALOGUE_INTERFACE_X
+					+ Constants.MARGIN * 3, Constants.DIALOGUE_INTERFACE_Y + Constants.NORMALFONTSIZE
+					, paint);
+		//}
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(Constants.SMALLFONTSIZE);
+		String[] strings = Texts.StringSpliter(dialoguecontent,
+				Constants.FIGHT_INTERFACE_LEFT + Constants.MARGIN * 1,
+				Constants.FIGHT_INTERFACE_RIGHT - Constants.MARGIN * 1,
+				Constants.SMALLFONTSIZE);
+		for (int i = 0; i < strings.length; i++) {
+			canvas.drawText(strings[i],
+					(Constants.DIALOGUE_INTERFACE_X + Constants.MARGIN * 1),
+					(Constants.DIALOGUE_INTERFACE_Y + Constants.SMALLFONTSIZE
+							* (i + 1) + Constants.NORMALFONTSIZE + Constants.SMALLMARGIN * 10), paint);
+
+		}
 		try {
 			canvas.drawBitmap(pictures.getScaledTileBitmap((Bitmap) pictures
 					.getClass().getField(character).get(pictures), character
@@ -52,12 +70,4 @@ public class DialogueInterfaceDrawer {
 		this.character = character;
 	}
 
-	public boolean onTouchHandler() {
-		if (td.isEnd()) {
-			return true;
-		} else {
-			td.MoveText(Constants.FORWARD);
-			return false;
-		}
-	}
 }
