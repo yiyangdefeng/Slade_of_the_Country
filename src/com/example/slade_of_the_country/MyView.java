@@ -130,7 +130,6 @@ public class MyView extends View {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		Log.e("test","status:"+ status);
 		switch (status) {
 		case Constants.STATUS_START:
 			sid.draw(canvas, canvasMatrix);
@@ -324,7 +323,8 @@ public class MyView extends View {
 	}
 
 	private void DialogueInterfaceHandler() {
-		
+		Log.e("test","dialoginterfacehandler arrived");
+		setNextStatus(Constants.STATUS_GAME);
 	}
 
 	private void ShopInterfaceHandler() {
@@ -492,7 +492,6 @@ public class MyView extends View {
 				&& y < Constants.CONFIRM_BUTTON_DOWN) {
 			setNextStatus(Constants.STATUS_GAME);
 		}
-
 	}
 
 	private void InstructionInterfaceHandler() {
@@ -744,18 +743,23 @@ public class MyView extends View {
 	
 	@SuppressWarnings("unchecked")
 	public void handleDialogues(String key) {
-        
         List<List<String>> dialogueMessages = ((List<List<String>>)event.getExtraInformation().get(key));
+        Log.e("test","arrived-1");
+        Log.e("test",String.valueOf(status));
         if(dialogueMessages != null) {
+        	Log.e("test","arrived0");
+        	Log.e("test",dialogueMessages.toString());
         	for (List<String> dialogInfo : dialogueMessages) {
         		final String dialogCharacter = dialogInfo.get(0);
                 final String dialogContent = dialogInfo.get(1);
+                Log.e("test","arrived1");
                 next.add(new Runnable() {
                     @Override
                     public void run() {
                         did.setCharacter(dialogCharacter);
                         did.setDialogueContent(dialogContent);
                         status = Constants.STATUS_DIALOGUE;
+                        Log.e("test","arrived2");
                     }
                 });
             }

@@ -954,7 +954,7 @@
                         "defense-attribute": "defense",
                         "health-attribute": "health",
                         "death-attribute": "failure",
-                        "attack-opponent": 20,
+                        "attack-opponent": 40,
                         "defense-opponent": 1,
                         "health-opponent": 50
                     },
@@ -998,9 +998,9 @@
                         "defense-attribute": "defense",
                         "health-attribute": "health",
                         "death-attribute": "failure",
-                        "attack-opponent": 20,
-                        "defense-opponent": 1,
-                        "health-opponent": 50
+                        "attack-opponent": 40,
+                        "defense-opponent": 30,
+                        "health-opponent": 500
                     },
                     {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.AttributeChange",
@@ -1042,8 +1042,8 @@
                         "defense-attribute": "defense",
                         "health-attribute": "health",
                         "death-attribute": "failure",
-                        "attack-opponent": 20,
-                        "defense-opponent": 1,
+                        "attack-opponent": 412,
+                        "defense-opponent": 0,
                         "health-opponent": 50
                     },
                     {
@@ -1391,8 +1391,8 @@
                         "defense-attribute": "defense",
                         "health-attribute": "health",
                         "death-attribute": "failure",
-                        "attack-opponent": 20,
-                        "defense-opponent": 1,
+                        "attack-opponent": 200,
+                        "defense-opponent": 100,
                         "health-opponent": 50
                     },
                     {
@@ -1420,21 +1420,17 @@
                     {
                         "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
                         "key": "dialogue-before",
-                        "action": "add",
+                        "action": "set",
                         "value": 
                             [
+                            	[
                                 "dog",
                                 "I'm a dog, can you kill me?"
-                            ]
-                    },
-                    {
-                        "class": "cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.ExtraInformation",
-                        "key": "dialogue-before",
-                        "action": "add",
-                        "value": 
-                            [
-                                "dog",
-                                "I'm a dog, can you kill me?"
+                            	],
+                               	[
+                               		"warrior_left",
+                               		"Let me try!"
+                            	]
                             ]
                     },
                     {

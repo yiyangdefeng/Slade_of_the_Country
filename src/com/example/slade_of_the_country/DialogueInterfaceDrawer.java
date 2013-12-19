@@ -7,10 +7,12 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
 
+
 public class DialogueInterfaceDrawer {
 	private PictureCollector pictures;
 	private String dialoguecontent;
 	private String character;
+	private CharacterInfos ci;
 	Paint paint;
 
 	public DialogueInterfaceDrawer(PictureCollector pictures) {
@@ -18,25 +20,25 @@ public class DialogueInterfaceDrawer {
 		this.pictures = pictures;
 		dialoguecontent = "";
 		character = "warrior_left";
+		ci = new CharacterInfos();
 	}
 
 	public void draw(Canvas canvas, Matrix canvasMatrix) {
+		Log.e("test","dialog interface did draw");
 		canvas.setMatrix(canvasMatrix);
 		paint.setColor(Color.BLACK);
 		canvas.drawRect(Constants.DIALOGUE_INTERFACE_X,
 				Constants.DIALOGUE_INTERFACE_Y,
 				Constants.FIGHT_INTERFACE_RIGHT, Constants.MESSAGE_BOTTOM,
 				paint);
-		
-		//String charactername = Texts.OPPONAME.get(character);
-		//Log.e("test", Texts.OPPONAME.keySet().toString());
-		//if (charactername != null) {
+		String charactername = ci.OPPONAME.get(character);
+		if (charactername != null) {
 			paint.setColor(Color.YELLOW);
 			paint.setTextSize(Constants.NORMALFONTSIZE);
-			canvas.drawText("”ƒ¡Èµ€ª ", Constants.DIALOGUE_INTERFACE_X
+			canvas.drawText(charactername, Constants.DIALOGUE_INTERFACE_X
 					+ Constants.MARGIN * 3, Constants.DIALOGUE_INTERFACE_Y + Constants.NORMALFONTSIZE
 					, paint);
-		//}
+		}
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(Constants.SMALLFONTSIZE);
 		String[] strings = Texts.StringSpliter(dialoguecontent,

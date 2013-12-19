@@ -5,14 +5,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import cn.edu.tsinghua.academic.c00740273.magictower.engine.Coordinate;
 import cn.edu.tsinghua.academic.c00740273.magictower.engine.Engine;
+import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardEvent;
 import cn.edu.tsinghua.academic.c00740273.magictower.standard.StandardTile;
+import cn.edu.tsinghua.academic.c00740273.magictower.standard.mixin.Fight;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.util.Log;
+
 
 public class FireEyeInterfaceDrawer {
 	protected Paint paint;
@@ -23,6 +26,7 @@ public class FireEyeInterfaceDrawer {
 	protected int currentpage;
 	protected List<MyBundle> information;
 	protected Set<String> opponames;
+	private CharacterInfos ci;
 
 	public FireEyeInterfaceDrawer(Engine engine, PictureCollector pictures) {
 		paint = new Paint();
@@ -33,11 +37,10 @@ public class FireEyeInterfaceDrawer {
 		totalopponum = 0;
 		information = new ArrayList<MyBundle>();
 		opponames = new HashSet<String>();
+		ci = new CharacterInfos();
 	}
 
 	public void draw(Canvas canvas, Matrix canvasMatrix) {
-		Log.e("test", "cp:" + currentpage + " tp:" + totalpages + " ton:"
-				+ totalopponum);
 		canvas.setMatrix(canvasMatrix);
 		paint.setColor(Color.YELLOW);
 		paint.setTextSize(Constants.NORMALFONTSIZE);
@@ -100,7 +103,6 @@ public class FireEyeInterfaceDrawer {
 					MyBundle mb = new MyBundle();
 					String imagename = (String) currenttile[j][i]
 							.getRenderingData().get("image");
-					Log.e("test",imagename);
 					if (!opponames.contains(imagename)) {
 						opponames.add(imagename);
 						try {
@@ -109,12 +111,30 @@ public class FireEyeInterfaceDrawer {
 						} catch (Exception e) {
 							throw new RuntimeException(e);
 						}
-						mb.oppoattack = "attack";
-						mb.oppodefense = "defense";
-						mb.oppohealth = "health";
-						mb.opponame = imagename;
-						mb.oppotitle = "oppotitle";
-						mb.selfhealthloss = "selfhealthloss";
+						StandardEvent event = (StandardEvent) engine
+								.attemptMoveTo(new Coordinate(z, j, i));
+						@SuppressWarnings("unchecked")
+						List<List<Fight.Attributes>> logs = (List<List<Fight.Attributes>>) event
+								.getExtraInformation().get("fight-logs");
+						if (logs != null) {
+							List<Fight.Attributes> log = logs.get(0);
+							mb.oppoattack = String.valueOf((int) log.get(0)
+									.getOpponentAttack());
+							mb.oppodefense = String.valueOf((int) log.get(0)
+									.getOpponentDefense());
+							mb.oppohealth = String.valueOf((int) log.get(0)
+									.getOpponentHealth());							
+							if ((int)log.get(log.size() - 1).getSelfHealth() < 1) {
+								mb.selfhealthloss = Texts.TEXT_CANNOTBEATOPPO;
+							}
+							else {
+							mb.selfhealthloss = String.valueOf((int) log
+									.get(0).getSelfHealth() - (int) log.get(
+									log.size() - 1).getSelfHealth());
+							}
+						}
+						mb.opponame = ci.OPPONAME.get(imagename);
+						mb.oppotitle = ci.OPPOTITLE.get(imagename);
 						information.add(mb);
 					}
 				}
@@ -122,9 +142,8 @@ public class FireEyeInterfaceDrawer {
 		}
 		totalopponum = information.size();
 		if (totalopponum != 0) {
-		totalpages = (int) (Math.ceil((double)totalopponum / 5)) - 1;
-		} 
-		else {
+			totalpages = (int) (Math.ceil((double) totalopponum / 5)) - 1;
+		} else {
 			totalpages = 0;
 		}
 	}
